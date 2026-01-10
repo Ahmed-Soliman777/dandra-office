@@ -2,6 +2,7 @@ import { RegisterDTO } from "@/app/utils/dtos";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/app/utils/db";
 import { registerSchema } from "@/app/utils/validationSchemas";
+import bcrypt from "bcryptjs";
 
 /**
  * @Route POST ~/api/users/register
@@ -48,13 +49,20 @@ export async function POST(request: NextRequest, response: NextResponse) {
       );
     }
 
+    // hash password using bcryptjs library
+
+    // 1- import salt from bcryptjs library
+    const salt = await bcrypt.genSalt(10);
+
+    // 2- add salt to password & hash password, then add it to createNewUser password property
+    const hashedPassword = await bcrypt.hash(body.password, salt);
+
     //if user validation data success and email is unique then create a new user in database
     const createNewUser = await prisma.user.create({
       data: {
         username: body.userName,
         email: body.email,
-        //ToDo: add hashed password
-        password: body.password,
+        password: hashedPassword,
         userImage: body.image,
         isAdmin: body.isAdmin,
       },
