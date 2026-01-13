@@ -5,3 +5,8 @@ export interface RegisterDTO {
   isAdmin: boolean;
   image?: string;
 }
+
+export interface LoginDTO {
+  email: string;
+  password: string;
+}

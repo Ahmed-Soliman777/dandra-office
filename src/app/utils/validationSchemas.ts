@@ -4,6 +4,11 @@ import * as z from "zod";
 /**
  * @desc create validation for user registeration
  */
+
+const passwordRegex = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
+);
+
 export const registerSchema = z.object({
   // userName is string, required, minimum legnth is 2 and max legnth is 25
   userName: z
@@ -19,6 +24,10 @@ export const registerSchema = z.object({
   // password is string, required, minimum legnth is 2 and max legnth is 25
   password: z
     .string({ error: "كلمة السر مطلوبة" })
+    .regex(
+      passwordRegex,
+      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز"
+    )
     .min(2, {
       error:
         "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز",
@@ -32,3 +41,9 @@ export const registerSchema = z.object({
   image: z.string().default(""),
   // ToDo: Add re-enter password
 }); // ToDo: Add refine for user password
+
+//validation schema for user login
+export const loginSchema = z.object({
+  email: z.email({ error: "البريد الالكتروني مطلوب" }),
+  password: z.string({ error: "كلمة المرور مطلوبة" }),
+});
