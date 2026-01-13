@@ -3,3 +3,7 @@ export interface JWTPayload {
   isAdmin: boolean;
   username: string;
 }
+
+export interface ProfileID {
+  params: { id: string };
+}
