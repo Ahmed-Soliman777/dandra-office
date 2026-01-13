@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/app/utils/db";
 import { LoginDTO } from "@/app/utils/dtos";
-import bcrypt from "bcryptjs";
 import { loginSchema } from "@/app/utils/validationSchemas";
+import { setCookie } from "@/app/utils/generateToken";
+import { JWTPayload } from "@/app/utils/types";
+import bcrypt from "bcryptjs";
 
 /**
  * @Route POST ~/api/users/login
@@ -57,10 +59,20 @@ export async function POST(request: NextRequest, response: NextResponse) {
       );
     }
 
+    // add user info to jwt payload
+    const payload: JWTPayload = {
+      id: registeredUser.id,
+      username: registeredUser.username,
+      isAdmin: registeredUser.isAdmin,
+    };
+
+    // set cookie
+    const cookie = setCookie(payload);
+
     // return response with success login
     return NextResponse.json(
       { message: "تم تسجيل الدخول بنجاح" },
-      { status: 200 }
+      { status: 200, headers: { "Set-Cookie": cookie } }
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });

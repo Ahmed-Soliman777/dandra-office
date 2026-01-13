@@ -2,7 +2,9 @@ import { RegisterDTO } from "@/app/utils/dtos";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/app/utils/db";
 import { registerSchema } from "@/app/utils/validationSchemas";
-import bcrypt from "bcryptjs";
+import { JWTPayload } from "@/app/utils/types";
+import { setCookie } from "@/app/utils/generateToken";
+import bcrypt from 'bcryptjs'
 
 /**
  * @Route POST ~/api/users/register
@@ -67,6 +69,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         isAdmin: body.isAdmin,
       },
       select: {
+        id: true,
         username: true,
         email: true,
         userImage: true,
@@ -74,13 +77,20 @@ export async function POST(request: NextRequest, response: NextResponse) {
       },
     });
 
-    //ToDo: add user JWT payload
-    //ToDo: add user cookies
+    //add user JWT payload
+    const payload: JWTPayload = {
+      id: createNewUser.id,
+      username: createNewUser.email,
+      isAdmin: createNewUser.isAdmin,
+    };
+
+    //add user cookies
+    const cookie = setCookie(payload);
 
     //message with success
     return NextResponse.json(
       { message: "تم تسجيل البيانات بنجاح" },
-      { status: 201 }
+      { status: 201, headers: { "Set-Cookie": cookie } }
     );
   } catch (error) {
     //if server is dropped then server will response from catch handler
