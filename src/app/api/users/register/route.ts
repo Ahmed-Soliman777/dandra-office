@@ -4,7 +4,7 @@ import prisma from "@/app/utils/db";
 import { registerSchema } from "@/app/utils/validationSchemas";
 import { JWTPayload } from "@/app/utils/types";
 import { setCookie } from "@/app/utils/generateToken";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 /**
  * @Route POST ~/api/users/register
@@ -73,6 +73,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         username: true,
         email: true,
         userImage: true,
+        reviews: true,
         isAdmin: true,
       },
     });
