@@ -7,3 +7,11 @@ export interface JWTPayload {
 export interface ProfileID {
   params: { id: string };
 }
+
+export interface ProductID {
+  params: { id: string };
+}
+
+export interface CategoryID {
+  params: { id: string };
+}
