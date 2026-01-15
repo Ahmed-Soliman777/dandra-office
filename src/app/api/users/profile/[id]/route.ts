@@ -164,6 +164,7 @@ export async function GET(request: NextRequest, props: ProfileID) {
 
     const profile = await prisma.user.findUnique({
       where: { id: parseInt(id) },
+      include: { reviews: true, comments: true },
     });
 
     if (!profile) {
@@ -175,7 +176,10 @@ export async function GET(request: NextRequest, props: ProfileID) {
 
     const userPayload = verifyToken(request);
 
-    if (userPayload !== null && userPayload.id === profile.id) {
+    if (
+      (userPayload !== null && userPayload.id === profile.id) ||
+      userPayload?.isAdmin === true
+    ) {
       return NextResponse.json(
         {
           message: `أهلا ${profile.username}`,
