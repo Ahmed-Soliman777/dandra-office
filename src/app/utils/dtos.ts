@@ -16,3 +16,48 @@ export interface UpdateProfileDTO {
   email?: string;
   password?: string;
 }
+
+export interface AddNewProduct {
+  productNameAr: string;
+  productNameEn: string;
+  price: number;
+  categoryId: number;
+  // todo add comments
+  descriptionAr: string;
+  descriptionEn: string;
+  quantity: number;
+  images: string[];
+}
+
+export interface UpdateProductDTO {
+  productNameAr?: string;
+  productNameEn?: string;
+  price?: number;
+  categoryId?: number;
+  // todo add comments
+  descriptionAr?: string;
+  descriptionEn?: string;
+  quantity?: number;
+  images?: string[];
+}
+
+export interface AddCategoryDTO {
+  categoryNameAr: string;
+  categoryNameEn: string;
+  categoryThumbnail: string;
+}
+
+export interface UpdateCategoryDTO {
+  categoryNameAr?: string;
+  categoryNameEn?: string;
+  categoryThumbnail?: string;
+}
+
+export interface AddReviewDTO {
+  reviewInNumbers: number;
+  productId: number;
+}
+
+export interface UpdateReviewDTO {
+  reviewInNumbers?: number;
+}

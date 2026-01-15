@@ -73,3 +73,76 @@ export const updateUserProfileSchema = z.object({
     .max(25, { error: "لقد تعديت الحد المسموح لأنشاء كلمة السر" })
     .optional(),
 });
+
+//validation schema for adding new product
+export const addNewProduct = z.object({
+  productNameEn: z
+    .string({ error: " الحقل مطلوب" })
+    .min(1, { error: " الحقل مطلوب" }),
+  productNameAr: z
+    .string({ error: "الحقل مطلوب" })
+    .min(1, { error: " الحقل مطلوب" }),
+  price: z
+    .number({ error: "الحقل مطلوب" })
+    .min(0, { message: "أدخل رقم صحيح" }),
+  quantity: z
+    .number({ error: "الحقل مطلوب" })
+    .min(0, { message: "أدخل رقم صحيح" })
+    .int({ message: "أدخل رقم صحيح" }),
+  categoryId: z.number().int().positive({ message: "معرف الفئة غير صحيح" }),
+  descriptionAr: z.string().optional(),
+  descriptionEn: z.string().optional(),
+  images: z.array(z.string()).optional(),
+});
+
+//validation schema for updating products
+export const updateProduct = z.object({
+  productNameEn: z.string().optional(),
+  productNameAr: z.string().optional(),
+  price: z.number().min(0, { message: "أدخل رقم صحيح" }).optional(),
+  quantity: z
+    .number()
+    .min(0, { message: "أدخل رقم صحيح" })
+    .int({ message: "أدخل رقم صحيح" })
+    .optional(),
+  descriptionAr: z.string().optional(),
+  descriptionEn: z.string().optional(),
+  images: z.array(z.string()).optional(),
+  categoryId: z
+    .number()
+    .int()
+    .positive({ message: "معرف الفئة غير صحيح" })
+    .optional(),
+});
+
+//validation schema for adding new categorites
+export const addCategory = z.object({
+  categoryNameAr: z
+    .string({ error: "الحقل مطلوب" })
+    .min(1, { error: " الحقل مطلوب" }),
+  categoryNameEn: z
+    .string({ error: "الحقل مطلوب" })
+    .min(1, { error: " الحقل مطلوب" }),
+  categoryThumbnail: z.string().optional(),
+});
+
+//validation schema for updating category
+export const updateCategory = z.object({
+  categoryNameAr: z.string().min(1).optional(),
+  categoryNameEn: z.string().min(1).optional(),
+  categoryThumbnail: z.string().optional(),
+});
+
+//validation schema for adding new review
+export const addReview = z.object({
+  reviewInNumbers: z.number().min(0).max(5),
+  productId: z
+    .number({ error: "ادخل المنتج" })
+    .int({ error: "من فصلك أدخل رقم صحيح" })
+    .positive({ error: "من فصلك أدخل رقم صحيح" }),
+});
+
+//validation schema for updating reviews
+export const updateReview = z.object({
+  reviewInNumbers: z.number().min(0).max(5).optional(),
+});
