@@ -17,20 +17,38 @@ export async function GET(request: NextRequest, props: ProductID) {
     const { id } = await props.params;
     const product = await prisma.product.findUnique({
       where: { id: parseInt(id) },
-      select: {
-        productNameAr: true,
-        productNameEn: true,
-        price: true,
-        quantity: true,
+      include: {
         category: {
           select: {
+            id: true,
             categoryNameAr: true,
             categoryNameEn: true,
           },
         },
-        descriptionAr: true,
-        descriptionEn: true,
-        images: true,
+        comments: {
+          select: {
+            id: true,
+            comment: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
+        reviews: {
+          select: {
+            id: true,
+            reviewInNumbers: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
       },
     });
     if (!product) {
@@ -62,13 +80,13 @@ export async function DELETE(request: NextRequest, props: ProductID) {
     if (userPayload === null || userPayload.isAdmin === false) {
       return NextResponse.json(
         { message: "غير مصرح بحذف المنتج" },
-        { status: 403 }
+        { status: 403 },
       );
     }
     await prisma.product.delete({ where: { id: parseInt(id) } });
     return NextResponse.json(
       { message: "تم حذف المنتج بنجاح" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
@@ -95,7 +113,7 @@ export async function PUT(request: NextRequest, props: ProductID) {
     if (userPayload === null || userPayload.isAdmin === false) {
       return NextResponse.json(
         { message: "غير مصرح بتعديل المنتج" },
-        { status: 403 }
+        { status: 403 },
       );
     }
     const body = (await request.json()) as UpdateProductDTO;
@@ -103,7 +121,7 @@ export async function PUT(request: NextRequest, props: ProductID) {
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.issues[0].message },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const updateProducts = await prisma.product.update({
@@ -131,7 +149,7 @@ export async function PUT(request: NextRequest, props: ProductID) {
     });
     return NextResponse.json(
       { message: "تم تعديل المنتج بنجاح", product: updateProducts },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
