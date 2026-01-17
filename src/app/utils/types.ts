@@ -19,3 +19,7 @@ export interface CategoryID {
 export interface ReviewID {
   params: { id: string };
 }
+
+export interface CommentID {
+  params: { id: string };
+}
