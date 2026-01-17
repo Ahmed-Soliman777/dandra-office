@@ -22,7 +22,6 @@ export interface AddNewProduct {
   productNameEn: string;
   price: number;
   categoryId: number;
-  // todo add comments
   descriptionAr: string;
   descriptionEn: string;
   quantity: number;
@@ -34,7 +33,6 @@ export interface UpdateProductDTO {
   productNameEn?: string;
   price?: number;
   categoryId?: number;
-  // todo add comments
   descriptionAr?: string;
   descriptionEn?: string;
   quantity?: number;
@@ -60,4 +58,13 @@ export interface AddReviewDTO {
 
 export interface UpdateReviewDTO {
   reviewInNumbers?: number;
+}
+
+export interface AddCommentDTO {
+  comment: string;
+  productId: number;
+}
+
+export interface UpdateCommentDTO {
+  comment?: string;
 }
