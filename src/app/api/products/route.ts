@@ -17,7 +17,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     if (userPayload === null || userPayload.isAdmin === false) {
       return NextResponse.json(
         { message: "غير مصرح بأضافة منتج" },
-        { status: 403 }
+        { status: 403 },
       );
     }
     const body = (await request.json()) as AddNewProduct;
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.issues[0].message },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const addNewProductToDB = await prisma.product.create({
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
     return NextResponse.json(
       { message: "تم اضافة منتج جديد بنجاح", product: addNewProductToDB },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     // return error message
@@ -73,19 +73,36 @@ export async function POST(request: NextRequest, response: NextResponse) {
 export async function GET(request: NextRequest, response: NextResponse) {
   try {
     const products = await prisma.product.findMany({
-      select: {
-        productNameAr: true,
-        productNameEn: true,
-        price: true,
-        quantity: true,
-        categoryId: true,
-        descriptionAr: true,
-        descriptionEn: true,
-        images: true,
+      include: {
         category: {
           select: {
+            id: true,
             categoryNameAr: true,
             categoryNameEn: true,
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            comment: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
+        reviews: {
+          select: {
+            id: true,
+            reviewInNumbers: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
           },
         },
       },
