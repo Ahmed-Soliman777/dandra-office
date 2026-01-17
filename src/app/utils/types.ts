@@ -15,3 +15,7 @@ export interface ProductID {
 export interface CategoryID {
   params: { id: string };
 }
+
+export interface ReviewID {
+  params: { id: string };
+}
