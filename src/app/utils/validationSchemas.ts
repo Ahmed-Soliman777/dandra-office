@@ -6,7 +6,7 @@ import * as z from "zod";
  */
 
 const passwordRegex = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
 );
 
 export const registerSchema = z.object({
@@ -26,7 +26,7 @@ export const registerSchema = z.object({
     .string({ error: "كلمة السر مطلوبة" })
     .regex(
       passwordRegex,
-      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز"
+      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز",
     )
     .min(2, {
       error:
@@ -64,7 +64,7 @@ export const updateUserProfileSchema = z.object({
     .string()
     .regex(
       passwordRegex,
-      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز"
+      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز",
     )
     .min(2, {
       error:
@@ -145,4 +145,18 @@ export const addReview = z.object({
 //validation schema for updating reviews
 export const updateReview = z.object({
   reviewInNumbers: z.number().min(0).max(5).optional(),
+});
+
+//validation schema for adding new comment
+export const addComment = z.object({
+  comment: z.string({ error: "يجب إضافة تعليق" }).min(2),
+  productId: z
+    .number({ error: "ادخل المنتج" })
+    .int({ error: "من فصلك أدخل رقم صحيح" })
+    .positive({ error: "من فصلك أدخل رقم صحيح" }),
+});
+
+//validation schema for adding new comment
+export const updateComment = z.object({
+  comment: z.string({ error: "يجب إضافة تعليق" }).min(2),
 });
