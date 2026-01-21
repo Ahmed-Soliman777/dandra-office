@@ -79,6 +79,7 @@ export async function GET(request: NextRequest) {
 
     const userFav = await prisma.favorite.findMany({
       where: { userId: userPayload.id },
+      include: { product: true },
     });
 
     if (!userFav) {
