@@ -23,9 +23,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  comments Comment[]
-  reviews  Review[]
-  products Product[]
+  comments         Comment[]
+  reviews          Review[]
+  products         Product[]
+  favoriteProducts Favorite[]
 }
 
 model Product {
@@ -40,8 +41,9 @@ model Product {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  comments Comment[]
-  reviews  Review[]
+  comments      Comment[]
+  reviews       Review[]
+  userFavorites Favorite[]
 
   admin      User      @relation(fields: [adminId], references: [id])
   adminId    Int
@@ -82,4 +84,13 @@ model Comment {
   userId    Int?
   product   Product? @relation(fields: [productId], references: [id])
   productId Int?
+}
+
+model Favorite {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  @@id([userId, productId])
 }
