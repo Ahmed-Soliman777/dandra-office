@@ -70,6 +70,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       },
       select: {
         id: true,
+        id: true,
         username: true,
         email: true,
         userImage: true,
@@ -87,10 +88,20 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
     //add user cookies
     const cookie = setCookie(payload);
+    //add user JWT payload
+    const payload: JWTPayload = {
+      id: createNewUser.id,
+      username: createNewUser.email,
+      isAdmin: createNewUser.isAdmin,
+    };
+
+    //add user cookies
+    const cookie = setCookie(payload);
 
     //message with success
     return NextResponse.json(
       { message: "تم تسجيل البيانات بنجاح" },
+      { status: 201, headers: { "Set-Cookie": cookie } }
       { status: 201, headers: { "Set-Cookie": cookie } }
     );
   } catch (error) {
