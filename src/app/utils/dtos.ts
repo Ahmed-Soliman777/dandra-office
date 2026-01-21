@@ -68,3 +68,7 @@ export interface AddCommentDTO {
 export interface UpdateCommentDTO {
   comment?: string;
 }
+
+export interface AddFavoriteDTO {
+  productId: number;
+}
