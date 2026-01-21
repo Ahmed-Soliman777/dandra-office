@@ -156,7 +156,15 @@ export const addComment = z.object({
     .positive({ error: "من فصلك أدخل رقم صحيح" }),
 });
 
-//validation schema for adding new comment
+//validation schema for update user's comment
 export const updateComment = z.object({
   comment: z.string({ error: "يجب إضافة تعليق" }).min(2),
+});
+
+//validation schema for adding new favorite
+export const addFavorite = z.object({
+  productId: z
+    .number({ error: "يجب إضافة منتج" })
+    .int({ error: "منتج غير متاح" })
+    .positive({ error: "منتج غير متاح" }),
 });
