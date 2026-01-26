@@ -1,13 +1,12 @@
 "use client"
 import { usePathname } from "next/navigation"
-import Navbar from "./Navbar"
 
-const NavbarWrapper = () => {
+const NavbarWrapper = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname()
 
-    if (pathname === "/forget-password" || pathname === "login" || pathname.startsWith("/dashboard")) return null
+    if (pathname === "/forget-password" || pathname === "/login" || pathname === "/register" || pathname.startsWith("/dashboard")) return null
 
-    return <Navbar />
+    return <>{children}</>
 }
 
 export default NavbarWrapper

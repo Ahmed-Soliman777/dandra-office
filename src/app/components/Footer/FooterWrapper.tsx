@@ -1,13 +1,12 @@
 "use client"
 import { usePathname } from "next/navigation";
-import Footer from "./Footer";
 
-const FooterWrapper = () => {
+const FooterWrapper = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname()
 
-    if (pathname.startsWith("/dashboard") || pathname === "/login") return null
+    if (pathname.startsWith("/dashboard") || pathname === "/login" || pathname === "/register" || pathname === "/forget-password") return null
 
-    return <Footer />
+    return <>{children}</>
 }
 
 export default FooterWrapper
