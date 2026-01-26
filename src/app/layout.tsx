@@ -4,6 +4,8 @@ import "./globals.css";
 import NavbarWrapper from "./components/Navbar/NavbarWrapper";
 import FooterWrapper from "./components/Footer/FooterWrapper";
 import { NextIntlClientProvider } from "next-intl";
+import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +33,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
-          <NavbarWrapper />
+          <NavbarWrapper>
+            <Navbar />
+          </NavbarWrapper>
           {children}
-          <FooterWrapper />
+          <FooterWrapper>
+            <Footer />
+          </FooterWrapper>
         </NextIntlClientProvider>
       </body>
     </html>
