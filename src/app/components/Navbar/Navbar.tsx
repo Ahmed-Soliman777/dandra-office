@@ -1,12 +1,16 @@
 import { Heart, Search } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 
-const Navbar = () => {
+const Navbar = async () => {
+
+    const t = await getTranslations("Navbar")
+
     return (
         <header
             className="sticky top-0 z-50 bg-[#f5f5f5] dark:bg-background-dark/80 backdrop-blur-md border-b border-[#e6f4f4] dark:border-gray-800">
-            <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-8">
+            <div dir="rtl" className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-8">
                 <div className="flex items-center gap-12">
                     <div className="flex items-center gap-3">
                         <div className="bg-primary  p-2 rounded-lg">
@@ -15,8 +19,8 @@ const Navbar = () => {
                         <h1 className="text-xl font-extrabold tracking-tight text-green-700">Dandra Office</h1>
                     </div>
                     <nav className="hidden md:flex items-center gap-8">
-                        <Link className="text-sm font-semibold hover:text-primary transition-colors" href={'/shop'}>المتجر</Link>
-                        <Link className="text-sm font-semibold hover:text-primary transition-colors" href={'/categories'}>التصنيفات</Link>
+                        <Link className="text-sm font-semibold hover:text-primary transition-colors" href={'/shop'}>{t('nav-store')}</Link>
+                        <Link className="text-sm font-semibold hover:text-primary transition-colors" href={'/categories'}>{t('nav-categories')}</Link>
                     </nav>
                 </div>
                 <div className="flex-1 max-w-md hidden lg:block">
@@ -25,10 +29,14 @@ const Navbar = () => {
                             className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary "><Search /></span>
                         <input
                             className="w-full bg-white dark:bg-gray-800 border-none rounded-xl pl-2 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-right"
-                            placeholder="ابحث عن المنتجات" type="text" />
+                            placeholder={`${t('nav-search')}`} type="text" />
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
+                    <Link href={'/login'} className="rounded-full border border-zinc-300 py-2 px-5 hover:bg-white dark:hover:bg-gray-800 transition-colors relative">
+                        {t('nav-login-btn')}
+                        <span className="absolute top-1 right-1 size-2 bg-accent-bronze rounded-full"></span>
+                    </Link>
                     <button className="p-2 rounded-full hover:bg-white dark:hover:bg-gray-800 transition-colors relative">
                         <span className="material-symbols-outlined"><Heart /></span>
                         <span className="absolute top-1 right-1 size-2 bg-accent-bronze rounded-full"></span>

@@ -1,57 +1,56 @@
+import { Lock, Mail } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
+import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import LoginImage from '../../../../public/login-img.jpg'
 
-const page = () => {
+const page = async () => {
+
+    const CopyRightYear = new Date()
+
+    const t = await getTranslations("LoginPage")
+
     return (
-        <div className="bg-background-light dark:bg-background-dark font-display text-[#0c1d1d] dark:text-gray-100 min-h-screen flex items-stretch">
+        <div className="bg-background-light dark:bg-background-dark font-display text-[#0c1d1d] dark:text-gray-100 h-screen flex items-stretch" dir='rtl'>
 
             <section className="hidden lg:block lg:w-1/2 relative overflow-hidden">
-                <div className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHyMJd3C0Qlb3B5akLB59KnC_F3d_GI5aYoEZ9Jo-dqcB1PcDm61TGqidZL623vZpJI-KFBVQkJNeI2X0Rj9lW1vjIWlCEfwiQdU6G_n1gUAjgnUW5C_1wauuN-YpGtjyLJiSR1BnQFszP30ojtdrdrJWnwF6kQ5oB5hwEvPb1e8GelkdpCvykNvteUYA9588xCN1bg1nw1G4ptfRC6lFBQZxNILf-xndt7UUAmZZ3PwnxZDmpf---qWecx7qkvGS5RB_0g2-7Sy8t');" }}>
+                <div className="absolute inset-0 bg-cover bg-center">
+                    <Image src={LoginImage} alt={"login-img"} />
                     <div className="absolute inset-0 bg-primary/20 backdrop-multiply"></div>
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30"></div>
                 </div>
                 <div className="relative z-10 h-full flex flex-col justify-between p-12">
                     <Link className="flex items-center gap-3 text-white" href="/">
                         <div className="bg-white/20 backdrop-blur-md p-2 rounded-lg border border-white/30">
-                            <span className="material-symbols-outlined text-2xl">grid_view</span>
+                            <span className="material-symbols-outlined text-2xl">logo</span>
                         </div>
-                        <h1 className="text-xl font-extrabold tracking-tight">Artisan Gallery</h1>
+                        <h1 className="text-xl font-extrabold tracking-tight">Dandra Office</h1>
                     </Link>
-                    <div className="max-w-md">
-                        <h2 className="text-4xl font-bold text-white leading-tight mb-4">Crafting memories through timeless design.
+                    <div className="max-w-md bg-black/50 rounded-xl py-3 px-7">
+                        <h2 className="text-4xl font-bold text-white leading-tight mb-4">{t("login-page-title-overlay")}
                         </h2>
-                        <p className="text-white/80 text-lg">Join our community of collectors and discover unique pieces that tell a
-                            story of heritage and artisanal excellence.</p>
+                        <p className="text-white/80 text-lg">{t("login-page-paragraph-overlay")}</p>
                     </div>
                     <div className="text-white/60 text-sm">
-                        © 2024 Artisan Gallery. Handcrafted htmlFor the modern home.
+                        © {`${CopyRightYear.getFullYear()}`} {t('login-page-copy-right')}
                     </div>
                 </div>
             </section>
             <main className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 md:p-20 bg-white dark:bg-gray-900">
                 <div className="w-full max-w-md space-y-8">
-                    <div className="text-center lg:text-left">
-                        <div className="lg:hidden flex justify-center mb-8">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-primary text-white p-2 rounded-lg">
-                                    <span className="material-symbols-outlined text-2xl">grid_view</span>
-                                </div>
-                                <h1 className="text-xl font-extrabold tracking-tight">Artisan Gallery</h1>
-                            </div>
-                        </div>
-                        <h2 className="text-3xl font-extrabold text-[#0c1d1d] dark:text-white tracking-tight">Welcome Back</h2>
-                        <p className="text-gray-500 dark:text-gray-400 mt-2">Please enter your details to sign in to your account.
+                    <div className="text-right lg:text-center">
+                        <h2 className="text-3xl font-extrabold text-[#0c1d1d] dark:text-white tracking-tight">{t("login-page-welcome")}👋</h2>
+                        <p className="text-gray-500 dark:text-gray-400 mt-2">{t("login-page-enter-data")}
                         </p>
                     </div>
                     <form action="#" className="space-y-6" method="POST">
                         <div>
                             <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="email">
-                                Email Address
+                                {t("login-page-email-label")}
                             </label>
                             <div className="relative">
                                 <span
-                                    className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">mail</span>
+                                    className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl"><Mail /></span>
                                 <input
                                     className="block w-full pl-10 pr-4 py-3 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:border-primary focus:ring-primary transition-all"
                                     id="email" placeholder="name@example.com" required type="email" />
@@ -59,11 +58,11 @@ const page = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="password">
-                                Password
+                                {t("login-page-password-label")}
                             </label>
                             <div className="relative">
                                 <span
-                                    className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">lock</span>
+                                    className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl"><Lock /></span>
                                 <input
                                     className="block w-full pl-10 pr-4 py-3 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:border-primary focus:ring-primary transition-all"
                                     id="password" placeholder="••••••••" required type="password" />
@@ -73,20 +72,20 @@ const page = () => {
                             <div className="flex items-center">
                                 <input className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" id="remember-me"
                                     name="remember-me" type="checkbox" />
-                                <label className="ml-2 block text-sm text-gray-700 dark:text-gray-400" htmlFor="remember-me">
-                                    Remember me
+                                <label className="mx-2 block text-sm text-gray-700 dark:text-gray-400" htmlFor="remember-me">
+                                    {t("login-page-remember")}
                                 </label>
                             </div>
                             <div className="text-sm">
-                                <a className="font-bold text-primary hover:text-primary/80 transition-colors" href="#">
-                                    htmlForgot Password?
-                                </a>
+                                <Link className="font-bold text-primary hover:text-primary/80 transition-colors" href={'/forget-password'}>
+                                    {t("login-page-forget-password")}
+                                </Link>
                             </div>
                         </div>
                         <button
-                            className="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-sm font-extrabold text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all active:scale-[0.98]"
+                            className="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-sm font-extrabold bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all active:scale-[0.98]"
                             type="submit">
-                            Sign In
+                            {t("login-page-email-label")}
                         </button>
                     </form>
                     <div className="relative py-4">
@@ -94,7 +93,9 @@ const page = () => {
                             <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-white dark:bg-gray-900 text-gray-500">Or continue with</span>
+                            <span className="px-4 bg-white dark:bg-gray-900 text-gray-500">
+                                {t("login-page-login-via")}
+                            </span>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -127,9 +128,10 @@ const page = () => {
                         </button>
                     </div>
                     <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-                        Don&apos;t have an account?
-                        <a className="font-extrabold text-primary hover:text-primary/80 transition-colors" href="#">Create an
-                            account</a>
+                        {t("login-page-dont-have-account")}
+                        <Link className="font-extrabold text-primary hover:text-primary/80 transition-colors mx-2.5" href={"/register"}>
+                            {t("login-page-create-account")}
+                        </Link>
                     </p>
                 </div>
             </main>

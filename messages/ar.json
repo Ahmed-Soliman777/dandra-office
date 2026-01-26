@@ -5,5 +5,50 @@
     "hero-about": "أهلا بك في مكتبة دندرة أوفيس، وجهتك المثالية لكل ما تحتاجه من مستلزمات مكتبية عالية الجودة. اكتشف تشكيلتنا الواسعة من المنتجات التي تلبي جميع احتياجاتك المكتبية.",
     "hero-explore-btn": "تصفح المنتجات",
     "hero-shop-btn": "تسوق الآن"
+  },
+  "Footer": {
+    "footer-copy-right": "دندرة أوفيس، جميع الحقوق محفوظة"
+  },
+  "Navbar": {
+    "nav-store": "المتجر",
+    "nav-categories": "التصنيفات",
+    "nav-search": "ابحث عن المنتجات",
+    "nav-login-btn": "تسجيل دخول"
+  },
+  "LoginPage": {
+    "login-page-copy-right": "دندرة اوفيس. جميع الحقوق محفوظة",
+    "login-page-title-overlay": "سجل دخولك واستكشف المزيد في دندرة أوفيس",
+    "login-page-paragraph-overlay": "انضم لصحبتنا واستكشف كل جديد في مجموعتنا.",
+    "login-page-welcome": "مرحبا بك",
+    "login-page-enter-data": "أدخل بياناتك لتسجيل الدخول",
+    "login-page-email-label": "البريد الالكتروني",
+    "login-page-password-label": "كلمة المرور",
+    "login-page-remember": "تذكرني",
+    "login-page-forget-password": "نسيت كلمة المرور؟",
+    "login-page-login-btn": "تسجيل الدخول",
+    "login-page-login-via": "سجل دخولك من خلال",
+    "login-page-dont-have-account": "ليس لديك حساب ؟",
+    "login-page-create-account": "إنشاء حساب"
+  },
+  "Register": {
+    "join-us": "انضم الينا",
+    "join-us-paragraph": "انشئ حسابك واستكشف منتاجتنا",
+    "create-account": "أنشئ حساب",
+    "username-label": "اسم المستخدم",
+    "email-label": "البريد الالكتروني",
+    "password-label": "كلمة المرور",
+    "confirm-password-label": "تأكيد كلمة المرور",
+    "create-account-btn": "أنشئ حساب",
+    "have-an-account": "لديك حساب؟",
+    "login": "تسجيل دخول",
+    "copy-right": "دندرة أوفيس. جميع الحقوق محقوظة"
+  },
+  "ForgetPasswordPage": {
+    "copy-right": "دندرة أوفيس. جميع الحقوق محقوظة",
+    "reset-password": "استرد كلمة المرور",
+    "reset-password-paragraph": "أدخل عنوان البريد الإلكتروني المرتبط بحسابك وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+    "email-label": "البريد الالكتروني",
+    "back-to-login": "العودة الى تسجيل الدخول",
+    "send-reset-link": "استرداد كلمة المرور"
   }
 }
