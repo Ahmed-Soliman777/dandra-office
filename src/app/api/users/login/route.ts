@@ -18,7 +18,7 @@ import bcrypt from "bcryptjs";
  */
 
 // create a POST method to allow registered users to login
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     // get user's data from body
     const body = (await request.json()) as LoginDTO;
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.issues[0].message },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -41,21 +41,21 @@ export async function POST(request: NextRequest, response: NextResponse) {
     if (!registeredUser) {
       return NextResponse.json(
         { message: "البيانات غير صحيحة" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     // compare entered password with hashed password in database
     const password = await bcrypt.compare(
       body.password,
-      registeredUser.password
+      registeredUser.password,
     );
 
     // check entered password it is valid or not
     if (!password) {
       return NextResponse.json(
         { message: "البيانات غير صحيحة" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     // return response with success login
     return NextResponse.json(
       { message: "تم تسجيل الدخول بنجاح" },
-      { status: 200, headers: { "Set-Cookie": cookie } }
+      { status: 200, headers: { "Set-Cookie": cookie } },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });

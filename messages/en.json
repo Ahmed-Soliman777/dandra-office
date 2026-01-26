@@ -1,0 +1,54 @@
+{
+  "Hero": {
+    "hero-welcome": "Welcome 👋",
+    "hero-about-title": "Dandra Office Library for Office Supplies",
+    "hero-about": "Welcome to Dandra Office Library, your ideal destination for all the high-quality office supplies you need. Discover our wide range of products to meet all your office needs.",
+    "hero-explore-btn": "Explore",
+    "hero-shop-btn": "Shop"
+  },
+  "Footer": {
+    "footer-copy-right": "Dandra Office. All rights reserved."
+  },
+  "Navbar": {
+    "nav-store": "Store",
+    "nav-categories": "Categories",
+    "nav-search": "Search for products",
+    "nav-login-btn": "Login"
+  },
+  "LoginPage": {
+    "login-page-copy-right": "Dandra Office. All rights reserved",
+    "login-page-title-overlay": "Log in and explore more at Dandara Office",
+    "login-page-paragraph-overlay": "Join our community and explore everything new in our collection.",
+    "login-page-welcome": "Welcome",
+    "login-page-enter-data": "Enter your details to log in",
+    "login-page-email-label": "Email Address",
+    "login-page-password-label": "Password",
+    "login-page-remember": "Remember me",
+    "login-page-forget-password": "Forgot password?",
+    "login-page-login-btn": "Login",
+    "login-page-login-via": "Log in via",
+    "login-page-dont-have-account": "Don't have an account?",
+    "login-page-create-account": "Create an account"
+  },
+  "Register": {
+    "join-us": "Join us",
+    "join-us-paragraph": "Create your account and discover our products.",
+    "create-account": "Create an account",
+    "username-label": "Username",
+    "email-label": "Email",
+    "password-label": "Password",
+    "confirm-password-label": "Confirm password",
+    "create-account-btn": "Create account",
+    "have-an-account": "Already have an account",
+    "login": "Login",
+    "copy-right": "Dandra office. All rights reserved"
+  },
+  "ForgetPasswordPage": {
+    "copy-right": "Dandra office. All rights reserved",
+    "reset-password": "Reset password",
+    "reset-password-paragraph": "Enter the email address associated with your account and we'll send you a link to reset your password.",
+    "email-label": "Email",
+    "back-to-login": "Back to login",
+    "send-reset-link": "Send reset link"
+  }
+}
