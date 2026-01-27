@@ -18,10 +18,27 @@ export function verifyToken(request: NextRequest): JWTPayload | null {
     // 4- verify token
     const userPayload = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      process.env.JWT_SECRET as string,
     ) as JWTPayload;
 
     // 5- return user data
+    return userPayload;
+  } catch (error) {
+    return null;
+  }
+}
+
+export function verifyTokenForPage(token: string): JWTPayload | null {
+  try {
+    const userPayload = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string,
+    ) as JWTPayload;
+
+    if (!userPayload) {
+      return null;
+    }
+
     return userPayload;
   } catch (error) {
     return null;
