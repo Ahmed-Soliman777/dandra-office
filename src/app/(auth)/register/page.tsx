@@ -2,11 +2,18 @@ import Image from "next/image"
 import RegisterImage from '../../../../public/register-image.jpg'
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
-import { ArrowLeft, Lock, Mail, User2Icon, Verified } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+import RegisterForm from "./RegisterForm"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
 const page = async () => {
     const t = await getTranslations("Register")
     const copyright = new Date()
+    const token = await (await cookies()).get("token")?.value
+    if (token) {
+        redirect("/")
+    }
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-[#0c1d1d] dark:text-gray-100 transition-colors duration-300 min-h-screen flex items-center justify-center p-0">
 
@@ -36,59 +43,15 @@ const page = async () => {
                         <div className="text-center lg:text-left">
                             <h2 className="text-3xl font-black text-[#0c1d1d] dark:text-white">{t("create-account")}</h2>
                         </div>
-                        <form className="space-y-6">
-                            <div className="grid grid-cols-1 gap-6">
-                                <div className="space-y-1">
-                                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
-                                        htmlFor="username">{t("username-label")}</label>
-                                    <div className="relative group">
-                                        <span
-                                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><User2Icon /></span>
-                                        <input
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
-                                            id="username" name="username" placeholder="Craftsman_99" type="text" />
-                                    </div>
-                                </div>
-                                <div className="space-y-1">
-                                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300" htmlFor="email">{t("email-label")}</label>
-                                    <div className="relative group">
-                                        <span
-                                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Mail /></span>
-                                        <input
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
-                                            id="email" name="email" placeholder="artisan@gallery.com" type="email" />
-                                    </div>
-                                </div>
-                                <div className="space-y-1">
-                                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
-                                        htmlFor="password">{t("password-label")}</label>
-                                    <div className="relative group">
-                                        <span
-                                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Lock /></span>
-                                        <input
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
-                                            id="password" name="password" placeholder="••••••••" type="password" />
-                                    </div>
-                                </div>
-                                <div className="space-y-1">
-                                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
-                                        htmlFor="confirm-password">{t("confirm-password-label")}</label>
-                                    <div className="relative group">
-                                        <span
-                                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Verified /></span>
-                                        <input
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
-                                            id="confirm-password" name="confirm-password" placeholder="••••••••"
-                                            type="password" />
-                                    </div>
-                                </div>
-                            </div>
-                            <button
-                                className="w-full py-4 bg-primary border border-[#2323233d] font-black rounded-xl hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all"
-                                type="submit">
-                                {t("create-account-btn")}
-                            </button>
-                        </form>
+
+                        <RegisterForm
+                            usernameLabel={t("username-label")}
+                            emailLabel={t("email-label")}
+                            passwordLabel={t("password-label")}
+                            confirmPasswordLabel={t("confirm-password-label")}
+                            createAccountBtn={t("create-account-btn")}
+                        />
+
                         <div className="relative py-4">
                             <div className="absolute inset-0 flex items-center">
                                 <div className="w-full border-t border-gray-100 dark:border-gray-800"></div>
