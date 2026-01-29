@@ -1,110 +1,15 @@
-import Link from 'next/link'
-import React from 'react'
+import ProductDetails from './ProductDetails'
 
-const page = () => {
+const page = async (props: { params: { id: string } }) => {
+    const { id } = await props.params
+
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
             <main className="max-w-7xl mx-auto px-6 py-8">
-                {/* <!-- Breadcrumbs --> */}
-                <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8">
-                    <Link className="hover:text-primary" href="#">Home</Link>
-                    <span className="material-symbols-outlined text-xs">chevron_right</span>
-                    <Link className="hover:text-primary" href="#">Handcrafted Goods</Link>
-                    <span className="material-symbols-outlined text-xs">chevron_right</span>
-                    <span className="text-slate-900 dark:text-slate-200 font-medium">Sahara Leather Collection</span>
-                </nav>
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* <!-- Left Side: Gallery --> */}
-                    <div className="lg:col-span-7 space-y-4">
-                        <div className="aspect-4/5 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800 group shadow-sm">
-                            <div className="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
-                                data-alt="Main product shot of a high-end tan leather bag"
-                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnFl80S9VCE8l6RB8-hC8d9QiQ6Exodgh00N2mrqbj1Ux_yzIMOp8iHJfPgms8uqEximnKXC9_Gjplw60bQW9UjSGC0QpM9TU779ZQboXPHEpVKxhS_2ZEDf_It7woFlyvqeZdwCHFMzMyg0W6iOt8fZP8LJ_BXQRO6k4QaL6PGK90GmUdBxN4luSxIs_qCvordQVgdr5o7fUDN4FxDTmQ2R7-h75w4zwo5Q4PzCevSSsNvcpr_fz7rYUNWM_YooyuqoMQoblCYsvk');" }}>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-4 gap-4">
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 border-2 border-primary overflow-hidden"
-                                data-alt="Close up texture of the leather"
-                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDQgiJuHFQ5ZBlI7bO2GLNl-5foV5A86P_wSIoq2MvwNodpAe3EE-kwRgrfP1Ju5gJdw4VMqvEAw5_jBO1N-gzTlRfbdIcYg49FKfjlwC6xnAKj4xCV3RNKylQHo-iAj90-VuVxjbLycpmJ2Ht5aIi3UfpINkKiW-yMcanDIszL_Q-XpJQX6a6a92Vu8zELgTZXKzB7sLIWD2RecHB7gX6iTqCBkDend9YVdTEK4NG9Q_ArvBJ-h8pFbuqQtIp6oqM9SCL0GVw8yZiQ');" }}>
-                            </div>
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 overflow-hidden"
-                                data-alt="Side view of the handcrafted bag"
-                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1bVUY-ZCiS-xn0LqwKGhIvbwVP0EJ7ACJX_CbTdiBhFCeESSlVjB2rgLstHrmYEobudHFRC2PvPrVkaZ6wJU8xoe6gS8Xy8Q6kheemCtobjj8cyW8aipVNzF4QF9D3vsv5qrgpho7H1OU0kism2-K_SAXYp94uqkR6ud9RaAXnd1VXIVVH_D6jVkpvs2TfZADkTmYyfs5DLC803lzEstjcWMgg7QrVpPRQEA7EyFAYSTUv7gA7cpntMiJUFRwCcjqnTeAZlnrzVT3');" }}>
-                            </div>
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 overflow-hidden"
-                                data-alt="Interior lining of the luxury bag"
-                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDvVUYmW3KtWlnTiQmTC1m1S3tABbRwKGdUQdH2qSAd472WiaWXouCCV0Cj1ZuSW_IJbu5UjIdysOjCy2oRKhqNfsXQWY9fx8JonshiF2X0BAsOGOn0ZzUiSZQ7wNh9yTw_EYrN4iSqgdgH0w55hgqBaNpHVRKhKIkJRlksdRBhTkQgOEAL_5AKUJHq5wFtqE59Nx-PlQWBRnlI_A5ujl752GITbq9X97aewi7WjnIqqZfLTNENGGGH0hwdZ95cJ6y_TpY8QXbG5UxR');" }}>
-                            </div>
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 overflow-hidden"
-                                data-alt="Artisan stitching detail of the strap"
-                                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAL3CC96ikEOTTN3aXolKsd3_c_M-UYtHccOpmlPgCt0MHlzwgJsWcEyhAZe_I4klsF49AJgK9UMLFsuyQ1Hf8wST6WkdNXECmtoa0SILRSDwmEmbG-8MyKLGwWObzghqv3XKgE_noajE7c9plza6lqR4_lHK1f3GrVesDiq_Q_YLAOFu_RSjU_xyOUu52n8n-eeLoAlPMa2Y6pp0yRACUuawh3Sdpucttvftbl8271vU2kHVBuQPGjMEBsuiVSFr_0UNM623mNlNua');" }}>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <!-- Right Side: Product Details --> */}
-                    <div className="lg:col-span-5 flex flex-col">
-                        <div className="mb-6">
-                            <div className="flex items-center gap-2 mb-2">
-                                <span
-                                    className="px-2 py-1 bg-accent-bronze/10 text-accent-bronze text-[10px] font-bold uppercase tracking-wider rounded">Limited
-                                    Edition</span>
-                                <span className="flex items-center gap-1 text-accent-bronze">
-                                    <span className="material-symbols-outlined text-sm fill-accent-bronze">verified</span>
-                                    <span className="text-xs font-bold">Certified Artisan</span>
-                                </span>
-                            </div>
-                            <h2 className="text-4xl font-800 text-slate-900 dark:text-white leading-tight mb-1">Premium Handcrafted
-                                Leather Bag</h2>
-                            <h3 className="text-2xl font-semibold text-slate-400 dark:text-slate-500 mb-6" dir="rtl">حقيبة جلدية
-                                فاخرة مصنوعة يدوياً</h3>
-                            <div className="flex items-baseline gap-4 mb-8">
-                                <span className="text-3xl font-800 text-primary">$249.00</span>
-                                <span className="text-lg text-slate-400 line-through">$310.00</span>
-                            </div>
-                            <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed">
-                                <p>This exquisite piece is forged from sustainable vegetable-tanned leather, sourced from
-                                    family-run tanneries in Morocco. Every stitch tells a story of generation-old craftsmanship,
-                                    blending timeless aesthetics with modern utility.</p>
-                                <div
-                                    className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="material-symbols-outlined text-green-500">inventory_2</span>
-                                        <div>
-                                            <p className="text-sm font-bold text-slate-900 dark:text-slate-100">In Stock</p>
-                                            <p className="text-xs">Only 4 items remaining</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1">
-                                        <button className="text-lg font-bold hover:text-primary">-</button>
-                                        <span className="text-sm font-bold w-4 text-center">1</span>
-                                        <button className="text-lg font-bold hover:text-primary">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-auto pt-8 flex gap-4">
-                            <button
-                                className="flex-1 bg-primary text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all flex items-center justify-center gap-2">
-                                <span className="material-symbols-outlined">shopping_bag</span>
-                                Add to Cart
-                            </button>
-                            <button
-                                className="w-16 h-full border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-accent-bronze hover:text-accent-bronze transition-colors">
-                                <span className="material-symbols-outlined">favorite</span>
-                            </button>
-                        </div>
-                        <div className="mt-8 grid grid-cols-2 gap-4">
-                            <div className="p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
-                                <span className="material-symbols-outlined text-primary mb-2">public</span>
-                                <p className="text-xs font-bold uppercase tracking-wide">Global Shipping</p>
-                            </div>
-                            <div className="p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
-                                <span className="material-symbols-outlined text-primary mb-2">lock</span>
-                                <p className="text-xs font-bold uppercase tracking-wide">Secure Payments</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+
+                <ProductDetails id={id} />
+
                 {/* <!-- Social Proof Section: Reviews & Comments --> */}
                 <section className="mt-24 border-t border-slate-200 dark:border-slate-800 pt-16">
                     <div className="max-w-4xl">
