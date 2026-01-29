@@ -21,10 +21,10 @@ export async function GET(request: NextRequest, props: CategoryID) {
         categoryNameAr: true,
         categoryNameEn: true,
         products: {
-          select: {
-            productNameAr: true,
-            productNameEn: true,
-            price: true,
+          include: {
+            category: true,
+            comments: true,
+            reviews: true,
           },
         },
       },
@@ -63,7 +63,7 @@ export async function PUT(request: NextRequest, props: CategoryID) {
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.issues[0].message },
-        { status: 400 }
+        { status: 400 },
       );
     }
     await prisma.category.update({
@@ -76,7 +76,7 @@ export async function PUT(request: NextRequest, props: CategoryID) {
     });
     return NextResponse.json(
       { message: "تم تعديل الفئة بنجاح" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
@@ -108,7 +108,7 @@ export async function DELETE(request: NextRequest, props: CategoryID) {
     });
     return NextResponse.json(
       { message: "تم حذف الفئة بنجاح" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
