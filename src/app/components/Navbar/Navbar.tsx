@@ -1,5 +1,5 @@
 import { verifyTokenForPage } from "@/app/utils/verifyToken"
-import { Heart, LogOut, Search } from "lucide-react"
+import { Heart, Search } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { cookies } from "next/headers"
 import Image from "next/image"
@@ -20,9 +20,6 @@ const Navbar = async () => {
             <div dir="rtl" className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-8">
                 <div className="flex items-center gap-12">
                     <div className="flex items-center gap-3">
-                        <div className="bg-primary  p-2 rounded-lg">
-                            <span className="material-symbols-outlined text-2xl">logo</span>
-                        </div>
                         <h1 className="text-xl font-extrabold tracking-tight text-green-700">Dandra Office</h1>
                     </div>
                     <nav className="hidden md:flex items-center gap-8">
