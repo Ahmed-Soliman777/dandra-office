@@ -40,3 +40,45 @@ export interface RegisterFormProps {
   confirmPasswordLabel: string;
   createAccountBtn: string;
 }
+
+export interface product {
+  id: number;
+  price: number;
+  productNameAr: string;
+  images: string[];
+  reviews?: review[];
+}
+
+export interface review {
+  id: number;
+  productId: number;
+  reviewInNumbers: number;
+  user?: {
+    id: number;
+    username: string;
+  };
+}
+
+export interface category {
+  id: number;
+  categoryNameAr: string;
+  categoryNameEn: string;
+}
+
+export interface productDetails {
+  id: number;
+  productNameAr: string;
+  productNameEn: string;
+  price: number;
+  descriptionAr: string;
+  descriptionEn: string;
+  quantity: number;
+  images: string[];
+  category: category;
+  reviews: review;
+}
+
+export interface CategoriesData {
+    id: number,
+    categoryNameAr: string
+}
