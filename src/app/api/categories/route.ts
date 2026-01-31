@@ -59,6 +59,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
   try {
     const categories = await prisma.category.findMany({
       select: {
+        id: true,
         categoryNameAr: true,
         categoryNameEn: true,
         products: {
