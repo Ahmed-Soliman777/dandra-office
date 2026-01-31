@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import axios from "axios"
 import { toast } from 'react-toastify'
@@ -8,6 +7,7 @@ import Loading from '../loading'
 import { Heart, Star } from 'lucide-react'
 import Link from 'next/link'
 import { product, review } from '../utils/types'
+import { CldImage } from 'next-cloudinary'
 
 const ProductCard = () => {
 
@@ -43,7 +43,7 @@ const ProductCard = () => {
                     key={product.id}
                     className="group bg-white dark:bg-background-dark rounded-xl border border-[#e6f4f4] dark:border-[#1a3a3a] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
                     <div className="relative aspect-square overflow-hidden bg-[#f0f5f5]">
-                        <Image className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        <CldImage className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             width={100}
                             height={50}
                             alt={product.productNameAr}

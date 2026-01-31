@@ -6,6 +6,7 @@ import { ArrowRight, Heart } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { CldImage } from 'next-cloudinary';
 
 const ProductDetails = ({ id }: { id: string }) => {
     const [product, setProduct] = useState({} as productDetails)
@@ -44,15 +45,29 @@ const ProductDetails = ({ id }: { id: string }) => {
                 <div className="lg:col-span-7 space-y-4">
                     <div className="aspect-4/5 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800 group shadow-sm">
                         <div className="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
-                            data-alt={product.productNameEn || product.productNameAr}
-                            style={{ backgroundImage: `url(${product.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"});` }}>
+                        // data-alt={product.productNameEn || product.productNameAr}
+                        // style={{ backgroundImage: `url(${product.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"});` }}
+                        >
+                            <CldImage
+                                width={1000}
+                                height={200}
+                                alt={product.productNameAr}
+                                src={product.images[0]}
+                            />
                         </div>
                     </div>
                     <div className="grid grid-cols-4 gap-4">
                         {product.images?.length > 0 && product.images?.map((image: string) => (
                             <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 border-2 border-primary overflow-hidden" key={image}
-                                data-alt="Close up texture of the leather"
-                                style={{ backgroundImage: `url(${image})` }}>
+                            // data-alt="Close up texture of the leather"
+                            // style={{ backgroundImage: `url(${image})` }}
+                            >
+                                <CldImage
+                                    width={200}
+                                    height={200}
+                                    alt={product.productNameAr}
+                                    src={image}
+                                />
                             </div>
                         ))}
                     </div>
