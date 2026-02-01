@@ -3,7 +3,7 @@ import NavbarWrapper from '../components/NavbarWrapper'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div>
+        <div dir="rtl">
             <NavbarWrapper />
             {children}
         </div>

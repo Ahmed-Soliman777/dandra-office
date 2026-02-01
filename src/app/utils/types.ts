@@ -45,7 +45,9 @@ export interface product {
   id: number;
   price: number;
   productNameAr: string;
+  quantity: number;
   images: string[];
+  categoryId: number;
   reviews?: review[];
 }
 
@@ -63,6 +65,7 @@ export interface category {
   id: number;
   categoryNameAr: string;
   categoryNameEn: string;
+  products: product[];
 }
 
 export interface productDetails {
@@ -79,6 +82,6 @@ export interface productDetails {
 }
 
 export interface CategoriesData {
-    id: number,
-    categoryNameAr: string
+  id: number;
+  categoryNameAr: string;
 }
