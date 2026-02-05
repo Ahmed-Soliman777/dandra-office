@@ -51,8 +51,8 @@ const ProductDetails = ({ id }: { id: string }) => {
                             <CldImage
                                 width={1000}
                                 height={200}
-                                alt={product.productNameAr}
-                                src={product.images[0]}
+                                alt={product?.productNameAr}
+                                src={product?.images[0]}
                             />
                         </div>
                     </div>
@@ -65,7 +65,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                                 <CldImage
                                     width={200}
                                     height={200}
-                                    alt={product.productNameAr}
+                                    alt={product?.productNameAr}
                                     src={image}
                                 />
                             </div>
@@ -86,14 +86,14 @@ const ProductDetails = ({ id }: { id: string }) => {
                     </div> */}
                         {/* <h2 className="text-4xl font-800 text-slate-900 dark leading-tight mb-1">Premium Handcrafted
                         Leather Bag</h2> */}
-                        <h2 className="text-2xl font-semibold mb-6">{product.productNameAr || product.productNameEn}</h2>
+                        <h2 className="text-2xl font-semibold mb-6">{product?.productNameAr || product?.productNameEn}</h2>
                         <div className="flex items-baseline gap-4 mb-8">
                             {/*todo create discount */}
                             <span className="text-3xl font-800 text-primary">{product?.price} جنيه</span>
                             {/* <span className="text-lg text-slate-400 line-through">$310.00</span> */}
                         </div>
                         <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed">
-                            <p>{product.descriptionAr || product.descriptionEn}</p>
+                            <p>{product?.descriptionAr || product?.descriptionEn}</p>
                             <button
                                 className="px-2 py-5 h-full border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-accent-bronze hover:text-accent-bronze transition-colors">
                                 <div className="material-symbols-outlined flex items-center gap-3" ><Heart size={25} /> إضافة الى المفضلة </div>

@@ -31,61 +31,59 @@ const page = () => {
 
   return (
     <>
-      <main className="max-w-350 mx-auto px-6 lg:px-20 py-8">
-        {/* <!-- Page Heading & CTA --> */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
+      {/* Page Header */}
+      <div className="mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight mb-2">جرد المنتجات</h1>
-            <p className="text-gray-500 dark:text-gray-400">تنظيم وإدارة قوائم المنتجات الخاصة بك .</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">لوحة التحكم</h1>
+            <p className="text-gray-600 dark:text-gray-400">مرحبا بك، إدارة المنتجات والفئات من هنا</p>
           </div>
-          <Link
-            href={'/dashboard/manage-products'}
-            className="bg-primary hover:bg-primary/90 px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
-            إضافة منتج
-            <span className="material-symbols-outlined text-lg">+</span>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Link
+              href={'/dashboard/manage-products/add-product'}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 hover:bg-green-700 dark:hover:bg-green-700 text-white rounded-lg font-semibold transition-colors shadow-sm hover:shadow-md">
+              <span>+ إضافة منتج</span>
+            </Link>
+            <Link
+              href={'/dashboard/manage-categories/add-category'}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors shadow-sm hover:shadow-md">
+              <span>+ إضافة فئة</span>
+            </Link>
+          </div>
         </div>
-        {/* <!-- KPI Stats Grid --> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <div
-            className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+      </div>
+
+      {/* KPI Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">مجموع المنتجات</p>
-              <p className="text-3xl font-bold">{ProductCount()}</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">مجموع المنتجات</p>
+              <p className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{ProductCount()}</p>
             </div>
-            <div className="bg-primary/10 p-3 rounded-full text-primary">
-              <span className="material-symbols-outlined"><Box /></span>
+            <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-full">
+              <Box className="text-green-600 dark:text-green-400" size={32} />
             </div>
           </div>
-          <div
-            className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">مجموع المستخدمين</p>
-              <p className="text-3xl font-bold">{UserCount()}</p>
-            </div>
-            <div className="bg-accent-bronze/10 p-3 rounded-full text-accent-bronze">
-              <span className="material-symbols-outlined"><Users2Icon /></span>
-            </div>
-          </div>
-          {/* <div
-            className="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">New Reviews</p>
-              <p className="text-3xl font-bold">24</p>
-              <p className="text-xs font-bold text-primary mt-2 flex items-center gap-1">
-                <span className="material-symbols-outlined text-xs">mark_chat_unread</span> Pending moderation
-              </p>
-            </div>
-            <div className="bg-primary/10 p-3 rounded-full text-primary">
-              <span className="material-symbols-outlined">reviews</span>
-            </div>
-          </div> */}
         </div>
-        {/* <!-- Main Product Table Container --> */}
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">مجموع المستخدمين</p>
+              <p className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{UserCount()}</p>
+            </div>
+            <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-full">
+              <Users2Icon className="text-blue-600 dark:text-blue-400" size={32} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tables */}
+      <div className="space-y-8">
         <ProductsTable />
-        {/* <!-- Table Container --> */}
         <CategoryTable />
-      </main>
+      </div>
     </>
   )
 }

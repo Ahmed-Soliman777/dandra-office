@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DOMAIN } from '@/app/utils/constants';
 import { toast } from 'react-toastify';
@@ -7,11 +7,29 @@ import Link from 'next/link';
 import { product } from '@/app/utils/types';
 import { usePathname } from 'next/navigation';
 import CategoryName from './CategoryName';
+import Image from 'next/image';
 const ProductsTable = () => {
 
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<product[]>([])
+
+  async function deleteProduct(id: number) {
+    try {
+      const deletePrd = await axios.delete(`${DOMAIN}/api/products/${id}`)
+      if (deletePrd) {
+        setProducts((prevProducts) => prevProducts.filter((p: product) => p.id !== id))
+      }
+      toast.success("تم حذف المنتج")
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const pathName = usePathname()
+  const [search, setSearch] = useState<string>("")
+
+  function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value)
+  }
 
   useEffect(() => {
     const getProductsData = async () => {
@@ -27,149 +45,181 @@ const ProductsTable = () => {
   }, [])
 
   return (
-    <div
-      className="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+    <>
+      {/* Search Bar - Products Page Only */}
+      {pathName === "/dashboard/manage-products" &&
+        <div className="mb-6">
+          <input
+            type='text'
+            placeholder='ابحث عن منتج...'
+            className='w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+      }
+
+      {/* Products Table Card */}
       <div
-        className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
-        <h3 className="font-bold text-lg">المنتجات</h3>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-right">
-          <thead>
-            <tr className="bg-gray-50/50 dark:bg-gray-800/50">
-              <th
-                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700">
-                المنتج</th>
-              <th
-                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700">
-                التصنيف</th>
-              <th
-                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700 text-right">
-                السعر</th>
-              <th
-                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700 text-center">
-                الكمية</th>
-              <th
-                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700 text-right">
-                حذف / تعديل</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-            {pathName === "/dashboard" ? products.slice(0, 3).map((product: product) => (
-              <tr key={product.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors group">
-                <td className="p-4">
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-lg bg-cover bg-center border border-gray-100 dark:border-gray-600"
-                      data-alt={product.productNameAr}
-                      style={{ backgroundImage: `${product?.images[0]}` || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000" }}>
-                    </div>
-                    <div>
-                      <p className="font-bold text-sm">{product.productNameAr}</p>
-                      {/* <p className="text-xs text-gray-400">SKU: ART-0012</p> */}
-                    </div>
-                  </div>
-                </td>
-                <td className="p-4">
-                  <span
-                    className="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full uppercase tracking-wider"><CategoryName id={product?.categoryId} /></span>
-                </td>
-                <td className="p-4 text-right">
-                  <p className="font-bold text-sm">{product.price}  <span className='mx-1.5'>ج.م</span></p>
-                </td>
-                <td className="p-4 text-center">
-                  <div className="flex flex-col items-center">
-                    <span className="text-sm font-medium">{product.quantity}</span>
-                    {/* <div
-                      className="w-12 h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-1 overflow-hidden">
-                      <div className="bg-primary h-full w-[40%]"></div>
-                    </div> */}
-                  </div>
-                </td>
-                <td className="p-4 text-right">
-                  <div
-                    className="flex-row-reverse justify-end gap-2 transition-opacity">
-                    <button
-                      className="p-2 text-accent-bronze hover:bg-accent-bronze/10 rounded-lg transition-colors"
-                      title="تعديل">
-                      <span className="material-symbols-outlined">تعديل</span>
-                    </button>
-                    <button className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors"
-                      title="حذف">
-                      <span className="material-symbols-outlined">حذف</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>)) :
-              products.map((product: product) => (
-                <tr key={product.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors group">
-                  <td className="p-4">
-                    <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-cover bg-center border border-gray-100 dark:border-gray-600"
-                        data-alt={product.productNameAr}
-                        style={{ backgroundImage: `${product?.images[0]}` || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000" }}>
+        className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
+        {/* Header */}
+        <div className="px-6 py-4 border-b border-gray-200 dark:bg-slate-700/50">
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white">المنتجات</h3>
+        </div>
+
+        {/* Table Container */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-right">
+            <thead>
+              <tr className="bg-gray-50 dark:bg-slate-700/30">
+                <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                  المنتج
+                </th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                  التصنيف
+                </th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                  السعر
+                </th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                  الكمية
+                </th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                  الإجراءات
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 dark:divide-slate-700">
+              {pathName === "/dashboard" ? products.slice(0, 3).map((product: product) => (
+                <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700 shrink-0 border border-gray-200 dark:border-slate-600">
+                        {product.images &&
+                          <Image
+                            src={product.images[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
+                            alt={product.productNameAr || "product image"}
+                            width={100}
+                            height={100}
+                            className="w-full h-full object-cover"
+                          />
+                        }
                       </div>
                       <div>
-                        <p className="font-bold text-sm">Ethereal Blue Vase</p>
-                        <p className="text-xs text-gray-400">SKU: ART-0012</p>
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm">{product.productNameAr}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="p-4">
-                    <span
-                      className="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full uppercase tracking-wider">Ceramics</span>
+                  <td className="px-6 py-4">
+                    {product.categoryId &&
+                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-semibold rounded-full">
+                        <CategoryName id={product?.categoryId} />
+                      </span>
+                    }
                   </td>
-                  <td className="p-4 text-right">
-                    <p className="font-bold text-sm">{product.price}ج.م</p>
+                  <td className="px-6 py-4">
+                    <p className="font-semibold text-gray-900 dark:text-white text-sm">{product.price} ج.م</p>
                   </td>
-                  <td className="p-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-medium">{product.quantity}</span>
-                      <div
-                        className="w-12 h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-1 overflow-hidden">
-                        <div className="bg-primary h-full w-[40%]"></div>
-                      </div>
-                    </div>
+                  <td className="px-6 py-4 text-center">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{product.quantity}</span>
                   </td>
-                  <td className="p-4 text-right">
-                    <div
-                      className="flex-row-reverse justify-end gap-2 transition-opacity">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/dashboard/manage-products/update-product/${product.id}`}
+                        className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" title="تعديل">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                      </Link>
                       <button
-                        className="p-2 text-accent-bronze hover:bg-accent-bronze/10 rounded-lg transition-colors"
-                        title="تعديل">
-                        <span className="material-symbols-outlined">تعديل</span>
-                      </button>
-                      <button className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                        onClick={() => {
+                          if (product?.id) {
+                            deleteProduct(product.id as number);
+                          }
+                        }}
                         title="حذف">
-                        <span className="material-symbols-outlined">حذف</span>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>
+                      <Link
+                        href={`/dashboard/manage-products/${product.id}`}
+                        className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors" title="عرض المنتج">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                      </Link>
                     </div>
                   </td>
                 </tr>
-              ))}
-            {/* <!-- Row 1 --> */}
-          </tbody>
-        </table>
-      </div>
-      {/* <!-- Pagination --> */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-700 ">
-        {/* <p className="text-xs text-gray-400">Showing 1 to 10 of 1,482 entries</p>
-            <div className="flex gap-1">
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
-                disabled>Previous</button>
-              <button className="px-3 py-1 rounded bg-primary text-xs font-bold">1</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">2</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">3</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">Next</button>
-            </div> */}
-        <div className="text-center">
-          <Link href={"/dashboard/manage-products"}>عرض جميع المنتجات</Link>
+              )) :
+                products.filter((product: product) => {
+                  if (search.length === 0) return true
+                  return product.descriptionAr?.includes(search) || product.productNameAr?.includes(search)
+                }).map((product: product) => (
+                  <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700 shrink-0 border border-gray-200 dark:border-slate-600">
+                          {(product.images && product.productNameAr) && (
+                            <Image src={product.images[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
+                              alt={product?.productNameAr || ""} height={100} width={100} className="w-full h-full object-cover" />
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 dark:text-white text-sm">{product?.productNameAr}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      {product.categoryId && (
+                        <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-semibold rounded-full">
+                          <CategoryName id={product?.categoryId} />
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="font-semibold text-gray-900 dark:text-white text-sm">{product.price} ج.م</p>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{product.quantity}</span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/dashboard/manage-products/update-product/${product.id}`}
+                          className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" title="تعديل">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                        </Link>
+                        <button
+                          className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                          onClick={() => {
+                            if (product?.id) {
+                              deleteProduct(product.id);
+                            }
+                          }}
+                          title="حذف">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        </button>
+                        <Link
+                          href={`/dashboard/manage-products/${product.id}`}
+                          className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors" title="عرض المنتج">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
+
+        {/* Footer */}
+        {pathName === "/dashboard" &&
+          <div className="px-6 py-4 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700/30">
+            <Link href={"/dashboard/manage-products"} className="text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 text-sm">
+              عرض جميع المنتجات →
+            </Link>
+          </div>
+        }
       </div>
-    </div>
+    </>
   )
 }
 

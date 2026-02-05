@@ -20,6 +20,7 @@ export async function GET(request: NextRequest, props: CategoryID) {
       select: {
         categoryNameAr: true,
         categoryNameEn: true,
+        categoryThumbnail: true,
         products: {
           include: {
             category: true,
@@ -95,6 +96,7 @@ export async function DELETE(request: NextRequest, props: CategoryID) {
     const { id } = await props.params;
     const category = await prisma.category.findUnique({
       where: { id: parseInt(id) },
+      include: { products: true },
     });
     if (!category) {
       return NextResponse.json({ message: "فئة غير موجودة" }, { status: 400 });
@@ -106,6 +108,13 @@ export async function DELETE(request: NextRequest, props: CategoryID) {
     await prisma.category.delete({
       where: { id: parseInt(id) },
     });
+
+    // delete related products
+    const productIds: number[] = category?.products?.map(
+      (product) => product.id,
+    );
+    await prisma.product.deleteMany({ where: { id: { in: productIds } } });
+
     return NextResponse.json(
       { message: "تم حذف الفئة بنجاح" },
       { status: 200 },
