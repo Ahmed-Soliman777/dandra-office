@@ -66,7 +66,7 @@ const page = async (props: { params: { id: string } }) => {
                                     <div className="shrink-0">
                                         <div className="size-12 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover border-2 border-white dark:border-slate-900"
                                             data-alt="Reviewer profile photo"
-                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWYVv8HgT63q4h1kcztM2EdxQyPWCIm2U4vyFrUOYx1dMkHwhDUQy4f0TgjHoz2xqBAl8ofOhy6QWKU4MflwYD8FGjblM1XTmCeMVDTD8BapSu4no1SS3emksq4avdIk8zztq_HGuACWrfJ08vxlMq5jsZ5YZ0hTT98TfLV6njOfoqeQcrsN54efPAk5ZD9HzRznMMzrs0CSNZWVJ6g2g4FGjFaANpk7uTbPGka7FYWlsPQzMBemy_R-7S4PCYXYAxkNeZeiE0kjec');" }}>
+                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWYVv8HgT63q4h1kcztM2EdxQyPWCIm2U4vyFrUOYx1dMkHwhDUQy4f0TgjHoz2xqBAl8ofOhy6QWKU4MflwYD8FGjblM1XTmCeMVDTD8BapSu4no1SS3emksq4avdIk8zztq_HGuACWrfJ08vxlMq5jsZ5YZ0hTT98TfLV6njOfoqeQcrsN54efPAk5ZD9HzRznMMzrs0CSNZWVJ6g2g4FGjFaANpk7uTbPGka7FYWlsPQzMBemy_R-7S4PCYXYAxkNeZeiE0kjec')" }}>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
@@ -91,7 +91,7 @@ const page = async (props: { params: { id: string } }) => {
                                     <div className="shrink-0">
                                         <div className="size-12 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover border-2 border-white dark:border-slate-900"
                                             data-alt="Reviewer profile photo"
-                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfi2FM_k2pMVZ7LaBseahzx3veXUnATckvu3OrfkMPjt45igQqSB3ab4G38BkpM9MDf6v-VvB3UrScxWJBduKjnjWd8h8E0GGmhqGkEkULqrPao57u0gXh57VENwgTIzdhMXllEQsggSKuSygtz5JlCVD7r73fIwPqRbzCTnZxg-FseL-aUmZnOjgCKBAHKFY7uDFY1YRozTHpRy90lkda5XupmDL6-gEb_o38tlXKmAli6Huoli3EuSF7wrFlH3iP-Fsk10vpg4rm');" }}>
+                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfi2FM_k2pMVZ7LaBseahzx3veXUnATckvu3OrfkMPjt45igQqSB3ab4G38BkpM9MDf6v-VvB3UrScxWJBduKjnjWd8h8E0GGmhqGkEkULqrPao57u0gXh57VENwgTIzdhMXllEQsggSKuSygtz5JlCVD7r73fIwPqRbzCTnZxg-FseL-aUmZnOjgCKBAHKFY7uDFY1YRozTHpRy90lkda5XupmDL6-gEb_o38tlXKmAli6Huoli3EuSF7wrFlH3iP-Fsk10vpg4rm')" }}>
                                         </div>
                                     </div>
                                     <div className="space-y-2">

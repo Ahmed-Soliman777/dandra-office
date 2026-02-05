@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { category } from '@/app/utils/types';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const CategoryTable = () => {
 
@@ -17,9 +18,8 @@ const CategoryTable = () => {
         const getProductsData = async () => {
             try {
                 const response = await axios.get(`${DOMAIN}/api/categories`)
-                // setCategories(response.data.categories);
                 setCategories(response.data.categories);
-                
+                console.log(response.data.categories);
             } catch (error) {
                 toast.error("حدث خطأ")
                 console.error(error);
@@ -28,122 +28,162 @@ const CategoryTable = () => {
         getProductsData()
     }, [])
 
-    return (
-        <div
-            className="mt-10 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
-            <div
-                className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
-                <h3 className="font-bold text-lg">التصنيفات</h3>
-            </div>
-            <div className="overflow-x-auto">
-                <table className="w-full border-collapse text-right">
-                    <thead>
-                        <tr className="bg-gray-50/50 dark:bg-gray-800/50">
-                            <th
-                                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700">
-                                التصنيف</th>
+    async function deleteCategory(id: number) {
+        try {
+            await axios.delete(`${DOMAIN}/api/categories/${id}`)
 
-                            <th
-                                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700 text-right">
-                                عدد المنتجات</th>
-                            <th
-                                className="p-4 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 dark:border-gray-700 text-right">
-                                حذف / تعديل</th>
+            setCategories((prevCat) => {
+                return prevCat.filter((cat: category) => cat.id !== id)
+            })
+
+            toast.success("تم حذف الفئة بنجاح")
+
+        } catch (error) {
+            console.error(error);
+            toast.error("حدث خطأ")
+        }
+    }
+
+    return (
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700/50">
+                <h3 className="font-bold text-lg text-gray-900 dark:text-white">التصنيفات</h3>
+            </div>
+
+            {/* Table Container */}
+            <div className="overflow-x-auto">
+                <table className="w-full text-right">
+                    <thead>
+                        <tr className="bg-gray-50 dark:bg-slate-700/30">
+                            <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                                التصنيف
+                            </th>
+                            <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                                عدد المنتجات
+                            </th>
+                            <th className="px-6 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-600">
+                                الإجراءات
+                            </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    <tbody className="divide-y divide-gray-200 dark:divide-slate-700">
                         {pathName === "/dashboard" ? categories.slice(0, 3).map((category: category) => (
-                            <tr key={category.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors group">
-                                <td className="p-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="h-12 w-12 rounded-lg bg-cover bg-center border border-gray-100 dark:border-gray-600"
-                                            data-alt="Handcrafted ceramic vase"
-                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsD1gUdWsexl-Kgrzc7qCrfA5TqfQ5JbmoluVYAP_bNNpNpT47cHo_oqnhTj3cbtiUXK8k85WHeXD3zLN3mZ3-XXNLRn-hUiK23_Mq1z4wknTXH1KEBwco1SH1gJSULb-hv6OKzqEv7Zf6V_bQJ3Qu6tXW_U2jgNuat9cgUUY_SmsDtVkAYGv4s44AgXD5SPyzusnjh2aSV07VJL3dSMN3yCHmaZCBsYSpKTSRtp3AP2dpCBeA9upsipQ3CWajEIWXmZ6ore9VKePS')" }}>
+                            <tr key={category.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                <td className="px-6 py-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700 shrink-0 border border-gray-200 dark:border-slate-600">
+                                            {category?.categoryThumbnail && category.categoryThumbnail.startsWith("http") ? (
+                                                <Image
+                                                    src={category.categoryThumbnail}
+                                                    alt={category.categoryNameEn || "category image"}
+                                                    width={100}
+                                                    height={100}
+                                                    className="object-cover"
+                                                />
+                                            ) : (
+                                                <div className="flex items-center justify-center h-full bg-gray-200 dark:bg-slate-600">
+                                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                                </div>
+                                            )}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-sm">{category.categoryNameAr}</p>
-                                            {/* <p className="text-xs text-gray-400">SKU: ART-0012</p> */}
+                                            <p className="font-semibold text-gray-900 dark:text-white text-sm">{category.categoryNameAr}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="p-4">
-                                    <div className="">
-                                        <span className="text-sm font-medium">{category.products.length}</span>
-                                    </div>
+                                <td className="px-6 py-4">
+                                    {category.products &&
+                                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-slate-700 px-3 py-1 rounded-full inline-block">{category.products.length}</span>
+                                    }
                                 </td>
-                                <td className="p-4 text-right">
-                                    <div
-                                        className="flex-row-reverse justify-end gap-2 transition-opacity">
-                                        <button
-                                            className="p-2 text-accent-bronze hover:bg-accent-bronze/10 rounded-lg transition-colors"
-                                            title="تعديل">
-                                            <span className="material-symbols-outlined">تعديل</span>
+                                <td className="px-6 py-4">
+                                    <div className="flex items-center gap-2">
+                                        <Link
+                                            href={`/dashboard/manage-categories/update-categories/${category.id}`}
+                                            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" title="تعديل">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                        </Link>
+                                        <button className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                            onClick={() => {
+                                                if (category.id) {
+                                                    deleteCategory(category.id)
+                                                }
+                                            }} title="حذف">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                         </button>
-                                        <button className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors"
-                                            title="حذف">
-                                            <span className="material-symbols-outlined">حذف</span>
-                                        </button>
+                                        <Link
+                                            href={`/dashboard/manage-categories/${category.id}`}
+                                            className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors" title="عرض الفئة">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                        </Link>
                                     </div>
                                 </td>
                             </tr>
                         )) : categories.map((category: category) => (
-                            <tr key={category.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors group">
-                                <td className="p-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="h-12 w-12 rounded-lg bg-cover bg-center border border-gray-100 dark:border-gray-600"
-                                            data-alt="Handcrafted ceramic vase"
-                                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsD1gUdWsexl-Kgrzc7qCrfA5TqfQ5JbmoluVYAP_bNNpNpT47cHo_oqnhTj3cbtiUXK8k85WHeXD3zLN3mZ3-XXNLRn-hUiK23_Mq1z4wknTXH1KEBwco1SH1gJSULb-hv6OKzqEv7Zf6V_bQJ3Qu6tXW_U2jgNuat9cgUUY_SmsDtVkAYGv4s44AgXD5SPyzusnjh2aSV07VJL3dSMN3yCHmaZCBsYSpKTSRtp3AP2dpCBeA9upsipQ3CWajEIWXmZ6ore9VKePS')" }}>
+                            <tr key={category.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                <td className="px-6 py-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700 shrink-0 border border-gray-200 dark:border-slate-600">
+                                            {category?.categoryThumbnail && category.categoryThumbnail.startsWith("http") ? (
+                                                <Image
+                                                    src={category.categoryThumbnail}
+                                                    alt={category.categoryNameEn || "category image"}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            ) : (
+                                                <div className="flex items-center justify-center h-full bg-gray-200 dark:bg-slate-600">
+                                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                                </div>
+                                            )}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-sm">{category.categoryNameAr}</p>
-                                            {/* <p className="text-xs text-gray-400">SKU: ART-0012</p> */}
+                                            <p className="font-semibold text-gray-900 dark:text-white text-sm">{category.categoryNameAr}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="p-4">
-                                    <div className="">
-                                        <span className="text-sm font-medium">{category.products.length}</span>
-                                    </div>
+                                <td className="px-6 py-4">
+                                    {category.products &&
+                                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-slate-700 px-3 py-1 rounded-full inline-block">{category.products.length}</span>
+                                    }
                                 </td>
-                                <td className="p-4 text-right">
-                                    <div
-                                        className="flex-row-reverse justify-end gap-2 transition-opacity">
-                                        <button
-                                            className="p-2 text-accent-bronze hover:bg-accent-bronze/10 rounded-lg transition-colors"
-                                            title="تعديل">
-                                            <span className="material-symbols-outlined">تعديل</span>
+                                <td className="px-6 py-4">
+                                    <div className="flex items-center gap-2">
+                                        <Link
+                                            href={`/dashboard/manage-categories/update-categories/${category.id}`}
+                                            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors" title="تعديل">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                        </Link>
+                                        <button className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                            onClick={() => {
+                                                if (category.id) {
+                                                    deleteCategory(category.id)
+                                                }
+                                            }} title="حذف">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                         </button>
-                                        <button className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors"
-                                            title="حذف">
-                                            <span className="material-symbols-outlined">حذف</span>
-                                        </button>
+                                        <Link
+                                            href={`/dashboard/manage-categories/${category.id}`}
+                                            className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors" title="عرض الفئة">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                        </Link>
                                     </div>
                                 </td>
                             </tr>
                         ))}
-
                     </tbody>
                 </table>
             </div>
-            {/* <!-- Pagination --> */}
-            <div className="p-4 border-t border-gray-100 dark:border-gray-700 ">
-                {/* <p className="text-xs text-gray-400">Showing 1 to 10 of 1,482 entries</p>
-            <div className="flex gap-1">
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50"
-                disabled>Previous</button>
-              <button className="px-3 py-1 rounded bg-primary text-xs font-bold">1</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">2</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">3</button>
-              <button
-                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800">Next</button>
-            </div> */}
-                <div className="text-center">
-                    <Link href={"/dashboard/manage-categories"}>عرض جميع التصنيفات</Link>
+
+            {/* Footer */}
+            {pathName === "/dashboard" &&
+                <div className="px-6 py-4 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700/30">
+                    <Link href={"/dashboard/manage-categories"} className="text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 text-sm">
+                        عرض جميع التصنيفات →
+                    </Link>
                 </div>
-            </div>
+            }
         </div>
     )
 }
