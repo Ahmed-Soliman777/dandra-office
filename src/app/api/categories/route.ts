@@ -11,14 +11,14 @@ import { NextRequest, NextResponse } from "next/server";
  * @access private only admin
  */
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as AddCategoryDTO;
     const validation = addCategory.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.issues[0].message },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const userPayload = verifyToken(request);
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         message: "تم أضافة فئة جديدة",
         category: newCategory,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
@@ -55,18 +55,20 @@ export async function POST(request: NextRequest, response: NextResponse) {
  * @access public
  */
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     const categories = await prisma.category.findMany({
       select: {
         id: true,
         categoryNameAr: true,
         categoryNameEn: true,
+        categoryThumbnail: true,
         products: {
           select: {
             productNameAr: true,
             productNameEn: true,
             price: true,
+            reviews: true,
           },
         },
       },
