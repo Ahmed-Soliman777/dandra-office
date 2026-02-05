@@ -42,12 +42,15 @@ export interface RegisterFormProps {
 }
 
 export interface product {
-  id: number;
-  price: number;
-  productNameAr: string;
-  quantity: number;
-  images: string[];
-  categoryId: number;
+  id?: number;
+  price?: number;
+  productNameAr?: string;
+  productNameEn?: string;
+  descriptionAr?: string;
+  descriptionEn?: string;
+  quantity?: number;
+  images?: string[];
+  categoryId?: number;
   reviews?: review[];
 }
 
@@ -62,10 +65,11 @@ export interface review {
 }
 
 export interface category {
-  id: number;
-  categoryNameAr: string;
-  categoryNameEn: string;
-  products: product[];
+  id?: number;
+  categoryNameAr?: string;
+  categoryNameEn?: string;
+  categoryThumbnail?: string;
+  products?: product[];
 }
 
 export interface productDetails {
