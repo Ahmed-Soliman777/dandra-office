@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
 
     // if there is no products
     if (products.length === 0) {
-      return NextResponse.json({ messsage: "منتج غير متوفر" }, { status: 404 });
+      return NextResponse.json({ messsage: "منتج غير متوفر" }, { status: 200 });
     }
 
     return NextResponse.json(products, { status: 200 });
