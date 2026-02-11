@@ -14,6 +14,7 @@ const Navbar = () => {
     try {
       await axios.get(`${DOMAIN}/api/users/logout`)
       router.replace("/dashboard/login")
+      router.refresh()
     } catch (error) {
       console.error(error);
       toast.error("فشل تسجيل الخروج حاول مرة أخرى")
