@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
+import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,9 @@ export default function RootLayout({
             <Navbar />
           </NavbarWrapper>
           <ToastContainer position="top-center" />
-          {children}
+          <StoreProvider >
+            {children}
+          </StoreProvider>
           <FooterWrapper>
             <Footer />
           </FooterWrapper>
