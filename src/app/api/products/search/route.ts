@@ -46,24 +46,26 @@ export async function GET(request: NextRequest) {
       ],
     };
 
-    // parse min price to float and apply filters to searched products
-    if (minPrice) {
-      const parsedMinPrice = parseFloat(minPrice);
-      if (!isNaN(parsedMinPrice)) {
-        whereClause.price = {
-          gte: parsedMinPrice,
-        };
-      }
-    }
+    if (minPrice || maxPrice) {
+      const priceFilter: Prisma.FloatFilter = {};
 
-    // parse max price to float and apply filters to searched products
-    if (maxPrice) {
-      const parsedMaxPrice = parseFloat(maxPrice);
-      if (!isNaN(parsedMaxPrice)) {
-        whereClause.price = {
-          lte: parsedMaxPrice,
-        };
+      // parse min price to float and apply filters to searched products
+      if (minPrice) {
+        const parsedMinPrice = parseFloat(minPrice);
+        if (!isNaN(parsedMinPrice)) {
+          priceFilter.gte = parsedMinPrice;
+        }
       }
+
+      // parse max price to float and apply filters to searched products
+      if (maxPrice) {
+        const parsedMaxPrice = parseFloat(maxPrice);
+        if (!isNaN(parsedMaxPrice)) {
+          priceFilter.lte = parsedMaxPrice;
+        }
+      }
+
+      whereClause.price = priceFilter;
     }
 
     // search for products depending on whereClause variable
