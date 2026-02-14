@@ -89,3 +89,14 @@ export interface CategoriesData {
   id: number;
   categoryNameAr: string;
 }
+
+export interface User {
+  id?: number;
+  username?: string;
+}
+
+export interface Comment {
+  id: number;
+  comment: string;
+  user: User;
+}
