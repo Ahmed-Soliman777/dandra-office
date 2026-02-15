@@ -2,11 +2,11 @@
 import { DOMAIN } from "@/app/utils/constants"
 import { productDetails } from "@/app/utils/types"
 import axios from "axios"
-import { ArrowRight, Heart } from "lucide-react"
+import { ArrowLeft, Heart } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { CldImage } from 'next-cloudinary';
+import Image from "next/image"
 
 const ProductDetails = ({ id }: { id: string }) => {
     const [product, setProduct] = useState({} as productDetails)
@@ -15,6 +15,8 @@ const ProductDetails = ({ id }: { id: string }) => {
             try {
                 const product = await axios.get(`${DOMAIN}/api/products/${id}`)
                 setProduct(product.data)
+                console.log(product.data);
+                
             } catch (error) {
                 toast.error("حدث خطأ، حاول مجدداً")
                 console.error(error)
@@ -24,20 +26,20 @@ const ProductDetails = ({ id }: { id: string }) => {
     }, [id])
     return (
         <>
-            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8">
-                <Link className="hover:text-primary" href="/">Home</Link>
-                <span className="material-symbols-outlined text-xs"><ArrowRight /></span>
+            <nav dir="rtl" className="flex items-center gap-2 text-sm text-slate-500 mb-8">
+                <Link className="hover:text-primary" href="/">الرئيسية</Link>
+                <span className="material-symbols-outlined text-xs"><ArrowLeft /></span>
                 {product?.category?.categoryNameEn ? (
                     <Link
                         className="hover:text-primary"
-                        href={`/categories/${product.category.id}`}
+                        href={`/categories/${product?.category?.id}`}
                     >
-                        {product.category.categoryNameAr}
+                        {product?.category?.categoryNameAr}
                     </Link>
                 ) : (
                     <span className="animate-pulse bg-slate-200 h-4 w-20 rounded"></span>
                 )}
-                <span className="material-symbols-outlined text-xs"><ArrowRight /></span>
+                <span className="material-symbols-outlined text-xs"><ArrowLeft /></span>
                 <span className="text-slate-900 dark:text-slate-200 font-medium">{product?.productNameAr}</span>
             </nav>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -45,28 +47,24 @@ const ProductDetails = ({ id }: { id: string }) => {
                 <div className="lg:col-span-7 space-y-4">
                     <div className="aspect-4/5 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800 group shadow-sm">
                         <div className="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
-                        // data-alt={product.productNameEn || product.productNameAr}
-                        // style={{ backgroundImage: `url(${product.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"});` }}
                         >
-                            <CldImage
+                            <Image
                                 width={1000}
                                 height={200}
-                                alt={product?.productNameAr}
-                                src={product?.images[0]}
+                                alt={product?.productNameAr || ""}
+                                src={product?.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
                             />
                         </div>
                     </div>
                     <div className="grid grid-cols-4 gap-4">
-                        {product.images?.length > 0 && product.images?.map((image: string) => (
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 border-2 border-primary overflow-hidden" key={image}
-                            // data-alt="Close up texture of the leather"
-                            // style={{ backgroundImage: `url(${image})` }}
+                        {product?.images?.length > 0 && product?.images?.map((image: string, index: number) => (
+                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 border-2 border-primary overflow-hidden" key={image || index}
                             >
-                                <CldImage
+                                <Image
                                     width={200}
                                     height={200}
-                                    alt={product?.productNameAr}
-                                    src={image}
+                                    alt={product?.productNameAr || ""}
+                                    src={image || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
                                 />
                             </div>
                         ))}
@@ -75,22 +73,10 @@ const ProductDetails = ({ id }: { id: string }) => {
                 {/* <!-- Right Side: Product Details --> */}
                 <div className="lg:col-span-5 flex flex-col">
                     <div className="mb-6" dir="rtl">
-                        {/* <div className="flex items-center gap-2 mb-2">
-                        <span
-                            className="px-2 py-1 bg-accent-bronze/10 text-accent-bronze text-[10px] font-bold uppercase tracking-wider rounded">Limited
-                            Edition</span>
-                        <span className="flex items-center gap-1 text-accent-bronze">
-                            <span className="material-symbols-outlined text-sm fill-accent-bronze">verified</span>
-                            <span className="text-xs font-bold">Certified Artisan</span>
-                        </span>
-                    </div> */}
-                        {/* <h2 className="text-4xl font-800 text-slate-900 dark leading-tight mb-1">Premium Handcrafted
-                        Leather Bag</h2> */}
                         <h2 className="text-2xl font-semibold mb-6">{product?.productNameAr || product?.productNameEn}</h2>
                         <div className="flex items-baseline gap-4 mb-8">
                             {/*todo create discount */}
                             <span className="text-3xl font-800 text-primary">{product?.price} جنيه</span>
-                            {/* <span className="text-lg text-slate-400 line-through">$310.00</span> */}
                         </div>
                         <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed">
                             <p>{product?.descriptionAr || product?.descriptionEn}</p>

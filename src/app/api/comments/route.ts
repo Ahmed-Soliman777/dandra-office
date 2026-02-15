@@ -8,10 +8,10 @@ import { NextRequest, NextResponse } from "next/server";
  * @route ~/api/comments
  * @method POST
  * @description add new comment
- * @access private only logged in users
+ * @access private only logged in user
  */
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const userPayload = verifyToken(request);
     if (userPayload === null) {
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
  * @access public
  */
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     const comments = await prisma.comment.findMany({
       include: {

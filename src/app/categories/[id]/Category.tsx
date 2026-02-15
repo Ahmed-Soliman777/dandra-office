@@ -46,13 +46,15 @@ const Category = ({ id }: { id: string }) => {
                             >
                                 {/* Image Section */}
                                 <div className="relative aspect-square w-full overflow-hidden bg-gray-50 shrink-0">
-                                    <Image
-                                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                                        width={300}
-                                        height={300}
-                                        alt={product.productNameAr}
-                                        src={product.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
-                                    />
+                                    {(product.images) &&
+                                        <Image
+                                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                                            width={300}
+                                            height={300}
+                                            alt={product.productNameAr || "Category"}
+                                            src={product.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
+                                        />
+                                    }
                                     <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-green-600 text-white text-[8px] sm:text-[9px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full uppercase">
                                         جديد
                                     </div>

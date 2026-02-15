@@ -11,7 +11,7 @@ import { verifyToken } from "@/app/utils/verifyToken";
  * @access private only users can add their reviews
  */
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     // 1- get review data
     const body = (await request.json()) as AddReviewDTO;
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
  * @access public
  */
 
-export async function GET(requset: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     const reviews = await prisma.review.findMany({
       select: {
