@@ -8,19 +8,28 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Heart, Star } from 'lucide-react'
 import Loading from '@/app/loading'
+import { useSearchParams } from 'next/navigation'
 
 const SearchResult = ({ product }: { product: string }) => {
 
     const [products, setProducts] = useState<product[]>([])
     const [loading, setLoading] = useState<boolean>(false)
 
+    const params = useSearchParams()
+
+    const minPrice = params.get('minPrice')
+    const maxPrice = params.get('maxPrice')
+
+    // console.log({ product, minPrice, maxPrice });
+
+
     useEffect(() => {
         async function getSearchResult(product: string) {
             try {
                 setLoading(true)
-                const { data } = await axios.get(`${DOMAIN}/api/products/search?product=${product}`)
+                const { data } = await axios.get(`${DOMAIN}/api/products/search?product=${product}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
                 setProducts(data);
-                // console.log(data);
+                console.log(data);
                 setLoading(false)
             } catch (error) {
                 setLoading(false)
@@ -29,7 +38,7 @@ const SearchResult = ({ product }: { product: string }) => {
             }
         }
         getSearchResult(product)
-    }, [product])
+    }, [product, minPrice, maxPrice])
 
 
     if (loading) {
@@ -94,7 +103,7 @@ const SearchResult = ({ product }: { product: string }) => {
                         </Link>
                     </div>
                 );
-            })):
+            })) :
                 <div className="text center">
                     لا يوجد نتائج
                 </div>
