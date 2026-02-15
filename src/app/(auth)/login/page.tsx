@@ -9,7 +9,7 @@ import { cookies } from 'next/headers';
 export default async function page() {
     const copyRightYear = new Date().getFullYear();
     const t = await getTranslations("LoginPage");
-    const token = await (await cookies()).get("token")?.value
+    const token = (await cookies()).get("token")?.value
     if (token) {
         redirect("/")
     }
