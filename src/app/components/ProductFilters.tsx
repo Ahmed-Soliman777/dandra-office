@@ -4,14 +4,24 @@ import { useEffect, useState } from "react"
 import { DOMAIN } from "../utils/constants"
 import { usePathname } from "next/navigation"
 import { CategoriesData } from "../utils/types"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks"
+import { setMinPrice, setMaxPrice } from "@/lib/features/filterSlice"
+import { useRouter, useSearchParams } from "next/navigation"
 
 const ProductFilters = () => {
 
     const MIN_LIMIT = 0;
     const MAX_LIMIT = 2000;
 
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(2000);
+    const router = useRouter()
+    const searchParams = useSearchParams()
+
+    const product = searchParams.get("product")
+
+    const dispatch = useAppDispatch()
+    const { minPrice, maxPrice } = useAppSelector(
+        (state) => state.filter
+    )
 
     const getPercent = (value: number) => ((value - MIN_LIMIT) / (MAX_LIMIT - MIN_LIMIT)) * 100;
 
@@ -34,7 +44,7 @@ const ProductFilters = () => {
 
     return (
         <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-8 sticky top-25 self-start">
-            
+
             {/* <!-- Categories --> */}
             {pathName.startsWith("/categories") === false && <div className="flex flex-col gap-2">
                 <label
@@ -103,7 +113,7 @@ const ProductFilters = () => {
                             value={minPrice}
                             onChange={(e) => {
                                 const value = Math.min(Number(e.target.value), maxPrice - 100);
-                                setMinPrice(value);
+                                dispatch(setMinPrice(value));
                             }}
                             className="absolute w-full h-1.5 bg-transparent appearance-none pointer-events-none z-20 touch-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-600 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
                         />
@@ -114,14 +124,21 @@ const ProductFilters = () => {
                             value={maxPrice}
                             onChange={(e) => {
                                 const value = Math.max(Number(e.target.value), minPrice + 100);
-                                setMaxPrice(value);
+                                dispatch(setMaxPrice(value));
                             }}
                             className="absolute w-full h-1.5 bg-transparent appearance-none pointer-events-none z-20 touch-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-600 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
                         />
                     </div>
                     {/* Apply Button */}
                     <button
-                        onClick={() => console.log('Filtering for:', { minPrice, maxPrice })}
+                        onClick={() => {
+                            const params = new URLSearchParams()
+                            if (product) params.set("product", product)
+                            params.set("minPrice", String(minPrice))
+                            params.set("maxPrice", String(maxPrice))
+                            router.push(`/shop/search?${params.toString()}`)
+                        }
+                        }
                         className="w-full py-3 bg-gray-900 dark:bg-green-600 text-white font-bold text-sm rounded-xl hover:bg-green-700 dark:hover:bg-green-500 transition-all shadow-md active:scale-95"
                     >
                         تطبيق الفلتر
