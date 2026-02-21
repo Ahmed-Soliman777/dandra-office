@@ -6,7 +6,7 @@ import { DOMAIN } from '../utils/constants'
 import Loading from '../loading'
 import { Heart, Star } from 'lucide-react'
 import Link from 'next/link'
-import { product, review } from '../utils/types'
+import { Favorite, product, review } from '../utils/types'
 import { CldImage } from 'next-cloudinary'
 import { usePathname } from 'next/navigation'
 
@@ -16,6 +16,8 @@ const ProductCard = () => {
 
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([])
+    const [favorites, setFavorites] = useState<Favorite[]>([])
+    const [productId, setProductId] = useState<number | undefined>(undefined)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +36,29 @@ const ProductCard = () => {
         fetchData()
     }, [])
 
+    useEffect(() => {
+        async function getUserFavorites() {
+            const { data } = await axios.get(`${DOMAIN}/api/favorites`)
+            setFavorites(data)
+        }
+        getUserFavorites()
+    }, [])
+
+    async function addToFavorite() {
+        if (productId) {
+            try {
+                setLoading(true)
+                const { data } = await axios.post(`${DOMAIN}/api/favorites`, { productId })
+                toast.success(data.message)
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                console.error(error);
+                toast.error("حدث خطأ، حاول مجدداً")
+            }
+        }
+    }
+
     if (loading) {
         return <Loading />
     }
@@ -44,8 +69,8 @@ const ProductCard = () => {
                 <Link
                     href={`/shop/${product.id}`}
                     key={product.id}
-                    className="group bg-white dark:bg-background-dark rounded-xl border border-[#e6f4f4] dark:border-[#1a3a3a] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="relative aspect-square overflow-hidden bg-[#f0f5f5]">
+                    className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-all duration-200 hover:scale-[1.01] flex flex-col">
+                    <div className="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-700">
                         {
                             product.images &&
                             <CldImage className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -55,21 +80,35 @@ const ProductCard = () => {
                                 src={product.images[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"} />
                         }
                         <button
-                            className="absolute top-3 right-3 size-10 rounded-full bg-white/90 dark:bg-background-dark/90 flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform">
-                            <span className="material-symbols-outlined filled-heart"><Heart /></span>
+                            onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                setProductId(product.id)
+                                const isAlreadyFavorite = favorites.some((fav: Favorite) => fav.productId === product.id)
+                                if (!isAlreadyFavorite) {
+                                    setProductId(product.id);
+                                    addToFavorite();
+                                }
+                            }}
+                            className="absolute top-4 right-4 size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm">
+                            <span>
+                                {
+                                    favorites.some((fav: Favorite) => fav.productId === product.id) ? 
+                                    <Heart stroke={'#ef4444'} fill='#ef4444' /> :
+                                    <Heart className="text-slate-400" /> 
+                                }
+                                </span>
                         </button>
-                        <div
-                            className="absolute top-3 left-3 bg-primary text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">New</div>
                     </div>
-                    <div className="p-4 flex flex-col flex-1">
-                        <div className="flex justify-between items-<Star />t mb-1">
-                            <div className="flex flex-col">
-                                <h3 className="text-sm font-bold">{product.productNameAr}</h3>
+                    <div className="p-6 flex flex-col flex-1">
+                        <div className="flex justify-between items-start mb-3 gap-2">
+                            <div className="flex flex-col flex-1">
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">{product.productNameAr}</h3>
                             </div>
-                            <p className="text-lg font-bold text-primary">{product.price} جنيه</p>
+                            <p className="text-lg font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">{product.price} جنيه</p>
                         </div>
-                        <div className="flex items-center gap-2 mb-4">
-                            <div className="flex text-yellow-400">
+                        <div className="flex items-center gap-3">
+                            <div className="flex text-amber-400">
                                 {(() => {
                                     const productReviews = product.reviews || [];
                                     if (productReviews.length === 0) return 0;
@@ -94,11 +133,11 @@ const ProductCard = () => {
                 </Link>
             )) :
                 products?.slice(0, 10).map((product: product) => (
-                    <div dir='rtl' key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div dir='rtl' key={product.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                         <Link
                             href={`/shop/${product.id}`}
-                            className="group bg-white dark:bg-background-dark rounded-xl border border-[#e6f4f4] dark:border-[#1a3a3a] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                            <div className="relative aspect-square overflow-hidden bg-[#f0f5f5]">
+                            className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-all duration-200 hover:scale-[1.01] flex flex-col">
+                            <div className="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-700">
                                 {
                                     product.images &&
                                     <CldImage className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -108,21 +147,19 @@ const ProductCard = () => {
                                         src={product.images[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"} />
                                 }
                                 <button
-                                    className="absolute top-3 right-3 size-10 rounded-full bg-white/90 dark:bg-background-dark/90 flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform">
-                                    <span className="material-symbols-outlined filled-heart"><Heart /></span>
+                                    className="absolute top-4 right-4 size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm">
+                                    <span className="material-symbols-outlined filled-heart"><Heart className="text-slate-400" /></span>
                                 </button>
-                                <div
-                                    className="absolute top-3 left-3 bg-primary text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">New</div>
                             </div>
-                            <div className="p-4 flex flex-col flex-1">
-                                <div className="flex justify-between items-<Star />t mb-1">
-                                    <div className="flex flex-col">
-                                        <h3 className="text-sm font-bold">{product.productNameAr}</h3>
+                            <div className="p-6 flex flex-col flex-1">
+                                <div className="flex justify-between items-start mb-3 gap-2">
+                                    <div className="flex flex-col flex-1">
+                                        <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">{product.productNameAr}</h3>
                                     </div>
-                                    <p className="text-lg font-bold text-primary">{product.price} جنيه</p>
+                                    <p className="text-lg font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">{product.price} جنيه</p>
                                 </div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <div className="flex text-yellow-400">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex text-amber-400">
                                         {(() => {
                                             const productReviews = product.reviews || [];
                                             if (productReviews.length === 0) return 0;
@@ -140,7 +177,7 @@ const ProductCard = () => {
                                             );
                                         })()}
                                     </div>
-                                    <span className="text-xs text-gray-400">({(product.reviews || []).length})</span>
+                                    <span className="text-xs text-slate-500 dark:text-slate-400">({(product.reviews || []).length})</span>
                                 </div>
                             </div>
                         </Link>
