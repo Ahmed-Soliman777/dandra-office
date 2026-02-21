@@ -56,13 +56,13 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
         <form className="space-y-6" onSubmit={formSubmitHandler}>
             <div className="grid grid-cols-1 gap-6">
                 <div className="space-y-1">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
+                    <label className="text-sm font-bold text-slate-900 dark:text-white"
                         htmlFor="username">{usernameLabel}</label>
                     <div className="relative group">
                         <span
-                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><User2Icon /></span>
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"><User2Icon size={18} /></span>
                         <input
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
+                            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm placeholder-slate-400"
                             id="username"
                             name="username"
                             placeholder="Craftsman_99"
@@ -73,12 +73,12 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                     </div>
                 </div>
                 <div className="space-y-1">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300" htmlFor="email">{emailLabel}</label>
+                    <label className="text-sm font-bold text-slate-900 dark:text-white" htmlFor="email">{emailLabel}</label>
                     <div className="relative group">
                         <span
-                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Mail /></span>
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"><Mail size={18} /></span>
                         <input
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
+                            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm placeholder-slate-400"
                             id="email"
                             name="email"
                             placeholder="artisan@gallery.com"
@@ -88,13 +88,13 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                     </div>
                 </div>
                 <div className="space-y-1">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
+                    <label className="text-sm font-bold text-slate-900 dark:text-white"
                         htmlFor="password">{passwordLabel}</label>
                     <div className="relative group">
                         <span
-                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Lock /></span>
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"><Lock size={18} /></span>
                         <input
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
+                            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm placeholder-slate-400"
                             id="password"
                             name="password"
                             placeholder="••••••••"
@@ -104,13 +104,13 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                     </div>
                 </div>
                 <div className="space-y-1">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300"
+                    <label className="text-sm font-bold text-slate-900 dark:text-white"
                         htmlFor="confirm-password">{confirmPasswordLabel}</label>
                     <div className="relative group">
                         <span
-                            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"><Verified /></span>
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"><Verified size={18} /></span>
                         <input
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border-2 border-transparent rounded-xl focus:border-primary/20 focus:ring-0 transition-all text-sm"
+                            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm placeholder-slate-400"
                             id="confirm-password"
                             name="confirm-password"
                             placeholder="••••••••"
@@ -121,7 +121,7 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                 </div>
             </div>
             <button
-                className="w-full py-4 bg-primary border border-[#2323233d] font-black rounded-xl hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all"
+                className="w-full py-3 bg-blue-600 text-white border border-slate-200 dark:border-slate-700 font-bold rounded-xl hover:bg-blue-700 dark:hover:bg-blue-500 active:scale-[0.98] transition-all"
                 type="submit">
                 {loading ? <ButtonSpinner /> : <>{createAccountBtn}</>}
             </button>

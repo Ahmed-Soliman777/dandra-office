@@ -41,15 +41,15 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
         <form className="space-y-6" onSubmit={formSubmitHandler}>
 
             <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="email">
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2" htmlFor="email">
                     {emailLabel}
                 </label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
                         <Mail size={18} />
                     </span>
                     <input
-                        className="block w-full pl-10 pr-4 py-3 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:border-primary focus:ring-primary transition-all"
+                        className="block w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         name='email'
                         id="email"
                         placeholder="name@example.com"
@@ -61,15 +61,15 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
             </div>
 
             <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2" htmlFor="password">
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2" htmlFor="password">
                     {passwordLabel}
                 </label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
                         <Lock size={18} />
                     </span>
                     <input
-                        className="block w-full pl-10 pr-4 py-3 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:border-primary focus:ring-primary transition-all"
+                        className="block w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         name='password'
                         id="password"
                         placeholder="••••••••"
@@ -82,13 +82,13 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
 
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                    <input className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" id="remember-me" name="remember-me" type="checkbox" />
-                    <label className="mx-2 block text-sm text-gray-700 dark:text-gray-400" htmlFor="remember-me">
+                    <input className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded" id="remember-me" name="remember-me" type="checkbox" />
+                    <label className="mx-2 block text-sm text-slate-600 dark:text-slate-400" htmlFor="remember-me">
                         {rememberLabel}
                     </label>
                 </div>
                 <div className="text-sm">
-                    <Link className="font-bold text-primary hover:text-primary/80 transition-colors" href={'/forget-password'}>
+                    <Link className="font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" href={'/forget-password'}>
                         {forgetPassword}
                     </Link>
                 </div>
@@ -96,7 +96,7 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
 
             <button
                 disabled={loading}
-                className="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-sm font-extrabold bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all active:scale-[0.98] disabled:opacity-70"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all active:scale-[0.98] disabled:opacity-70"
                 type="submit">
                 {loading ? <ButtonSpinner /> : `${submitButton}`}
             </button>

@@ -6,7 +6,7 @@ import { DOMAIN } from '../utils/constants'
 async function CountProducts() {
   const res = await fetch(`${DOMAIN}/api/products`)
   if (!res.ok) {
-    toast.error("حدث خطأ")
+    toast.error("حدث خطأ، حاول مرة أخرى")
   }
   return res.json()
 }
@@ -16,7 +16,7 @@ const Page = async () => {
   const { products } = await CountProducts()
 
   return (
-    <main className="flex-1 max-w-7xl mx-auto w-full px-6 lg:px-10 py-8">
+    <main className="flex-1 max-w-7xl mx-auto w-full px-6 lg:px-10 py-8" dir="rtl">
       <div className="flex flex-col lg:flex-row gap-8 relative">
         {/* <!-- Sidebar Filters --> */}
         <ProductFilters />
@@ -24,19 +24,18 @@ const Page = async () => {
         <div className="flex-1 flex flex-col gap-6">
           {/* <!-- Top Toolbar --> */}
           <div
-            className="flex flex-col sm:flex-row justify-between items-<Star />t sm:items-center gap-4 bg-white dark:bg-background-dark p-4 rounded-xl border border-[#e6f4f4] dark:border-[#1a3a3a]">
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div>
-              <h1 className="text-xl font-bold">All Products</h1>
-              <p className="text-sm text-gray-500">Showing {products.length} results</p>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">جميع المنتجات</h1>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">عرض {products.length} من النتائج</p>
             </div>
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <span className="text-sm font-medium text-gray-500 shrink-0">Sort by:</span>
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400 shrink-0">طريقة الترتيب:</span>
               <select
-                className="w-full sm:w-48 bg-background-light dark:bg-primary/10 border-none rounded-lg text-sm font-medium focus:ring-primary">
-                <option>Newest Arrivals</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Customer Rating</option>
+                className="w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-slate-900 dark:text-white">
+                <option>السعر: من الأقل إلى الأعلى</option>
+                <option>السعر: من الأعلى إلى الأقل</option>
+                <option>تقييم العملاء</option>
               </select>
             </div>
           </div>

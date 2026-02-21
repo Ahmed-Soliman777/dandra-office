@@ -4,21 +4,24 @@ import ProductCard from "./components/ProductCard";
 
 export default function Home() {
   return (
-    <div className="bg-background-light dark:bg-background-dark font-display text-[#0c1d1d] dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-display text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <Hero />
-      <div className="mx-10 mb-10">
-        <div className="relative mb-10">
-          <h3 dir="rtl" className="text-2xl font-bold ">الفئات</h3>
-          <div className="absolute border-2 right-0 w-25"></div>
+      <div className="px-6 lg:px-10 py-16">
+        <div className="mb-12">
+          <div className="relative inline-block">
+            <h3 dir="rtl" className="text-3xl font-bold text-slate-900 dark:text-white mb-2">الفئات</h3>
+            <div className="h-1 w-16 bg-linear-to-r from-blue-600 to-blue-400 rounded-full"></div>
+          </div>
         </div>
         <CategoryCards />
       </div>
-      <div className="mx-10">
-        <div className="relative mb-10">
-          <h3 dir="rtl" className="text-2xl font-bold ">المنتجات</h3>
-          <div className="absolute border-2 right-0 w-25"></div>
+      <div className="px-6 lg:px-10 pb-16">
+        <div className="mb-12">
+          <div className="relative inline-block">
+            <h3 dir="rtl" className="text-3xl font-bold text-slate-900 dark:text-white mb-2">المنتجات</h3>
+            <div className="h-1 w-16 bg-linear-to-r from-blue-600 to-blue-400 rounded-full"></div>
+          </div>
         </div>
-        
         <ProductCard />
       </div>
     </div>
