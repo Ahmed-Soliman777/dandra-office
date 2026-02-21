@@ -37,7 +37,7 @@ const CategoryCards = () => {
         <>
             <div className="flex gap-6 items-end overflow-x-auto pb-2" dir="rtl">
                 {categories.map((category: category) => (
-                    <Link href={`/categories/${category.id}`} key={category.id} className="group flex-shrink-0">
+                    <Link href={`/categories/${category.id}`} key={category.id} className="group flex-0">
                         <div className="rounded-2xl w-24 h-24 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.05]">
                             {
                                 category.categoryThumbnail &&
