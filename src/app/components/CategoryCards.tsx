@@ -35,20 +35,21 @@ const CategoryCards = () => {
 
     return (
         <>
-            <div className="flex gap-2.5 items-end" dir="rtl">
+            <div className="flex gap-6 items-end overflow-x-auto pb-2" dir="rtl">
                 {categories.map((category: category) => (
-                    <Link href={`/categories/${category.id}`} key={category.id}>
-                        <div className="rounded-full w-20 h-20 border border-[#0003] overflow-hidden inset-1 shadow">
+                    <Link href={`/categories/${category.id}`} key={category.id} className="group flex-shrink-0">
+                        <div className="rounded-2xl w-24 h-24 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.05]">
                             {
                                 category.categoryThumbnail &&
                                 <Image src={category.categoryThumbnail}
                                     alt={category.categoryNameAr || "Category"}
                                     height={100}
                                     width={100}
+                                    className="w-full h-full object-cover"
                                 />
                             }
                         </div>
-                        <p className="text-center">{category.categoryNameAr}</p>
+                        <p className="text-center text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{category.categoryNameAr}</p>
                     </Link>
                 ))}
             </div>

@@ -7,11 +7,9 @@ const Footer = async () => {
     const t = await getTranslations('Footer')
 
     return (
-        <footer className="bg-white dark:bg-gray-900 dark:border-gray-800 pt-20 pb-10">
-            <div className="max-w-7xl mx-auto px-10">
-                <div
-                    className="border-t border-gray-100 dark:border-gray-800 pt-8 text-center text-sm text-gray-400 ">
-                    <p>© {`${CopyRightYear.getFullYear()}`} {t('footer-copy-right')}</p>
+        <footer className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-auto\">
+            <div className="max-w-7xl mx-auto px-6 lg:px-10">
+                <div className="text-center text-sm text-slate-600 dark:text-slate-400\"><p>© {`${CopyRightYear.getFullYear()}`} {t('footer-copy-right')}</p>
                 </div>
             </div>
         </footer>

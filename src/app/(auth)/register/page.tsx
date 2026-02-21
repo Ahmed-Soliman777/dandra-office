@@ -15,7 +15,7 @@ const page = async () => {
         redirect("/")
     }
     return (
-        <div className="bg-background-light dark:bg-background-dark font-display text-[#0c1d1d] dark:text-gray-100 transition-colors duration-300 min-h-screen flex items-center justify-center p-0">
+        <div className="bg-white dark:bg-slate-900 font-display text-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex items-center justify-center p-0">
 
             <div className="flex w-full h-screen" dir="rtl">
                 <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
@@ -38,10 +38,10 @@ const page = async () => {
                     </div>
                 </div>
                 <div
-                    className="w-full lg:w-1/2 bg-white dark:bg-gray-900 flex flex-col items-center justify-center p-8 sm:p-12 lg:p-24 relative">
+                    className="w-full lg:w-1/2 bg-white dark:bg-slate-900 flex flex-col items-center justify-center p-8 sm:p-12 lg:p-24 relative">
                     <div className="w-full max-w-md space-y-8">
                         <div className="text-center lg:text-left">
-                            <h2 className="text-3xl font-black text-[#0c1d1d] dark:text-white">{t("create-account")}</h2>
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">{t("create-account")}</h2>
                         </div>
 
                         <RegisterForm
@@ -54,22 +54,22 @@ const page = async () => {
 
                         <div className="relative py-4">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-100 dark:border-gray-800"></div>
+                                <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
                             </div>
                             <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-white dark:bg-gray-900 px-4 text-gray-400 font-bold tracking-widest">
+                                <span className="bg-white dark:bg-slate-900 px-4 text-slate-600 dark:text-slate-400 font-bold tracking-widest">
                                     {t("have-an-account")}
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div className="text-center mb-7">
-                        <Link className="inline-flex items-center gap-2 text-primary font-bold hover:underline" href="/login">
+                        <Link className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:underline" href="/login">
                             {t("login")} <span className="material-symbols-outlined text-sm"><ArrowLeft /></span>
                         </Link>
                     </div>
                     <div className="absolute bottom-8 text-center w-full left-0 px-8">
-                        <p className="text-[10px] text-gray-400 uppercase tracking-widest">© {copyright.getUTCFullYear()} {t('copy-right')}</p>
+                        <p className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-widest">© {copyright.getUTCFullYear()} {t('copy-right')}</p>
                     </div>
                 </div>
             </div>
