@@ -20,7 +20,7 @@ const page = async (props: { params: { id: string } }) => {
             <main className="max-w-7xl mx-auto px-6 py-8">
 
 
-                <ProductDetails id={id} />
+                <ProductDetails id={id} token={token && token || undefined} />
 
                 {/* <!-- Social Proof Section: Reviews & Comments --> */}
                 <section className="mt-24 border-t border-slate-200 dark:border-slate-800 pt-16" dir='rtl'>
