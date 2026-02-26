@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
  * @method GET
@@ -8,13 +8,19 @@ import { NextRequest, NextResponse } from "next/server";
  * @desc logout user
  */
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
+    if (!cookieStore.get("token")) {
+      return NextResponse.json(
+        { message: "انت غير مسجل الدخول" },
+        { status: 400 },
+      );
+    }
     cookieStore.delete("token");
     return NextResponse.json(
       { message: "تم تسجبل الخروج بنجاح" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     // return error message

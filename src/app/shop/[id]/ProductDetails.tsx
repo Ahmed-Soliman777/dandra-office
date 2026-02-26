@@ -7,16 +7,24 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { useFavorites } from "@/app/hooks/useFavorites"
 
-const ProductDetails = ({ id }: { id: string }) => {
+const ProductDetails = ({ id, token }: { id: string, token: string | undefined }) => {
     const [product, setProduct] = useState({} as productDetails)
+    const [loading, setLoading] = useState<boolean>(false)
+
+    const pathname = usePathname();
+
+    const { favorites, getFavorites } = useFavorites(token);
+
+    const isFavorite = favorites.some(fav => fav.productId === Number(id));
+
     useEffect(() => {
         async function getProduct() {
             try {
                 const product = await axios.get(`${DOMAIN}/api/products/${id}`)
                 setProduct(product.data)
-                console.log(product.data);
-                
             } catch (error) {
                 toast.error("حدث خطأ، حاول مجدداً")
                 console.error(error)
@@ -24,6 +32,28 @@ const ProductDetails = ({ id }: { id: string }) => {
         }
         getProduct()
     }, [id])
+
+    useEffect(() => {
+        if (token && pathname === `/shop/${id}`) {
+            getFavorites();
+        }
+    }, [token, pathname, id, getFavorites]);
+
+    async function toggleFavorite() {
+        if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
+
+        try {
+            setLoading(true)
+            const res = await axios.post(`${DOMAIN}/api/favorites`, { productId: id })
+            toast.success(res.data.message)
+        } catch (error) {
+            console.error(error)
+            toast.error("حدث خطأ، حاول مجدداً")
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <>
             <nav dir="rtl" className="flex items-center gap-2 text-sm text-slate-500 mb-8">
@@ -81,47 +111,27 @@ const ProductDetails = ({ id }: { id: string }) => {
                         <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed">
                             <p>{product?.descriptionAr || product?.descriptionEn}</p>
                             <button
-                                className="px-2 py-5 h-full border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-accent-bronze hover:text-accent-bronze transition-colors">
-                                <div className="material-symbols-outlined flex items-center gap-3" ><Heart size={25} /> إضافة الى المفضلة </div>
-                            </button>
-                            {/* <div
-                            className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <span className="material-symbols-outlined text-green-500">inventory_2</span>
-                                <div>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-slate-100">In Stock</p>
-                                    <p className="text-xs">Only 4 items remaining</p>
+                                onClick={toggleFavorite}
+                                disabled={loading}
+                                className="w-full px-2 py-5 border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-primary transition-colors cursor-pointer disabled:opacity-50"
+                            >
+                                <div className="flex items-center gap-3">
+                                    {loading ? (
+                                        <span className="animate-pulse bg-slate-200 h-4 w-20 rounded"></span>
+                                    ) : (
+                                        <>
+                                            <Heart
+                                                size={25}
+                                                fill={isFavorite ? "red" : "none"}
+                                                stroke={isFavorite ? "red" : "currentColor"}
+                                            />
+                                            {isFavorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+                                        </>
+                                    )}
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1">
-                                <button className="text-lg font-bold hover:text-primary">-</button>
-                                <span className="text-sm font-bold w-4 text-center">1</span>
-                                <button className="text-lg font-bold hover:text-primary">+</button>
-                            </div>
-                        </div> */}
+                            </button>
                         </div>
                     </div>
-                    <div className="mt-auto pt-8 flex gap-4" dir="rtl">
-                        {/* <button
-                        className="flex-1 bg-primary font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all flex items-center justify-center gap-2">
-                        <span className="material-symbols-outlined">shopping_bag</span>
-                        Add to Cart
-                    </button> */}
-                        {/* <button
-                        className="px-2 py-5 h-full border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-accent-bronze hover:text-accent-bronze transition-colors">
-                        <div className="material-symbols-outlined flex items-center gap-3" ><Heart size={25}/> إضافة الى المفضلة </div>
-                    </button> */}
-                    </div>
-                    {/* <div className="mt-8 grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
-                        <span className="material-symbols-outlined text-primary mb-2">public</span>
-                        <p className="text-xs font-bold uppercase tracking-wide">Global Shipping</p>
-                    </div>
-                    <div className="p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
-                        <span className="material-symbols-outlined text-primary mb-2">lock</span>
-                        <p className="text-xs font-bold uppercase tracking-wide">Secure Payments</p>
-                    </div>
-                </div> */}
                 </div>
             </div>
         </>
