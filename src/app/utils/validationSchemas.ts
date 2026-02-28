@@ -161,8 +161,8 @@ export const updateComment = z.object({
   comment: z.string({ error: "يجب إضافة تعليق" }).min(2),
 });
 
-//validation schema for adding new favorite
-export const addFavorite = z.object({
+//validation schema for user favorites
+export const userFavorite = z.object({
   productId: z
     .number({ error: "يجب إضافة منتج" })
     .int({ error: "منتج غير متاح" })
