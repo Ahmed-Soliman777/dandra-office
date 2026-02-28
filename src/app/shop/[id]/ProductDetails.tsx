@@ -1,22 +1,19 @@
 "use client"
 import { DOMAIN } from "@/app/utils/constants"
-import { productDetails } from "@/app/utils/types"
+import { Favorite, productDetails } from "@/app/utils/types"
 import axios from "axios"
 import { ArrowLeft, Heart } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 import { useFavorites } from "@/app/hooks/useFavorites"
 
 const ProductDetails = ({ id, token }: { id: string, token: string | undefined }) => {
     const [product, setProduct] = useState({} as productDetails)
     const [loading, setLoading] = useState<boolean>(false)
 
-    const pathname = usePathname();
-
-    const { favorites, getFavorites } = useFavorites(token);
+    const { favorites, setFavorites, getFavorites } = useFavorites(token);
 
     const isFavorite = favorites.some(fav => fav.productId === Number(id));
 
@@ -34,18 +31,28 @@ const ProductDetails = ({ id, token }: { id: string, token: string | undefined }
     }, [id])
 
     useEffect(() => {
-        if (token && pathname === `/shop/${id}`) {
+        if (token) {
             getFavorites();
         }
-    }, [token, pathname, id, getFavorites]);
+    }, [token, getFavorites]);
 
     async function toggleFavorite() {
         if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
 
         try {
             setLoading(true)
-            const res = await axios.post(`${DOMAIN}/api/favorites`, { productId: id })
-            toast.success(res.data.message)
+            if (!isFavorite) {
+                const res = await axios.post(`${DOMAIN}/api/favorites`, { productId: parseInt(id) })
+                setFavorites(prev => [...prev, { productId: parseInt(id) } as Favorite])
+                toast.success(res.data.message)
+                setLoading(false)
+            }
+            else {
+                const res = await axios.delete(`${DOMAIN}/api/favorites`, { data: { productId: parseInt(id) } })
+                setFavorites(prev => prev.filter(fav => fav.productId !== parseInt(id)))
+                toast.success(res.data.message)
+                setLoading(false)
+            }
         } catch (error) {
             console.error(error)
             toast.error("حدث خطأ، حاول مجدداً")
