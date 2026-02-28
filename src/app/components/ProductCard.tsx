@@ -9,14 +9,16 @@ import Link from 'next/link'
 import { Favorite, product, review } from '../utils/types'
 import { CldImage } from 'next-cloudinary'
 import { usePathname } from 'next/navigation'
+import { useFavorites } from '../hooks/useFavorites'
 
-const ProductCard = () => {
+const ProductCard = ({ token }: { token: string }) => {
 
     const pathName = usePathname()
 
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([])
-    const [favorites, setFavorites] = useState<Favorite[]>([])
+    // const [favorites, setFavorites] = useState<Favorite[]>([])
+    const { favorites, getFavorites } = useFavorites(token)
     const [productId, setProductId] = useState<number | undefined>(undefined)
 
     useEffect(() => {
@@ -37,12 +39,10 @@ const ProductCard = () => {
     }, [])
 
     useEffect(() => {
-        async function getUserFavorites() {
-            const { data } = await axios.get(`${DOMAIN}/api/favorites`)
-            setFavorites(data)
+        if (token) {
+            getFavorites()
         }
-        getUserFavorites()
-    }, [])
+    }, [token, getFavorites])
 
     async function addToFavorite() {
         if (productId) {
@@ -93,11 +93,11 @@ const ProductCard = () => {
                             className="absolute top-4 right-4 size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm">
                             <span>
                                 {
-                                    favorites.some((fav: Favorite) => fav.productId === product.id) ? 
-                                    <Heart stroke={'#ef4444'} fill='#ef4444' /> :
-                                    <Heart className="text-slate-400" /> 
+                                    favorites.some((fav: Favorite) => fav.productId === product.id) ?
+                                        <Heart stroke={'#ef4444'} fill='#ef4444' /> :
+                                        <Heart className="text-slate-400" />
                                 }
-                                </span>
+                            </span>
                         </button>
                     </div>
                     <div className="p-6 flex flex-col flex-1">
@@ -147,8 +147,24 @@ const ProductCard = () => {
                                         src={product.images[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"} />
                                 }
                                 <button
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        setProductId(product.id)
+                                        const isAlreadyFavorite = favorites.some((fav: Favorite) => fav.productId === product.id)
+                                        if (!isAlreadyFavorite) {
+                                            setProductId(product.id);
+                                            addToFavorite();
+                                        }
+                                    }}
                                     className="absolute top-4 right-4 size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm">
-                                    <span className="material-symbols-outlined filled-heart"><Heart className="text-slate-400" /></span>
+                                    <span>
+                                        {
+                                            favorites.some((fav: Favorite) => fav.productId === product.id) ?
+                                                <Heart stroke={'#ef4444'} fill='#ef4444' /> :
+                                                <Heart className="text-slate-400" />
+                                        }
+                                    </span>
                                 </button>
                             </div>
                             <div className="p-6 flex flex-col flex-1">

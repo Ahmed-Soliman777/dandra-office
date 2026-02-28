@@ -2,6 +2,7 @@ import { toast } from 'react-toastify'
 import ProductCard from '../components/ProductCard'
 import ProductFilters from '../components/ProductFilters'
 import { DOMAIN } from '../utils/constants'
+import { cookies } from 'next/headers'
 
 async function CountProducts() {
   const res = await fetch(`${DOMAIN}/api/products`)
@@ -12,6 +13,8 @@ async function CountProducts() {
 }
 
 const Page = async () => {
+
+  const token = (await cookies()).get("token")?.value
 
   const { products } = await CountProducts()
 
@@ -41,28 +44,8 @@ const Page = async () => {
           </div>
           {/* <!-- Product Grid --> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            <ProductCard />
+            <ProductCard token={token ? token : ""} />
           </div>
-          {/* <!-- Pagination --> */}
-          {/* <div className="flex items-center justify-center gap-2 mt-8 py-4">
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-white dark:bg-background-dark border border-[#e6f4f4] dark:border-[#1a3a3a] text-gray-400 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-primar font-bold">1</button>
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-white dark:bg-background-dark border border-[#e6f4f4] dark:border-[#1a3a3a] font-medium hover:border-primary transition-colors">2</button>
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-white dark:bg-background-dark border border-[#e6f4f4] dark:border-[#1a3a3a] font-medium hover:border-primary transition-colors">3</button>
-            <div className="px-2 text-gray-400">...</div>
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-white dark:bg-background-dark border border-[#e6f4f4] dark:border-[#1a3a3a] font-medium hover:border-primary transition-colors">8</button>
-            <button
-              className="size-10 rounded-lg flex items-center justify-center bg-white dark:bg-background-dark border border-[#e6f4f4] dark:border-[#1a3a3a] text-gray-400 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined">chevron_right</span>
-            </button>
-          </div> */}
         </div>
       </div>
     </main>

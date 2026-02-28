@@ -1,6 +1,6 @@
 import prisma from "@/app/utils/db";
-import { AddFavoriteDTO } from "@/app/utils/dtos";
-import { addFavorite } from "@/app/utils/validationSchemas";
+import { FavoriteDTO } from "@/app/utils/dtos";
+import { userFavorite } from "@/app/utils/validationSchemas";
 import { verifyToken } from "@/app/utils/verifyToken";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 2- validate favorites
-    const body = (await request.json()) as AddFavoriteDTO;
-    const validation = addFavorite.safeParse(body);
+    const body = (await request.json()) as FavoriteDTO;
+    const validation = userFavorite.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(
@@ -53,6 +53,63 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { message: "تم اضافة المنتج الى المفضلة" },
       { status: 201 },
+    );
+  } catch (error) {
+    return NextResponse.json({ message: error }, { status: 500 });
+  }
+}
+
+/**
+ * @route ~/api/favorites
+ * @method DELETE
+ * @description add user favorites
+ * @access private
+ */
+
+export async function DELETE(request: NextRequest) {
+  try {
+    // 1- validate token
+    const userPayload = verifyToken(request);
+    if (userPayload === null) {
+      return NextResponse.json(
+        { message: "سجل دخولك لحذف المنتج من المفضلة" },
+        { status: 403 },
+      );
+    }
+
+    // 2- validate favorites
+    const body = (await request.json()) as FavoriteDTO;
+    const validation = userFavorite.safeParse(body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { message: validation.error.issues[0].message },
+        { status: 400 },
+      );
+    }
+
+    // validate product
+    const product = await prisma.product.findUnique({
+      where: { id: Number(body.productId) },
+    });
+
+    if (!product) {
+      return NextResponse.json({ message: "منتج غير متوفر" }, { status: 400 });
+    }
+
+    // 3- delete favorites from db
+    await prisma.favorite.delete({
+      where: {
+        userId_productId: {
+          userId: userPayload.id,
+          productId: body.productId,
+        },
+      },
+    });
+
+    return NextResponse.json(
+      { message: "تم حذف المنتج من المفضلة" },
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });

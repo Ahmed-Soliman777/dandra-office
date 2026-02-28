@@ -69,6 +69,6 @@ export interface UpdateCommentDTO {
   comment?: string;
 }
 
-export interface AddFavoriteDTO {
+export interface FavoriteDTO {
   productId: number;
 }
