@@ -1,7 +1,6 @@
 "use client"
 import { DOMAIN } from '@/app/utils/constants'
 import axios from 'axios'
-// import { Star } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -9,7 +8,6 @@ const AddReview = ({ productId }: { productId: string }) => {
 
     const [loading, setLoading] = useState<boolean>(false)
 
-    // const [review, setReview] = useState<number | null>(null)
     const [comment, setComment] = useState<string>("")
 
     async function addComment() {
@@ -19,6 +17,9 @@ const AddReview = ({ productId }: { productId: string }) => {
                 const { data } = await axios.post(`${DOMAIN}/api/comments`, { productId: Number(productId), comment })
                 setLoading(false)
                 toast.success(`${data.message}`)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
             } catch (error) {
                 setLoading(false)
                 console.error(error);
@@ -27,38 +28,11 @@ const AddReview = ({ productId }: { productId: string }) => {
         }
     }
 
-    // async function addReview() {
-    //     if (review) {
-    //         try {
-    //             setLoading(true)
-    //             const { data } = await axios.post(`${DOMAIN}/api/reviews`, { review })
-    //             setLoading(false)
-    //             toast.info(`${data.message}`)
-    //         } catch (error) {
-    //             setLoading(false)
-    //             console.error(error);
-    //             toast.error("حدث خطأ، حاول مجدداً")
-    //         }
-    //     }
-    // }
-
     return (
         <div className="pt-8">
             <h4 className="font-bold text-lg mb-4">ضيف تجربتك</h4>
             <div
                 className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-                {/* <div className="flex gap-1 mb-4 text-slate-300">
-                    <span
-                        className="material-symbols-outlined cursor-pointer hover:text-accent-bronze transition-colors"><Star /></span>
-                    <span
-                        className="material-symbols-outlined cursor-pointer hover:text-accent-bronze transition-colors"><Star /></span>
-                    <span
-                        className="material-symbols-outlined cursor-pointer hover:text-accent-bronze transition-colors"><Star /></span>
-                    <span
-                        className="material-symbols-outlined cursor-pointer hover:text-accent-bronze transition-colors"><Star /></span>
-                    <span
-                        className="material-symbols-outlined cursor-pointer hover:text-accent-bronze transition-colors"><Star /></span>
-                </div> */}
                 <textarea
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary/20 mb-4"
                     placeholder="احكيلنا تجربتك مع دندرة أوفيس.."
