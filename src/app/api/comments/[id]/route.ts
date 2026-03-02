@@ -7,6 +7,30 @@ import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @route ~/api/comments/:id
+ * @method GET
+ * @description get user comment
+ * @access public
+ */
+
+export async function GET(props: CommentID) {
+  try {
+    const { id } = await props.params;
+    const comment = await prisma.comment.findUnique({
+      where: { id: parseInt(id) },
+      select: { userId: true },
+    });
+    if (!comment) {
+      return NextResponse.json({ message: "تعليق غير موجود" }, { status: 400 });
+    }
+
+    return NextResponse.json(comment, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: error }, { status: 500 });
+  }
+}
+
+/**
+ * @route ~/api/comments/:id
  * @method PUT
  * @description update comment
  * @access private
