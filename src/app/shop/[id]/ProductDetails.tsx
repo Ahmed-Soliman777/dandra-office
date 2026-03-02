@@ -1,8 +1,8 @@
-"use client"
+    "use client"
 import { DOMAIN } from "@/app/utils/constants"
 import { Favorite, productDetails } from "@/app/utils/types"
 import axios from "axios"
-import { ArrowLeft, Heart } from "lucide-react"
+import { ChevronLeft, Heart, Home } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -12,6 +12,7 @@ import { useFavorites } from "@/app/hooks/useFavorites"
 const ProductDetails = ({ id, token }: { id: string, token: string | undefined }) => {
     const [product, setProduct] = useState({} as productDetails)
     const [loading, setLoading] = useState<boolean>(false)
+    const [selectedImage, setSelectedImage] = useState(0);
 
     const { favorites, setFavorites, getFavorites } = useFavorites(token);
 
@@ -63,81 +64,127 @@ const ProductDetails = ({ id, token }: { id: string, token: string | undefined }
 
     return (
         <>
-            <nav dir="rtl" className="flex items-center gap-2 text-sm text-slate-500 mb-8">
-                <Link className="hover:text-primary" href="/">الرئيسية</Link>
-                <span className="material-symbols-outlined text-xs"><ArrowLeft /></span>
-                {product?.category?.categoryNameEn ? (
+            <nav dir="rtl" className="flex items-center gap-3 text-sm mb-10 overflow-x-auto whitespace-nowrap pb-2">
+                <Link className="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="/">
+                    <Home size={16} /> الرئيسية
+                </Link>
+
+                <ChevronLeft size={14} className="text-slate-400 rotate-0" />
+
+                {product?.category?.categoryNameAr ? (
                     <Link
-                        className="hover:text-primary"
+                        className="text-slate-500 hover:text-primary transition-colors"
                         href={`/categories/${product?.category?.id}`}
                     >
                         {product?.category?.categoryNameAr}
                     </Link>
                 ) : (
-                    <span className="animate-pulse bg-slate-200 h-4 w-20 rounded"></span>
+                    <div className="h-4 w-16 bg-slate-200 dark:bg-slate-800 animate-pulse rounded"></div>
                 )}
-                <span className="material-symbols-outlined text-xs"><ArrowLeft /></span>
-                <span className="text-slate-900 dark:text-slate-200 font-medium">{product?.productNameAr}</span>
+
+                <ChevronLeft size={14} className="text-slate-400" />
+
+                <span className="text-slate-900 dark:text-white font-semibold truncate">
+                    {product?.productNameAr}
+                </span>
             </nav>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                {/* <!-- Left Side: Gallery --> */}
-                <div className="lg:col-span-7 space-y-4">
-                    <div className="aspect-4/5 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800 group shadow-sm">
-                        <div className="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
-                        >
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                <div className="lg:col-span-7 space-y-6">
+                    <div className="relative aspect-square md:aspect-4/5 max-h-150 w-full rounded-4xl overflow-hidden bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-inner group">
+                        <div className="relative w-full h-100 md:h-112.5 lg:h-125 max-w-125 mx-auto rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-lg group">
                             <Image
-                                width={1000}
-                                height={200}
-                                alt={product?.productNameAr || ""}
-                                src={product?.images?.[0] || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
+                                fill
+                                priority
+                                className="object-contain p-6 transition-all duration-700 ease-in-out group-hover:scale-105"
+                                alt={product?.productNameAr || "صورة المنتج"}
+                                src={product?.images?.[selectedImage] || "/placeholder.png"}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
                             />
                         </div>
+
+                        <div className="absolute bottom-4 left-4 bg-white/80 dark:bg-black/50 backdrop-blur-sm px-3 py-1 rounded-lg text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                            عرض كامل الشاشة
+                        </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-4">
-                        {product?.images?.length > 0 && product?.images?.map((image: string, index: number) => (
-                            <div className="aspect-square rounded-lg bg-slate-200 dark:bg-slate-800 border-2 border-primary overflow-hidden" key={image || index}
+
+                    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                        {product?.images?.map((image: string, index: number) => (
+                            <button
+                                key={index}
+                                onClick={() => setSelectedImage(index)}
+                                className={`relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 transition-all duration-200 ${selectedImage === index
+                                    ? "border-primary ring-4 ring-primary/10 shadow-lg scale-95"
+                                    : "border-slate-100 dark:border-slate-800 hover:border-slate-300 opacity-70 hover:opacity-100"
+                                    }`}
                             >
                                 <Image
-                                    width={200}
-                                    height={200}
-                                    alt={product?.productNameAr || ""}
-                                    src={image || "https://img.icons8.com/?size=100&id=53386&format=png&color=000000"}
+                                    fill
+                                    className="object-cover"
+                                    alt={`صورة مصغرة ${index + 1}`}
+                                    src={image}
+                                    sizes="100px"
                                 />
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>
-                {/* <!-- Right Side: Product Details --> */}
-                <div className="lg:col-span-5 flex flex-col">
-                    <div className="mb-6" dir="rtl">
-                        <h2 className="text-2xl font-semibold mb-6">{product?.productNameAr || product?.productNameEn}</h2>
-                        <div className="flex items-baseline gap-4 mb-8">
-                            {/*todo create discount */}
-                            <span className="text-3xl font-800 text-primary">{product?.price} جنيه</span>
+
+                {/* --- الجزء الأيمن: تفاصيل المنتج --- */}
+                <div className="lg:col-span-5" dir="rtl">
+                    <div className="sticky top-28">
+                        {/* اسم المنتج والبراند */}
+                        <div className="mb-8">
+                            <span className="text-primary font-bold text-sm tracking-widest uppercase mb-2 block">
+                                {product?.category?.categoryNameAr}
+                            </span>
+                            <h1 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
+                                {product?.productNameAr}
+                            </h1>
                         </div>
-                        <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed">
-                            <p>{product?.descriptionAr || product?.descriptionEn}</p>
+
+                        {/* السعر والتقييم السريع */}
+                        <div className="flex flex-col gap-4 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
+                            <div className="flex items-center gap-4">
+                                <span className="text-4xl font-black text-primary tracking-tighter">
+                                    {product?.price?.toLocaleString()} <span className="text-lg font-bold">ج.م</span>
+                                </span>
+                            </div>
+
+                        </div>
+
+                        {/* الوصف */}
+                        <div className="mb-10">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">عن المنتج:</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
+                                {product?.descriptionAr}
+                            </p>
+                        </div>
+
+                        {/* الأزرار (Buttons) */}
+                        <div className="flex flex-col gap-4">
+
                             <button
                                 onClick={toggleFavorite}
                                 disabled={loading}
-                                className="w-full px-2 py-5 border-2 border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center hover:border-primary transition-colors cursor-pointer disabled:opacity-50"
+                                className="w-full py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all disabled:opacity-50"
                             >
-                                <div className="flex items-center gap-3">
-                                    {loading ? (
-                                        <span className="animate-pulse bg-slate-200 h-4 w-20 rounded"></span>
-                                    ) : (
-                                        <>
-                                            <Heart
-                                                size={25}
-                                                fill={isFavorite ? "red" : "none"}
-                                                stroke={isFavorite ? "red" : "currentColor"}
-                                            />
-                                            {isFavorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
-                                        </>
-                                    )}
-                                </div>
+                                {loading ? (
+                                    <div className="w-6 h-6 border-2 border-slate-300 border-t-primary rounded-full animate-spin"></div>
+                                ) : (
+                                    <div className="flex items-center gap-3 font-bold text-slate-700 dark:text-slate-200">
+                                        <Heart
+                                            size={22}
+                                            className="transition-colors"
+                                            fill={isFavorite ? "#ef4444" : "none"}
+                                            stroke={isFavorite ? "#ef4444" : "currentColor"}
+                                        />
+                                        {isFavorite ? "في المفضلة" : "إضافة للمفضلة"}
+                                    </div>
+                                )}
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
