@@ -10,6 +10,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === "/favorites") {
+    if (!token) return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.next();
+  }
+
   if (!token) {
     return NextResponse.redirect(new URL("/dashboard/login", request.url));
   }
@@ -30,5 +35,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/favorites"],
 };
