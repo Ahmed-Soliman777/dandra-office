@@ -31,10 +31,10 @@ const Navbar = async () => {
                 <div className="flex items-center gap-4">
 
                     {payload ? (<>
-                        <button className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
+                        <Link href={'/favorites'} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
                             <span className="material-symbols-outlined"><Heart /></span>
                             <span className="absolute top-1 right-1 size-2 bg-red-500 rounded-full"></span>
-                        </button>
+                        </Link>
                         <div className="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                         <button className="flex items-center gap-2 pl-2 hover:opacity-80 transition-opacity">
                             <div

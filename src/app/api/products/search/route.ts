@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // search for product name weather in arabic or english
+    // search for product name whether in arabic or english
     const whereClause: Prisma.ProductWhereInput = {
       OR: [
         {
@@ -71,6 +71,9 @@ export async function GET(request: NextRequest) {
     // search for products depending on whereClause variable
     const products = await prisma.product.findMany({
       where: whereClause,
+      include:{
+        reviews: true
+      }
     });
 
     // if there is no products

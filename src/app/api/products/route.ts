@@ -11,7 +11,7 @@ import { NextRequest, NextResponse } from "next/server";
  * @access private only admin
  */
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const userPayload = verifyToken(request);
     if (userPayload === null || userPayload.isAdmin === false) {
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
  * @access public
  */
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     const products = await prisma.product.findMany({
       include: {

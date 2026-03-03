@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { product, review } from '@/app/utils/types'
+import { Favorite, product, review } from '@/app/utils/types'
 import { toast } from 'react-toastify'
 import { DOMAIN } from '@/app/utils/constants'
 import Image from 'next/image'
@@ -9,19 +9,25 @@ import Link from 'next/link'
 import { Heart, Star } from 'lucide-react'
 import Loading from '@/app/loading'
 import { useSearchParams } from 'next/navigation'
+import { useFavorites } from '@/app/hooks/useFavorites'
 
-const SearchResult = ({ product }: { product: string }) => {
+const SearchResult = ({ product, token }: { product: string, token: string | undefined }) => {
 
     const [products, setProducts] = useState<product[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+
+    const { favorites, setFavorites, getFavorites } = useFavorites(token)
 
     const params = useSearchParams()
 
     const minPrice = params.get('minPrice')
     const maxPrice = params.get('maxPrice')
 
-    // console.log({ product, minPrice, maxPrice });
-
+    useEffect(() => {
+        if (token) {
+            getFavorites()
+        }
+    }, [token, getFavorites])
 
     useEffect(() => {
         async function getSearchResult(product: string) {
@@ -40,29 +46,65 @@ const SearchResult = ({ product }: { product: string }) => {
         getSearchResult(product)
     }, [product, minPrice, maxPrice])
 
+    async function toggleFavorite(productId: number) {
+        if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
+
+        const isFavorite = favorites.some(fav => fav.productId === productId);
+        const previousFavorites = [...favorites];
+
+        try {
+            if (!isFavorite) {
+                setFavorites(prev => [...prev, { productId } as Favorite])
+            } else {
+                setFavorites(prev => prev.filter(fav => fav.productId !== productId))
+            }
+
+            setLoading(true)
+
+            if (!isFavorite) {
+                const res = await axios.post(`${DOMAIN}/api/favorites`, { productId })
+                toast.success(res.data.message)
+            } else {
+                const res = await axios.delete(`${DOMAIN}/api/favorites`, { data: { productId } })
+                toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.error(error)
+            setFavorites(previousFavorites)
+            toast.error("حدث خطأ، حاول مجدداً")
+        } finally {
+            setLoading(false)
+        }
+    }
 
     if (loading) {
         return <Loading />
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="">
             {products.length > 0 ? (products?.map((product: product) => {
                 const productReviews = product.reviews || [];
+                console.log(product);
+                
                 const average = productReviews.length > 0
                     ? productReviews.reduce((sum: number, review: review) => sum + review.reviewInNumbers, 0) / productReviews.length
                     : 0;
 
+
                 return (
                     <div key={product.id} className="relative group">
                         <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
+                            onClick={() => {
+                                toggleFavorite(Number(product.id))
                             }}
                             className="absolute top-3 right-3 z-20 size-10 rounded-full bg-white/90 dark:bg-background-dark/90 flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform"
                         >
-                            <Heart size={20} />
+                            {
+                                favorites.some((fav: Favorite) => fav.productId === product.id) ?
+                                    <Heart stroke={'#ef4444'} fill='#ef4444' /> :
+                                    <Heart className="text-slate-400" />
+                            }
                         </button>
 
                         <Link
