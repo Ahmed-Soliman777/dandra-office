@@ -1,7 +1,7 @@
 "use client"
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { setMinPrice, setMaxPrice } from "@/lib/features/filterSlice"
-import { useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 const ProductFilters = () => {
 
@@ -10,6 +10,7 @@ const ProductFilters = () => {
 
     const router = useRouter()
     const searchParams = useSearchParams()
+    const pathName = usePathname()
 
     const product = searchParams.get("product")
 
@@ -91,7 +92,15 @@ const ProductFilters = () => {
                             if (product) params.set("product", product)
                             params.set("minPrice", String(minPrice))
                             params.set("maxPrice", String(maxPrice))
-                            router.push(`/shop/search?${params.toString()}`)
+                            {
+                                if (pathName === "/shop/search") {
+                                    router.push(`/shop/search?${params.toString()}`)
+                                }
+                                else {
+                                    router.push(`/shop/filter?minPrice=${minPrice}&maxPrice=${maxPrice}`)
+                                }
+
+                            }
                         }
                         }
                         className="w-full py-3 bg-blue-600 dark:bg-blue-600 text-white font-bold text-sm rounded-xl hover:bg-blue-700 dark:hover:bg-blue-500 transition-all duration-200 shadow-sm active:scale-95\"
