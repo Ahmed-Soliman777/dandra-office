@@ -12,7 +12,6 @@ import { useSearchParams } from 'next/navigation'
 import { useFavorites } from '@/app/hooks/useFavorites'
 
 const SearchResult = ({ product, token }: { product: string, token: string | undefined }) => {
-
     const [products, setProducts] = useState<product[]>([])
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -35,7 +34,6 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                 setLoading(true)
                 const { data } = await axios.get(`${DOMAIN}/api/products/search?product=${product}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
                 setProducts(data);
-                console.log(data);
                 setLoading(false)
             } catch (error) {
                 setLoading(false)
@@ -85,7 +83,6 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
         <div className="">
             {products.length > 0 ? (products?.map((product: product) => {
                 const productReviews = product.reviews || [];
-                console.log(product);
                 
                 const average = productReviews.length > 0
                     ? productReviews.reduce((sum: number, review: review) => sum + review.reviewInNumbers, 0) / productReviews.length
