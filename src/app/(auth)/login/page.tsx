@@ -62,7 +62,7 @@ export default async function page() {
                         submitButton={t("login-page-welcome")}
                     />
 
-                    <div className="relative py-4">
+                    {/* <div className="relative py-4">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
                         </div>
@@ -71,17 +71,7 @@ export default async function page() {
                                 {t("login-page-login-via")}
                             </span>
                         </div>
-                    </div>
-
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <button className="flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-sm font-bold text-slate-900 dark:text-white">
-                            Google
-                        </button>
-                        <button className="flex items-center justify-center gap-2 py-3 px-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold">
-                            Apple
-                        </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-center text-sm text-gray-500 dark:text-gray-400">
                         {t("login-page-dont-have-account")}

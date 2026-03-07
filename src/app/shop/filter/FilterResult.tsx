@@ -11,7 +11,7 @@ import Loading from '@/app/loading'
 import { useSearchParams } from 'next/navigation'
 import { useFavorites } from '@/app/hooks/useFavorites'
 
-const SearchResult = ({ product, token }: { product: string, token: string | undefined }) => {
+const FilterResult = ({ token }: { token: string | undefined }) => {
     const [products, setProducts] = useState<product[]>([])
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -29,10 +29,10 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
     }, [token, getFavorites])
 
     useEffect(() => {
-        async function getSearchResult(product: string) {
+        async function getSearchResult() {
             try {
                 setLoading(true)
-                const { data } = await axios.get(`${DOMAIN}/api/products/search?product=${product}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+                const { data } = await axios.get(`${DOMAIN}/api/products/filter?minPrice=${minPrice}&maxPrice=${maxPrice}`)
                 setProducts(data);
                 setLoading(false)
             } catch (error) {
@@ -41,8 +41,8 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                 toast.error(`حدث خطأ، حاول مجدداً`)
             }
         }
-        getSearchResult(product)
-    }, [product, minPrice, maxPrice])
+        getSearchResult()
+    }, [minPrice, maxPrice])
 
     async function toggleFavorite(productId: number) {
         if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
@@ -151,4 +151,4 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
     );
 }
 
-export default SearchResult
+export default FilterResult

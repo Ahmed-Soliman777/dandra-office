@@ -17,6 +17,11 @@ export interface UpdateProfileDTO {
   password?: string;
 }
 
+export interface ResetPasswordDTO {
+  email: string;
+  password: string;
+}
+
 export interface AddNewProduct {
   productNameAr: string;
   productNameEn: string;
