@@ -81,12 +81,6 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
             </div>
 
             <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                    <input className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded" id="remember-me" name="remember-me" type="checkbox" />
-                    <label className="mx-2 block text-sm text-slate-600 dark:text-slate-400" htmlFor="remember-me">
-                        {rememberLabel}
-                    </label>
-                </div>
                 <div className="text-sm">
                     <Link className="font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" href={'/forget-password'}>
                         {forgetPassword}
