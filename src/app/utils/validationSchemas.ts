@@ -74,6 +74,24 @@ export const updateUserProfileSchema = z.object({
     .optional(),
 });
 
+//validation schema for reset password
+export const resetPasswordSchema = z.object({
+  email: z.email().min(2).max(100),
+  /****************************************** */
+  password: z
+    .string()
+    .regex(
+      passwordRegex,
+      "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز",
+    )
+    .min(2, {
+      error:
+        "لأنشاء كلمة السر يجب أن تكون حدود 2 - 25 من الحروف، مع احتواء كلمة السر لحرف Capitail و Small ورقم ورمز مميز",
+    })
+    .max(25, { error: "لقد تعديت الحد المسموح لأنشاء كلمة السر" })
+    .optional(),
+});
+
 //validation schema for adding new product
 export const addNewProduct = z.object({
   productNameEn: z
