@@ -35,14 +35,14 @@ const Navbar = async () => {
                             <span className="material-symbols-outlined"><Heart /></span>
                             <span className="absolute top-1 right-1 size-2 bg-red-500 rounded-full"></span>
                         </Link>
-                        <div className="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
-                        <button className="flex items-center gap-2 pl-2 hover:opacity-80 transition-opacity">
+                        {/* <div className="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div> */}
+                        {/* <button className="flex items-center gap-2 pl-2 hover:opacity-80 transition-opacity">
                             <div
                                 className="size-9 rounded-full bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 flex items-center justify-center overflow-hidden">
                                 <Image width={25} height={25} className="w-full h-full object-cover" alt="User profile avatar placeholder"
                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmKt4K7sFyXcEfHpAoa9nKlsUq0Pc7SrG7QpC-XsmZwKll3ge2qoH9MH5Y14658sg15MR4p8jZbEiFNGhU0X6O7_m7LfIdaz-3G3bTdnUKPGfQRNN7r12wkw50eVVGYoWWS7NguMBcrt3EwBIMFGGFcxrJ7CB2s8iUXH0lz8SwwPa1TVp-a9nVQ6ObPhklsyXcK__ot3RbukUUWe5IbN2_rWkyAW4R3oJ6zh8qnhSQMRvatienxZF3CpMiuv_7p87uMVuMOTnDSe7O" />
                             </div>
-                        </button>
+                        </button> */}
                         <div className="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                         <LogoutButton />
                     </>) : (<Link href={'/login'} className="rounded-lg border border-slate-300 dark:border-slate-600 py-2 px-5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-sm font-medium text-slate-900 dark:text-slate-100">
