@@ -18,7 +18,7 @@ import bcrypt from "bcryptjs";
  */
 
 // create a POST method to create a new user
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   //inside the POST request method there are 2 handlers try - catch
   //if server is dropped then server will response from catch handler
   //else will try to create data with some checks for user requirement like checking email, user data validation

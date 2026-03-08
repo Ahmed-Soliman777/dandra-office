@@ -12,7 +12,7 @@ import { NextRequest, NextResponse } from "next/server";
  * @access public
  */
 
-export async function GET(props: CommentID) {
+export async function GET(request: NextRequest, props: CommentID) {
   try {
     const { id } = await props.params;
     const comment = await prisma.comment.findUnique({
