@@ -1,4 +1,4 @@
-import CategoryCards from '../components/CategoryCards'
+import CategoryCards from '@/components/common/CategoryCards'
 
 const page = () => {
     return (

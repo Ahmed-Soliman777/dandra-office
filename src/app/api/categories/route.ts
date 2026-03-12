@@ -1,7 +1,7 @@
-import prisma from "@/app/utils/db";
-import { verifyToken } from "@/app/utils/verifyToken";
-import { AddCategoryDTO } from "@/app/utils/dtos";
-import { addCategory } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { verifyToken } from "@/utils/verifyToken";
+import { AddCategoryDTO } from "@/utils/dtos";
+import { addCategory } from "@/utils/validationSchemas";
 import { NextRequest, NextResponse } from "next/server";
 
 /**

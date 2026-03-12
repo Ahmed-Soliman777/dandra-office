@@ -1,7 +1,7 @@
 import { ArrowLeft} from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
-import ForgetPasswordForm from "./ForgetPasswordForm"
+import ForgetPasswordForm from "@/components/features/auth/forget-password/ForgetPasswordForm"
 
 const page = async () => {
 

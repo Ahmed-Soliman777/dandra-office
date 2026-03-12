@@ -1,5 +1,5 @@
-import FilterResult from './FilterResult'
-import ProductFilters from '@/app/components/ProductFilters'
+import FilterResult from '@/components/features/shop/filter/FilterResult'
+import ProductFilters from '@/components/common/ProductFilters'
 import { cookies } from 'next/headers'
 
 const page = async () => {

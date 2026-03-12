@@ -1,8 +1,8 @@
-import prisma from "@/app/utils/db";
-import { AddReviewDTO } from "@/app/utils/dtos";
-import { addReview } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { AddReviewDTO } from "@/utils/dtos";
+import { addReview } from "@/utils/validationSchemas";
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/app/utils/verifyToken";
+import { verifyToken } from "@/utils/verifyToken";
 
 /**
  * @route ~/api/reviews

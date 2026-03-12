@@ -1,7 +1,7 @@
-import prisma from "@/app/utils/db";
-import { FavoriteDTO } from "@/app/utils/dtos";
-import { userFavorite } from "@/app/utils/validationSchemas";
-import { verifyToken } from "@/app/utils/verifyToken";
+import prisma from "@/utils/db";
+import { FavoriteDTO } from "@/utils/dtos";
+import { userFavorite } from "@/utils/validationSchemas";
+import { verifyToken } from "@/utils/verifyToken";
 import { NextRequest, NextResponse } from "next/server";
 
 /**

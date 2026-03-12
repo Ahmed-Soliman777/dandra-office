@@ -10,9 +10,9 @@
  * @access private
  */
 
-import prisma from "@/app/utils/db";
-import { ResetPasswordDTO } from "@/app/utils/dtos";
-import { resetPasswordSchema } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { ResetPasswordDTO } from "@/utils/dtos";
+import { resetPasswordSchema } from "@/utils/validationSchemas";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 

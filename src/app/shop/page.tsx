@@ -1,8 +1,7 @@
 import { toast } from 'react-toastify'
-import ProductCard from '../components/ProductCard'
-import ProductFilters from '../components/ProductFilters'
-import { DOMAIN } from '../utils/constants'
-import { cookies } from 'next/headers'
+import ProductCard from '@/components/common/ProductCard'
+import ProductFilters from '@/components/common/ProductFilters'
+import { DOMAIN } from '@/utils/constants'
 
 async function CountProducts() {
   const res = await fetch(`${DOMAIN}/api/products`)
@@ -13,8 +12,6 @@ async function CountProducts() {
 }
 
 const Page = async () => {
-
-  const token = (await cookies()).get("token")?.value
 
   const { products } = await CountProducts()
 
@@ -32,19 +29,10 @@ const Page = async () => {
               <h1 className="text-2xl font-bold text-slate-900 dark:text-white">جميع المنتجات</h1>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">عرض {products.length} من النتائج</p>
             </div>
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <span className="text-sm font-medium text-slate-600 dark:text-slate-400 shrink-0">طريقة الترتيب:</span>
-              <select
-                className="w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-slate-900 dark:text-white">
-                <option>السعر: من الأقل إلى الأعلى</option>
-                <option>السعر: من الأعلى إلى الأقل</option>
-                <option>تقييم العملاء</option>
-              </select>
-            </div>
           </div>
           {/* <!-- Product Grid --> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            <ProductCard token={token ? token : ""} />
+            <ProductCard />
           </div>
         </div>
       </div>

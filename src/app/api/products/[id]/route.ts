@@ -1,8 +1,8 @@
-import prisma from "@/app/utils/db";
-import { UpdateProductDTO } from "@/app/utils/dtos";
-import { ProductID } from "@/app/utils/types";
-import { updateProduct } from "@/app/utils/validationSchemas";
-import { verifyToken } from "@/app/utils/verifyToken";
+import prisma from "@/utils/db";
+import { UpdateProductDTO } from "@/utils/dtos";
+import { ProductID } from "@/utils/types";
+import { updateProduct } from "@/utils/validationSchemas";
+import { verifyToken } from "@/utils/verifyToken";
 import { NextRequest, NextResponse } from "next/server";
 
 /**

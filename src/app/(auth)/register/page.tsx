@@ -3,7 +3,7 @@ import RegisterImage from '../../../../public/register-image.jpg'
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import RegisterForm from "./RegisterForm"
+import RegisterForm from "@/components/features/auth/register/RegisterForm"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 

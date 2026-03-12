@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginImage from '../../../../public/login-img.jpg';
-import LoginForm from './LoginForm';
+import LoginForm from '@/components/features/auth/login/LoginForm';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 

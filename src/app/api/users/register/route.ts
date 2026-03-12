@@ -1,9 +1,9 @@
-import { RegisterDTO } from "@/app/utils/dtos";
+import { RegisterDTO } from "@/utils/dtos";
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/app/utils/db";
-import { registerSchema } from "@/app/utils/validationSchemas";
-import { JWTPayload } from "@/app/utils/types";
-import { setCookie } from "@/app/utils/generateToken";
+import prisma from "@/utils/db";
+import { registerSchema } from "@/utils/validationSchemas";
+import { JWTPayload } from "@/utils/types";
+import { setCookie } from "@/utils/generateToken";
 import bcrypt from "bcryptjs";
 
 /**
