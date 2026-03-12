@@ -1,9 +1,9 @@
-import prisma from "@/app/utils/db";
-import { verifyToken } from "@/app/utils/verifyToken";
-import { UpdateReviewDTO } from "@/app/utils/dtos";
-import { updateReview } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { verifyToken } from "@/utils/verifyToken";
+import { UpdateReviewDTO } from "@/utils/dtos";
+import { updateReview } from "@/utils/validationSchemas";
 import { NextRequest, NextResponse } from "next/server";
-import { ReviewID } from "@/app/utils/types";
+import { ReviewID } from "@/utils/types";
 
 /**
  * @route ~/api/reviews/:id

@@ -1,9 +1,9 @@
-import prisma from "@/app/utils/db";
-import { UpdateCategoryDTO } from "@/app/utils/dtos";
-import { updateCategory } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { UpdateCategoryDTO } from "@/utils/dtos";
+import { updateCategory } from "@/utils/validationSchemas";
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/app/utils/verifyToken";
-import { CategoryID } from "@/app/utils/types";
+import { verifyToken } from "@/utils/verifyToken";
+import { CategoryID } from "@/utils/types";
 
 /**
  * @route ~/api/categories/:id

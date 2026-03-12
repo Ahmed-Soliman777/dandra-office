@@ -1,5 +1,5 @@
-import SearchResult from './SearchResult'
-import ProductFilters from '@/app/components/ProductFilters'
+import SearchResult from '@/components/features/shop/search/SearchResult'
+import ProductFilters from '@/components/common/ProductFilters'
 import { cookies } from 'next/headers'
 
 const page = async (props: { searchParams: { product: string } }) => {

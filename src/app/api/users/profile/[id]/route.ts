@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/app/utils/db";
-import { verifyToken } from "@/app/utils/verifyToken";
-import { ProfileID } from "@/app/utils/types";
-import { UpdateProfileDTO } from "@/app/utils/dtos";
-import { updateUserProfileSchema } from "@/app/utils/validationSchemas";
+import prisma from "@/utils/db";
+import { verifyToken } from "@/utils/verifyToken";
+import { ProfileID } from "@/utils/types";
+import { UpdateProfileDTO } from "@/utils/dtos";
+import { updateUserProfileSchema } from "@/utils/validationSchemas";
 import bcrypt from "bcryptjs";
 
 /**

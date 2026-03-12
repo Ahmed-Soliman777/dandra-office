@@ -1,6 +1,6 @@
-import CategoryCards from "./components/CategoryCards";
-import Hero from "./components/Hero/Hero";
-import ProductCard from "./components/ProductCard";
+import CategoryCards from "../components/common/CategoryCards";
+import Hero from "../components/common/Hero/Hero";
+import ProductCard from "../components/common/ProductCard";
 import { cookies } from "next/headers";
 
 export default async function Home() {
