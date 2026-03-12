@@ -1,11 +1,8 @@
 import CategoryCards from "../components/common/CategoryCards";
 import Hero from "../components/common/Hero/Hero";
 import ProductCard from "../components/common/ProductCard";
-import { cookies } from "next/headers";
 
 export default async function Home() {
-
-  const token = (await cookies()).get("token")?.value
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-display text-slate-900 dark:text-slate-100 transition-colors duration-300">
@@ -26,7 +23,7 @@ export default async function Home() {
             <div className="h-1 w-16 bg-linear-to-r from-blue-600 to-blue-400 rounded-full"></div>
           </div>
         </div>
-        <ProductCard token={token ? token : ""} />
+        <ProductCard  />
       </div>
     </div>
   );
