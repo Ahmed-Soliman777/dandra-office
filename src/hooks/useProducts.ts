@@ -22,5 +22,5 @@ export function useProducts() {
     GetProductsData();
   }, []);
 
-  return { products, productLoading };
+  return { products, setProducts, productLoading };
 }
