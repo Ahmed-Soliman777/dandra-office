@@ -52,6 +52,7 @@ export interface product {
   images?: string[];
   categoryId?: number;
   reviews?: review[];
+  comments?: Comment[];
 }
 
 export interface review {
