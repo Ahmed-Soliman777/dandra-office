@@ -28,7 +28,7 @@ const ProductCardData = ({
                     <div className="flex flex-col flex-1">
                         <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">{product.productNameAr}</h3>
                     </div>
-                    <p className="text-lg font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">{product.price} جنيه</p>
+                    <p className="text-lg font-bold text-green-600 dark:text-green-400 whitespace-nowrap">{product.price} جنيه</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="flex text-amber-400">

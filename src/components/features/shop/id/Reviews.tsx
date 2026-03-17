@@ -1,43 +1,14 @@
 "use client"
-
-import { DOMAIN } from '@/utils/constants'
 import { Comment, review } from '@/utils/types'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { toast } from 'react-toastify'
 import ReviewActions from './ReviewActions'
 import { useAppSelector } from '@/lib/hooks'
+import { useProduct } from '@/hooks/id/useProduct'
 
 const Reviews = ({ id }: { id: string }) => {
 
-    const [loading, setLoading] = useState<boolean>(false)
-
-    const [comments, setComments] = useState([])
-
-    const [reviews, setReviews] = useState<review[]>([])
-
     const { userPayload } = useAppSelector(state => state.users)
 
-    useEffect(() => {
-        async function getProductComments(id: string) {
-            try {
-                setLoading(true)
-                const { data } = await axios.get(`${DOMAIN}/api/products/${id}`)
-                setComments(data.comments)
-                setReviews(data.reviews)
-                setLoading(false)
-            } catch (error) {
-                setLoading(false)
-                console.error(error);
-                toast.error("حدث خطأ أثناء تحميل التعليقات، حاول مجدداً")
-            }
-        }
-        getProductComments(id)
-    }, [id])
-
-    if (loading) {
-        return 'تحميل...'
-    }
+    const { comments, reviews } = useProduct(id)
 
     return (
         <>

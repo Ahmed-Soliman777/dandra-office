@@ -5,7 +5,7 @@ const Path = ({ categoryName, productName, categoryId }: { categoryName: string,
 
     return (
         <nav dir="rtl" className="flex items-center gap-3 text-sm overflow-x-auto whitespace-nowrap pb-2">
-            <Link className="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="/">
+            <Link className="text-slate-500 hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-1" href="/">
                 <Home size={16} /> الرئيسية
             </Link>
 
@@ -13,7 +13,7 @@ const Path = ({ categoryName, productName, categoryId }: { categoryName: string,
 
             {categoryName ? (
                 <Link
-                    className="text-slate-500 hover:text-primary transition-colors"
+                    className="text-slate-500 hover:text-green-600 dark:hover:text-green-400 transition-colors"
                     href={`/categories/${categoryId}`}
                 >
                     {categoryName}

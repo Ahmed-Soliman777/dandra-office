@@ -152,7 +152,7 @@ const StarRating = ({ productId }: { productId: string }) => {
 
                     <div className="mt-2 h-5">
                         {rating > 0 && (
-                            <p className="text-xs font-semibold text-blue-600 animate-fade-in">
+                            <p className="text-xs font-semibold text-green-600 animate-fade-in">
                                 لقد اخترت {rating} من 5 نجوم
                             </p>
                         )}

@@ -43,7 +43,7 @@ const UpdateReview = ({ setShowModal, CommentId, comment }: UpdateReviewProps) =
 
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-semibold leading-6 text-gray-900 flex items-center gap-2">
-                        <span className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                        <span className="p-2 bg-green-50 text-green-600 rounded-lg">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -67,7 +67,7 @@ const UpdateReview = ({ setShowModal, CommentId, comment }: UpdateReviewProps) =
                         </label>
                         <textarea
                             rows={4}
-                            className="w-full rounded-xl border-gray-200 border p-3 text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all resize-none shadow-sm placeholder:text-gray-400"
+                            className="w-full rounded-2xl border-gray-200 border p-3 text-gray-800 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 outline-none transition-all resize-none shadow-sm placeholder:text-gray-400"
                             placeholder="اكتب تعليقك هنا..."
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
@@ -85,7 +85,7 @@ const UpdateReview = ({ setShowModal, CommentId, comment }: UpdateReviewProps) =
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-2 px-4 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            className="flex-2 px-4 py-2.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-2xl shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
                         >
                             {loading ? (
                                 <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>

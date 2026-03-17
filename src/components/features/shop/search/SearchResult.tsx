@@ -95,7 +95,7 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                             onClick={() => {
                                 toggleFavorite(Number(product.id))
                             }}
-                            className="absolute top-3 right-3 z-20 size-10 rounded-full bg-white/90 dark:bg-background-dark/90 flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform"
+                            className="absolute top-3 right-3 z-20 size-10 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm flex items-center justify-center text-green-600 shadow-sm hover:scale-110 transition-transform hover:bg-green-50 dark:hover:bg-slate-800"
                         >
                             {
                                 favorites.some((fav: Favorite) => fav.productId === product.id) ?
@@ -106,9 +106,9 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
 
                         <Link
                             href={`/shop/${product.id}`}
-                            className="bg-white dark:bg-background-dark rounded-xl border border-[#e6f4f4] dark:border-[#1a3a3a] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full hover:scale-[1.02]"
                         >
-                            <div className="relative aspect-square overflow-hidden bg-[#f0f5f5]">
+                            <div className="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-800">
                                 {product.images && (
                                     <Image
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -121,9 +121,9 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                             </div>
 
                             <div className="p-4 flex flex-col flex-1">
-                                <div className="flex justify-between items-start mb-1">
-                                    <h3 className="text-sm font-bold">{product.productNameAr}</h3>
-                                    <p className="text-lg font-bold text-primary whitespace-nowrap">{product.price} جنيه</p>
+                                <div className="flex justify-between items-start gap-2 mb-2">
+                                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">{product.productNameAr}</h3>
+                                    <p className="text-lg font-bold text-green-600 dark:text-green-400 whitespace-nowrap">{product.price} جنيه</p>
                                 </div>
 
                                 <div className="flex items-center gap-2 mt-auto">
@@ -136,7 +136,7 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                                             />
                                         ))}
                                     </div>
-                                    <span className="text-xs text-gray-400">({productReviews.length})</span>
+                                    <span className="text-xs text-slate-500 dark:text-slate-400">({productReviews.length})</span>
                                 </div>
                             </div>
                         </Link>

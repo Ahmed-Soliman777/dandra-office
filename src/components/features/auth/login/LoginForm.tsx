@@ -49,7 +49,7 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
                         <Mail size={18} />
                     </span>
                     <input
-                        className="block w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="block w-full pl-10 pr-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                         name='email'
                         id="email"
                         placeholder="name@example.com"
@@ -69,7 +69,7 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
                         <Lock size={18} />
                     </span>
                     <input
-                        className="block w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="block w-full pl-10 pr-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm placeholder-slate-400 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                         name='password'
                         id="password"
                         placeholder="••••••••"
@@ -82,7 +82,7 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
 
             <div className="flex items-center justify-between">
                 <div className="text-sm">
-                    <Link className="font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" href={'/forget-password'}>
+                    <Link className="font-bold text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 transition-colors" href={'/forget-password'}>
                         {forgetPassword}
                     </Link>
                 </div>
@@ -90,7 +90,7 @@ export default function LoginForm({ emailLabel, passwordLabel, rememberLabel, fo
 
             <button
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all active:scale-[0.98] disabled:opacity-70"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-bold bg-green-600 text-white hover:bg-green-700 dark:hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all active:scale-[0.98] disabled:opacity-70 hover:shadow-lg hover:scale-[1.02] duration-300"
                 type="submit">
                 {loading ? <ButtonSpinner /> : `${submitButton}`}
             </button>
