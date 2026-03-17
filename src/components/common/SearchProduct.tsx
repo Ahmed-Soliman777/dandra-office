@@ -19,14 +19,14 @@ const SearchProduct = () => {
     return (
         <form className="relative group" onSubmit={headToSearch}>
             <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-green-600 dark:hover:text-green-400 cursor-pointer transition-colors"
                 type='submit'
             >
                 <Search size={20} />
             </button>
 
             <input
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-12 pr-4 py-3 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-right"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl pl-12 pr-4 py-3 text-sm placeholder-slate-400 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-right"
                 placeholder="أبحث عن المنتجات..."
                 type="text"
                 value={searchValue}

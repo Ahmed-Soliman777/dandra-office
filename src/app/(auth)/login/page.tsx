@@ -19,7 +19,7 @@ export default async function page() {
             <section className="hidden lg:block lg:w-1/2 relative overflow-hidden">
                 <div className="absolute inset-0 bg-cover bg-center">
                     <Image src={LoginImage} alt={"login-img"} fill className="object-cover" />
-                    <div className="absolute inset-0 bg-primary/20 backdrop-multiply"></div>
+                <div className="absolute inset-0 bg-green-600/20 backdrop-multiply"></div>
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30"></div>
                 </div>
                 <div className="relative z-10 h-full flex flex-col justify-between p-12">

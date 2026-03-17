@@ -13,15 +13,15 @@ const Navbar = async () => {
 
     return (
         <header
-            className="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-800\">
+            className="sticky top-0 z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg shadow-sm border-b border-slate-100 dark:border-slate-800\">
             <div dir="rtl" className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-8">
                 <div className="flex items-center gap-12">
                     <div className="flex items-center gap-3">
                         <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">دندرة أوفيس</h1>
                     </div>
                     <nav className="hidden md:flex items-center gap-8">
-                        <Link className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href={'/shop'}>المتجر</Link>
-                        <Link className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href={'/categories'}>التصنيفات</Link>
+                        <Link className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors" href={'/shop'}>المتجر</Link>
+                        <Link className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors" href={'/categories'}>التصنيفات</Link>
                     </nav>
                 </div>
                 <div className="flex-1 max-w-md hidden lg:block">

@@ -35,7 +35,7 @@ const ProductFilters = () => {
                     <div className="flex flex-row-reverse gap-3 items-center" dir="rtl">
                         <div className="flex-1 flex flex-col gap-1.5">
                             <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase text-right px-1">الى</span>
-                            <div className="w-full text-sm font-bold border border-slate-200 dark:border-slate-700 dark:bg-slate-700 rounded-xl p-2.5 text-center text-blue-600 dark:text-blue-400 shadow-sm">
+                            <div className="w-full text-sm font-bold border border-slate-200 dark:border-slate-700 dark:bg-slate-700 rounded-xl p-2.5 text-center text-green-600 dark:text-green-400 shadow-sm">
                                 {maxPrice.toLocaleString()} <span className="text-[10px] font-normal opacity-70">ج.م</span>
                             </div>
                         </div>
@@ -44,7 +44,7 @@ const ProductFilters = () => {
 
                         <div className="flex-1 flex flex-col gap-1.5">
                             <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase text-right px-1">من</span>
-                            <div className="w-full text-sm font-bold border border-slate-200 dark:border-slate-700 dark:bg-slate-700 rounded-xl p-2.5 text-center text-blue-600 dark:text-blue-400 shadow-sm">
+                            <div className="w-full text-sm font-bold border border-slate-200 dark:border-slate-700 dark:bg-slate-700 rounded-xl p-2.5 text-center text-green-600 dark:text-green-400 shadow-sm">
                                 {minPrice.toLocaleString()} <span className="text-[10px] font-normal opacity-70">ج.م</span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ const ProductFilters = () => {
                     <div className="relative h-6 flex items-center">
                         <div className="absolute w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full" />
                         <div
-                            className="absolute h-1.5 bg-blue-600 dark:bg-blue-500 rounded-full"
+                            className="absolute h-1.5 bg-green-600 dark:bg-green-500 rounded-full"
                             style={{
                                 right: `${getPercent(minPrice)}%`,
                                 left: `${100 - getPercent(maxPrice)}%`
@@ -82,7 +82,7 @@ const ProductFilters = () => {
                                 const value = Math.max(Number(e.target.value), minPrice + 100);
                                 dispatch(setMaxPrice(value));
                             }}
-                            className="absolute w-full h-1.5 bg-transparent appearance-none pointer-events-none z-20 touch-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-blue-600 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md\"
+                            className="absolute w-full h-1.5 bg-transparent appearance-none pointer-events-none z-20 touch-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-green-600 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md\"
                         />
                     </div>
                     {/* Apply Button */}
@@ -103,7 +103,7 @@ const ProductFilters = () => {
                             }
                         }
                         }
-                        className="w-full py-3 bg-blue-600 dark:bg-blue-600 text-white font-bold text-sm rounded-xl hover:bg-blue-700 dark:hover:bg-blue-500 transition-all duration-200 shadow-sm active:scale-95\"
+                        className="w-full py-3 bg-green-600 dark:bg-green-600 text-white font-bold text-sm rounded-2xl hover:bg-green-700 dark:hover:bg-green-500 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95\"
                     >
                         تطبيق الفلتر
                     </button>

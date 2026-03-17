@@ -49,7 +49,7 @@ const CategoryCards = () => {
                                 />
                             }
                         </div>
-                        <p className="text-center text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{category.categoryNameAr}</p>
+                        <p className="text-center text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">{category.categoryNameAr}</p>
                     </Link>
                 ))}
             </div>

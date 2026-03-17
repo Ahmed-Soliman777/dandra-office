@@ -29,7 +29,7 @@ const ProductDetails = ({ product }: { product: productDetails }) => {
                                 key={index}
                                 onClick={() => setSelectedImage(index)}
                                 className={`relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 transition-all duration-200 ${selectedImage === index
-                                    ? "border-primary ring-4 ring-primary/10 shadow-lg scale-95"
+                                    ? "border-green-600 ring-4 ring-green-600/10 shadow-lg scale-95"
                                     : "border-slate-100 dark:border-slate-800 hover:border-slate-300 opacity-70 hover:opacity-100"
                                     }`}
                             >
@@ -50,7 +50,7 @@ const ProductDetails = ({ product }: { product: productDetails }) => {
                     <div className="sticky top-28">
                         {/* اسم المنتج والبراند */}
                         <div className="mb-8">
-                            <span className="text-primary font-bold text-sm tracking-widest uppercase mb-2 block">
+                            <span className="text-green-600 dark:text-green-400 font-bold text-sm tracking-widest uppercase mb-2 block">
                                 {product?.category?.categoryNameAr}
                             </span>
                             <h1 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight">
@@ -61,7 +61,7 @@ const ProductDetails = ({ product }: { product: productDetails }) => {
                         {/* السعر والتقييم السريع */}
                         <div className="flex flex-col gap-4 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
                             <div className="flex items-center gap-4">
-                                <span className="text-4xl font-black text-primary tracking-tighter">
+                                <span className="text-4xl font-black text-green-600 dark:text-green-400 tracking-tighter">
                                     {product?.price?.toLocaleString()} <span className="text-lg font-bold">ج.م</span>
                                 </span>
                             </div>
