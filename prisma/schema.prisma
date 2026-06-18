@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   email     String   @unique
   username  String   @db.VarChar(100)
   password  String
@@ -30,7 +30,7 @@ model User {
 }
 
 model Product {
-  id            Int      @id @default(autoincrement())
+  id            String      @id @default(uuid())
   productNameAr String
   productNameEn String
   price         Float
@@ -46,13 +46,13 @@ model Product {
   userFavorites Favorite[]
 
   admin      User      @relation(fields: [adminId], references: [id])
-  adminId    Int
+  adminId    String
   category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  categoryId String?
 }
 
 model Category {
-  id                Int      @id @default(autoincrement())
+  id                String      @id @default(uuid())
   categoryNameAr    String
   categoryNameEn    String
   categoryThumbnail String?
@@ -63,34 +63,34 @@ model Category {
 }
 
 model Review {
-  id              Int      @id @default(autoincrement())
+  id              String      @id @default(uuid())
   reviewInNumbers Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+  userId    String?
   product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
+  productId String?
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   comment   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+  userId    String?
   product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
+  productId String?
 }
 
 model Favorite {
   user      User    @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
   product   Product @relation(fields: [productId], references: [id])
-  productId Int
+  productId String
 
   @@id([userId, productId])
 }
