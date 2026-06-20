@@ -2,7 +2,6 @@ import Image from "next/image"
 import RegisterImage from '../../../../public/register-image.jpg'
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
 import RegisterForm from "@/components/features/auth/register/RegisterForm"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
@@ -14,36 +13,76 @@ const page = async () => {
     if (token) {
         redirect("/")
     }
-    return (
-        <div className="bg-white dark:bg-slate-900 font-display text-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex items-center justify-center p-0">
 
-            <div className="flex w-full h-screen" dir="rtl">
-                <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-cover bg-center">
-                        <Image alt="register image" src={RegisterImage} className="object-cover" />
-                    </div>
-                    <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]"></div>
-                    <div className="absolute top-8 right-8 lg:right-12">
-                        <Link href="/">
-                            <h1 className="text-xl font-extrabold tracking-tight">Dandra Office</h1>
-                        </Link>
-                    </div>
-                    <div className="relative z-10 flex flex-col justify-end p-16 text-white w-full">
-                        <div className="bg-primary/40 backdrop-blur-2xl p-8 rounded-2xl border border-white/20 max-w-lg">
-                            <h2 className="text-4xl font-black mb-4">{t('join-us')}</h2>
-                            <p className="text-lg text-white/90 leading-relaxed">
-                                {t('join-us-paragraph')}
+    return (
+        <div className="bg-white dark:bg-slate-900 font-display text-slate-900 dark:text-slate-100 min-h-screen flex items-stretch overflow-hidden" dir="rtl">
+
+            {/* Left Side - Hero Image Section (Desktop Only) */}
+            <section className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-linear-to-br from-green-600 via-green-700 to-teal-900">
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0">
+                    <Image 
+                        alt="register-illustration" 
+                        src={RegisterImage} 
+                        // fill
+                        className="object-cover opacity-60" 
+                        priority
+                    />
+                    {/* linear Overlays */}
+                    <div className="absolute inset-0 bg-linear-to-b from-green-600/40 via-green-700/50 to-green-900/70"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-green-900/30 to-transparent"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-between p-8 lg:p-12">
+                    {/* Logo and Brand */}
+                    <Link 
+                        className="flex items-center gap-3 text-white hover:opacity-90 transition-opacity group w-fit" 
+                        href="/"
+                    >
+                            <h1 className="text-lg lg:text-xl font-extrabold tracking-tight">دندرة أوفيس</h1>
+                    </Link>
+
+                    {/* Main Message */}
+                    <div className="max-w-sm">
+                        <div className="space-y-4">
+                            <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                                {t("join-us")}
+                            </h2>
+                            <p className="text-white/80 text-lg leading-relaxed">
+                                {t("join-us-paragraph")}
                             </p>
                         </div>
                     </div>
-                </div>
-                <div
-                    className="w-full lg:w-1/2 bg-white dark:bg-slate-900 flex flex-col items-center justify-center p-8 sm:p-12 lg:p-24 relative">
-                    <div className="w-full max-w-md space-y-8">
-                        <div className="text-center lg:text-left">
-                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">{t("create-account")}</h2>
-                        </div>
 
+                    {/* Footer */}
+                    <div className="flex items-center justify-between text-white/60 text-xs">
+                        <span>© {copyright.getUTCFullYear()} {t('copy-right')}</span>
+                    </div>
+                </div>
+            </section>
+
+            {/* Right Side - Registration Form Section */}
+            <main className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-8  bg-white dark:bg-slate-900 overflow-y-auto">
+                <div className="w-full max-w-sm space-y-8">
+                    
+                    {/* Mobile Header Logo */}
+                    <Link 
+                        className="flex lg:hidden items-center gap-2 text-green-600 dark:text-green-400 hover:opacity-80 transition-opacity w-fit" 
+                        href="/"
+                    >
+                            <h1 className="text-lg font-extrabold tracking-tight">دندرة أوفيس</h1>
+                    </Link>
+
+                    {/* Section Header */}
+                    <div className="space-y-3 pt-4">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
+                            {t("create-account")}
+                        </h2>
+                    </div>
+
+                    {/* Registration Form */}
+                    <div className="">
                         <RegisterForm
                             usernameLabel={t("username-label")}
                             emailLabel={t("email-label")}
@@ -51,29 +90,22 @@ const page = async () => {
                             confirmPasswordLabel={t("confirm-password-label")}
                             createAccountBtn={t("create-account-btn")}
                         />
-
-                        <div className="relative py-4">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-white dark:bg-slate-900 px-4 text-slate-600 dark:text-slate-400 font-bold tracking-widest">
-                                    {t("have-an-account")}
-                                </span>
-                            </div>
-                        </div>
                     </div>
-                    <div className="text-center mb-7">
-                        <Link className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:underline" href="/login">
-                            {t("login")} <span className="material-symbols-outlined text-sm"><ArrowLeft /></span>
+
+                    {/* Login Link */}
+                    <div className="flex items-center gap-2">
+                        <p className="text-slate-600 dark:text-slate-400 text-sm ">
+                            {t("have-an-account")}
+                        </p>
+                        <Link 
+                            className="font-bold text-green-600" 
+                            href="/login"
+                        >
+                            {t("login")}
                         </Link>
                     </div>
-                    <div className="absolute bottom-8 text-center w-full left-0 px-8">
-                        <p className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-widest">© {copyright.getUTCFullYear()} {t('copy-right')}</p>
-                    </div>
                 </div>
-            </div>
-
+            </main>
         </div>
     )
 }

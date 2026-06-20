@@ -5,7 +5,6 @@ import LoginImage from '../../../../public/login-img.jpg';
 import LoginForm from '@/components/features/auth/login/LoginForm';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { ArrowLeft } from 'lucide-react';
 
 export default async function page() {
     const copyRightYear = new Date().getFullYear();
@@ -101,16 +100,15 @@ export default async function page() {
                     </div>
 
                     {/* Sign Up Link */}
-                    <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
-                        <p className="text-center text-slate-600 dark:text-slate-400 text-sm mb-4">
+                    <div className="flex items-start gap-2 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <p className="text-center text-slate-600 dark:text-slate-400">
                             {t("login-page-dont-have-account")}
                         </p>
                         <Link 
-                            className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-green-600 dark:border-green-400 text-green-600 dark:text-green-400 rounded-xl font-bold hover:bg-green-50 dark:hover:bg-green-900/10 transition-all active:scale-95" 
+                            className="text-green-600 font-bold" 
                             href="/register"
                         >
                             {t("login-page-create-account")}
-                            <ArrowLeft size={18} />
                         </Link>
                     </div>
                 </div>
