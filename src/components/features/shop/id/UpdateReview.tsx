@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 interface UpdateReviewProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     showModal: boolean;
-    CommentId: number;
+    CommentId: string;
     comment: string;
 }
 

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-const CategoryName = ({ id }: { id: number }) => {
+const CategoryName = ({ id }: { id: string }) => {
 
     const [category, setCategory] = useState<string>("")
 
@@ -12,7 +12,7 @@ const CategoryName = ({ id }: { id: number }) => {
 
         if (!id) return;
 
-        const getCategoryName = async (id: number) => {
+        const getCategoryName = async (id: string) => {
             try {
                 const response = await axios.get(`${DOMAIN}/api/categories/${id}`)
                 setCategory(response?.data?.categoryNameAr);

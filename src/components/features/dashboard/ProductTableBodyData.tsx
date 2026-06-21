@@ -15,7 +15,7 @@ const ProductTableBodyData = ({
 
     const { setProducts } = useProducts()
 
-    async function deleteProduct(id: number) {
+    async function deleteProduct(id: string) {
         try {
             const deletePrd = await axios.delete(`${DOMAIN}/api/products/${id}`)
             if (deletePrd) {
@@ -71,7 +71,7 @@ const ProductTableBodyData = ({
                         className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                         onClick={() => {
                             if (product?.id) {
-                                deleteProduct(product.id as number);
+                                deleteProduct(product.id);
                             }
                         }}
                         title="حذف">

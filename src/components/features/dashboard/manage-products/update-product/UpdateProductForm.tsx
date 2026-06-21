@@ -25,7 +25,7 @@ const UpdateProductForm = ({ id }: { id: string }) => {
     const [price, setPrice] = useState<number>(0)
     const [quantity, setQuantity] = useState<number>(0)
 
-    const [productCategory, setProductCategory] = useState<number>(0)
+    const [productCategory, setProductCategory] = useState<string>("")
     const [productImages, setProductImages] = useState<string[]>([])
     const [newProductImages, setNewProductImages] = useState<File[]>([])
 
@@ -38,7 +38,7 @@ const UpdateProductForm = ({ id }: { id: string }) => {
     }, [])
 
     useEffect(() => {
-        async function getProductData(id: number) {
+        async function getProductData(id: string) {
             try {
                 const { data } = await axios.get(`${DOMAIN}/api/products/${id}`)
                 setProductNameAr(data.productNameAr)
@@ -57,7 +57,7 @@ const UpdateProductForm = ({ id }: { id: string }) => {
                 toast.error(`حدث خطأ`)
             }
         }
-        getProductData(Number(id))
+        getProductData(id)
     }, [id])
 
 
@@ -182,7 +182,7 @@ const UpdateProductForm = ({ id }: { id: string }) => {
                                 <span className="text-sm font-semibold mb-2 block">الفئة</span>
                                 <select
                                     value={productCategory}
-                                    onChange={(e) => setProductCategory(Number(e.target.value))}
+                                    onChange={(e) => setProductCategory(e.target.value)}
                                     className="w-full h-14 bg-[#f8fcfc] dark:bg-[#102222] border-[#cfe7e7] dark:border-[#2a4444] rounded-xl px-4 focus:ring-primary focus:border-primary appearance-none">
                                     <option value="">اختر الفئة</option>
                                     {categoryNameEn.map((category: category) => (

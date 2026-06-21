@@ -22,7 +22,7 @@ const FavoriteCardData = ({ favorite }: { favorite: Favorite }) => {
         }
     }, [token, getFavorites])
 
-    async function toggleFavorite(productId: number) {
+    async function toggleFavorite(productId: string) {
 
         const previousFavorites = [...favorites];
 
@@ -46,7 +46,8 @@ const FavoriteCardData = ({ favorite }: { favorite: Favorite }) => {
         <div className="relative">
             <button
                 onClick={() => {
-                    toggleFavorite(Number(favorite.product?.id))
+                    const productId = favorite.product?.id
+                    if (productId) toggleFavorite(productId)
                 }}
                 className="z-20 absolute top-4 right-4 size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm disabled:opacity-50">
                 <span>

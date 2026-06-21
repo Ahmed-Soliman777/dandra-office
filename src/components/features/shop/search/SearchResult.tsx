@@ -44,7 +44,7 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
         getSearchResult(product)
     }, [product, minPrice, maxPrice])
 
-    async function toggleFavorite(productId: number) {
+    async function toggleFavorite(productId: string) {
         if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
 
         const isFavorite = favorites.some(fav => fav.productId === productId);
@@ -83,7 +83,7 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
         <div className="">
             {products.length > 0 ? (products?.map((product: product) => {
                 const productReviews = product.reviews || [];
-                
+
                 const average = productReviews.length > 0
                     ? productReviews.reduce((sum: number, review: review) => sum + review.reviewInNumbers, 0) / productReviews.length
                     : 0;
@@ -93,7 +93,7 @@ const SearchResult = ({ product, token }: { product: string, token: string | und
                     <div key={product.id} className="relative group">
                         <button
                             onClick={() => {
-                                toggleFavorite(Number(product.id))
+                                if (product.id) toggleFavorite(product.id)
                             }}
                             className="absolute top-3 right-3 z-20 size-10 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm flex items-center justify-center text-green-600 shadow-sm hover:scale-110 transition-transform hover:bg-green-50 dark:hover:bg-slate-800"
                         >

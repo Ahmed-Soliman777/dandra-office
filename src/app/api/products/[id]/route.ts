@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, props: ProductID) {
   try {
     const { id } = await props.params;
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       include: {
         category: {
           select: {
@@ -71,7 +71,7 @@ export async function DELETE(request: NextRequest, props: ProductID) {
   try {
     const { id } = await props.params;
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
     if (!product) {
       return NextResponse.json({ message: "منتج غير موجود" }, { status: 400 });
@@ -83,7 +83,7 @@ export async function DELETE(request: NextRequest, props: ProductID) {
         { status: 403 },
       );
     }
-    await prisma.product.delete({ where: { id: parseInt(id) } });
+    await prisma.product.delete({ where: { id: id } });
     return NextResponse.json(
       { message: "تم حذف المنتج بنجاح" },
       { status: 200 },
@@ -104,7 +104,7 @@ export async function PUT(request: NextRequest, props: ProductID) {
   try {
     const { id } = await props.params;
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
     if (!product) {
       return NextResponse.json({ message: "منتج غير موجود" }, { status: 400 });
@@ -125,7 +125,7 @@ export async function PUT(request: NextRequest, props: ProductID) {
       );
     }
     const updateProducts = await prisma.product.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: {
         productNameAr: body.productNameAr,
         productNameEn: body.productNameEn,

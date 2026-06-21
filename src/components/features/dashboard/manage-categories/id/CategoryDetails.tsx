@@ -34,7 +34,7 @@ const CategoryDetails = ({ id }: { id: string }) => {
         GetCategoryName(id)
     }, [id])
 
-    async function deleteProduct(id: number) {
+    async function deleteProduct(id: string) {
         try {
             await axios.delete(`${DOMAIN}/api/products/${id}`)
 
@@ -114,7 +114,7 @@ const CategoryDetails = ({ id }: { id: string }) => {
                                     <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1 line-clamp-2">
                                         {product.productNameAr}
                                     </h4>
-                                    <p className="text-xs text-slate-600 dark:text-slate-400"><CategoryName id={product.categoryId as number} /> </p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400"><CategoryName id={product.categoryId || ""} /> </p>
                                 </div>
 
                                 <div className="flex items-center justify-between mb-4 p-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">

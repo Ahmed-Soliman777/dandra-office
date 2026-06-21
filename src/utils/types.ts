@@ -1,5 +1,5 @@
 export interface JWTPayload {
-  id: number;
+  id: string;
   isAdmin: boolean;
   username: string;
 }
@@ -42,7 +42,7 @@ export interface RegisterFormProps {
 }
 
 export interface product {
-  id?: number;
+  id?: string;
   price?: number;
   productNameAr?: string;
   productNameEn?: string;
@@ -50,23 +50,23 @@ export interface product {
   descriptionEn?: string;
   quantity?: number;
   images?: string[];
-  categoryId?: number;
+  categoryId?: string;
   reviews?: review[];
   comments?: Comment[];
 }
 
 export interface review {
-  id: number;
-  productId: number;
+  id: string;
+  productId: string;
   reviewInNumbers: number;
   user?: {
-    id: number;
+    id: string;
     username: string;
   };
 }
 
 export interface category {
-  id?: number;
+  id?: string;
   categoryNameAr?: string;
   categoryNameEn?: string;
   categoryThumbnail?: string;
@@ -74,7 +74,7 @@ export interface category {
 }
 
 export interface productDetails {
-  id: number;
+  id: string;
   productNameAr: string;
   productNameEn: string;
   price: number;
@@ -87,24 +87,24 @@ export interface productDetails {
 }
 
 export interface CategoriesData {
-  id: number;
+  id: string;
   categoryNameAr: string;
 }
 
 export interface User {
-  id?: number;
+  id?: string;
   username?: string;
 }
 
 export interface Comment {
-  id: number;
+  id: string;
   comment: string;
   user: User;
 }
 
 export interface Favorite {
-  id: number;
-  productId: number;
+  id: string;
+  productId: string;
   product?: product;
 }
 

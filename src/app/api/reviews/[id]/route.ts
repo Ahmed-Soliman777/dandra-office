@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest, props: ReviewID) {
   try {
     const { id } = await props.params;
     const review = await prisma.review.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: { user: { select: { id: true } } },
     });
 
@@ -43,7 +43,7 @@ export async function PUT(request: NextRequest, props: ReviewID) {
     }
 
     await prisma.review.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: { reviewInNumbers: body.reviewInNumbers },
     });
 
@@ -64,7 +64,7 @@ export async function DELETE(request: NextRequest, props: ReviewID) {
   try {
     const { id } = await props.params;
     const review = await prisma.review.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: { user: { select: { id: true } } },
     });
 
@@ -81,7 +81,7 @@ export async function DELETE(request: NextRequest, props: ReviewID) {
     }
 
     await prisma.review.delete({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
 
     return NextResponse.json({ message: "تم حذف التقييم" }, { status: 200 });
