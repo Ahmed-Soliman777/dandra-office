@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     // validate product
     const product = await prisma.product.findUnique({
-      where: { id: Number(body.productId) },
+      where: { id: body.productId },
     });
 
     if (!product) {
@@ -90,7 +90,7 @@ export async function DELETE(request: NextRequest) {
 
     // validate product
     const product = await prisma.product.findUnique({
-      where: { id: Number(body.productId) },
+      where: { id: body.productId },
     });
 
     if (!product) {

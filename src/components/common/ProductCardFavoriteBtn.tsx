@@ -28,7 +28,7 @@ const ProductCardFavoriteBtn = ({
         }
     }, [token, getFavorites])
 
-    async function toggleFavorite(productId: number) {
+    async function toggleFavorite(productId: string) {
         if (!token) return toast.info("يرجى تسجيل الدخول أولاً");
         const isFavorite = favorites.some(fav => fav.productId === productId);
         const previousFavorites = [...favorites];
@@ -65,7 +65,7 @@ const ProductCardFavoriteBtn = ({
     return (
         <button
             onClick={() => {
-                toggleFavorite(Number(product.id))
+                if(product.id)toggleFavorite(product.id)
             }}
             disabled={productLoading}
             className="size-10 rounded-full bg-white/95 dark:bg-slate-800/95 flex items-center justify-center shadow-sm hover:scale-110 transition-all duration-200 backdrop-blur-sm disabled:opacity-50">

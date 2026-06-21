@@ -26,7 +26,7 @@ export interface AddNewProduct {
   productNameAr: string;
   productNameEn: string;
   price: number;
-  categoryId: number;
+  categoryId: string;
   descriptionAr: string;
   descriptionEn: string;
   quantity: number;
@@ -37,7 +37,7 @@ export interface UpdateProductDTO {
   productNameAr?: string;
   productNameEn?: string;
   price?: number;
-  categoryId?: number;
+  categoryId?: string;
   descriptionAr?: string;
   descriptionEn?: string;
   quantity?: number;
@@ -58,7 +58,7 @@ export interface UpdateCategoryDTO {
 
 export interface AddReviewDTO {
   reviewInNumbers: number;
-  productId: number;
+  productId: string;
 }
 
 export interface UpdateReviewDTO {
@@ -67,7 +67,7 @@ export interface UpdateReviewDTO {
 
 export interface AddCommentDTO {
   comment: string;
-  productId: number;
+  productId: string;
 }
 
 export interface UpdateCommentDTO {
@@ -75,5 +75,5 @@ export interface UpdateCommentDTO {
 }
 
 export interface FavoriteDTO {
-  productId: number;
+  productId: string;
 }

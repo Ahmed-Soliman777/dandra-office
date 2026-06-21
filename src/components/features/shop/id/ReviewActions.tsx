@@ -5,13 +5,13 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import UpdateReview from './UpdateReview';
 
-const ReviewActions = ({ CommentId, comment }: { CommentId: number, comment: string }) => {
+const ReviewActions = ({ CommentId, comment }: { CommentId: string, comment: string }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
 
-    async function deleteComment(CommentId: number) {
+    async function deleteComment(CommentId: string) {
         try {
-            const { data } = await axios.delete(`${DOMAIN}/api/comments/${Number(CommentId)}`)
+            const { data } = await axios.delete(`${DOMAIN}/api/comments/${CommentId}`)
             toast.success(`${data.message}`)
 
             setTimeout(() => {

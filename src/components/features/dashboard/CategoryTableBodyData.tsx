@@ -13,7 +13,7 @@ const CategoryTableBodyData = (
 
     const { setCategories } = useCategories()
 
-    async function deleteCategory(id: number) {
+    async function deleteCategory(id: string) {
         try {
             await axios.delete(`${DOMAIN}/api/categories/${id}`)
 

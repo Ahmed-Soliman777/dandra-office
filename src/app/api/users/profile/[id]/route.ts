@@ -24,7 +24,7 @@ export async function DELETE(requset: NextRequest, props: ProfileID) {
 
     // search for user
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       include: { comments: true },
     });
 
@@ -42,10 +42,10 @@ export async function DELETE(requset: NextRequest, props: ProfileID) {
     // check authorization
     if (userPayload !== null && userPayload.id === user.id) {
       //delete user from database
-      await prisma.user.delete({ where: { id: parseInt(id) } });
+      await prisma.user.delete({ where: { id: id } });
 
       // check for deleted user's comments
-      const commentIds: number[] = user?.comments.map((comment) => comment.id);
+      const commentIds: string[] = user?.comments.map((comment) => comment.id);
 
       // delete comments for deleted user
       await prisma.user.deleteMany({ where: { id: { in: commentIds } } });
@@ -79,7 +79,7 @@ export async function PUT(request: NextRequest, props: ProfileID) {
     const { id } = await props.params;
 
     // search for user
-    const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+    const user = await prisma.user.findUnique({ where: { id: id } });
 
     // if user does not exist
     if (!user) {
@@ -124,7 +124,7 @@ export async function PUT(request: NextRequest, props: ProfileID) {
 
     // update user
     await prisma.user.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: {
         username: body.username,
         email: body.email,
@@ -163,7 +163,7 @@ export async function GET(request: NextRequest, props: ProfileID) {
     const { id } = await props.params;
 
     const profile = await prisma.user.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       include: { reviews: true, comments: true },
     });
 

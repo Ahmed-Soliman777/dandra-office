@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, props: CommentID) {
   try {
     const { id } = await props.params;
     const comment = await prisma.comment.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: { userId: true },
     });
     if (!comment) {
@@ -40,7 +40,7 @@ export async function PUT(request: NextRequest, props: CommentID) {
   try {
     const { id } = await props.params;
     const comment = await prisma.comment.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: { userId: true },
     });
     if (!comment) {
@@ -62,7 +62,7 @@ export async function PUT(request: NextRequest, props: CommentID) {
     }
 
     await prisma.comment.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: {
         comment: body.comment,
       },
@@ -85,7 +85,7 @@ export async function DELETE(request: NextRequest, props: CommentID) {
   try {
     const { id } = await props.params;
     const comment = await prisma.comment.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: { userId: true },
     });
     if (!comment) {
@@ -98,7 +98,7 @@ export async function DELETE(request: NextRequest, props: CommentID) {
       userPayload?.isAdmin === true
     ) {
       await prisma.comment.delete({
-        where: { id: parseInt(id) },
+        where: { id: id },
       });
 
       return NextResponse.json({ message: "تم حذف التعليق" }, { status: 200 });

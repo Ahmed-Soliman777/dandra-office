@@ -25,7 +25,7 @@ const AddProductForm = () => {
     const [price, setPrice] = useState<number>(0)
     const [quantity, setQuantity] = useState<number>(0)
 
-    const [productCategory, setProductCategory] = useState<number>(0)
+    const [productCategory, setProductCategory] = useState<string>("")
     const [productImages, setProductImages] = useState<File[]>([])
 
     useEffect(() => {
@@ -144,7 +144,7 @@ const AddProductForm = () => {
                                 <span className="text-sm font-semibold mb-2 block text-gray-900 dark:text-white">الفئة</span>
                                 <select
                                     value={productCategory}
-                                    onChange={(e) => setProductCategory(Number(e.target.value))}
+                                    onChange={(e) => setProductCategory(e.target.value)}
                                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all appearance-none">
                                     <option value="">اختر الفئة</option>
                                     {categoryNameEn.map((category: category) => (

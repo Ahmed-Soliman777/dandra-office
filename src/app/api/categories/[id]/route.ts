@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, props: CategoryID) {
   try {
     const { id } = await props.params;
     const category = await prisma.category.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       select: {
         categoryNameAr: true,
         categoryNameEn: true,
@@ -50,7 +50,7 @@ export async function PUT(request: NextRequest, props: CategoryID) {
   try {
     const { id } = await props.params;
     const category = await prisma.category.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
     if (!category) {
       return NextResponse.json({ message: "فئة غير موجودة" }, { status: 400 });
@@ -68,7 +68,7 @@ export async function PUT(request: NextRequest, props: CategoryID) {
       );
     }
     await prisma.category.update({
-      where: { id: parseInt(id) },
+      where: { id: id},
       data: {
         categoryNameAr: body.categoryNameAr,
         categoryNameEn: body.categoryNameEn,
@@ -95,7 +95,7 @@ export async function DELETE(request: NextRequest, props: CategoryID) {
   try {
     const { id } = await props.params;
     const category = await prisma.category.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: id },
       include: { products: true },
     });
     if (!category) {
@@ -106,11 +106,11 @@ export async function DELETE(request: NextRequest, props: CategoryID) {
       return NextResponse.json({ message: "غير مصرح" }, { status: 403 });
     }
     await prisma.category.delete({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
 
     // delete related products
-    const productIds: number[] = category?.products?.map(
+    const productIds: string[] = category?.products?.map(
       (product) => product.id,
     );
     await prisma.product.deleteMany({ where: { id: { in: productIds } } });

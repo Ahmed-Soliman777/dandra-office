@@ -16,7 +16,7 @@ const FavoriteButton = ({ id }: { id: string }) => {
 
     const { favorites, setFavorites, getFavorites } = useFavorites(token);
 
-    const isFavorite = favorites.some(fav => fav.productId === Number(id));
+    const isFavorite = favorites.some(fav => fav.productId === id);
 
     useEffect(() => {
         if (token) {
@@ -31,13 +31,13 @@ const FavoriteButton = ({ id }: { id: string }) => {
             setLoading(true)
             if (!isFavorite) {
                 const res = await axios.post(`${DOMAIN}/api/favorites`, { productId: parseInt(id) })
-                setFavorites(prev => [...prev, { productId: parseInt(id) } as Favorite])
+                setFavorites(prev => [...prev, { productId: id } as Favorite])
                 toast.success(res.data.message)
                 setLoading(false)
             }
             else {
                 const res = await axios.delete(`${DOMAIN}/api/favorites`, { data: { productId: parseInt(id) } })
-                setFavorites(prev => prev.filter(fav => fav.productId !== parseInt(id)))
+                setFavorites(prev => prev.filter(fav => fav.productId !== id))
                 toast.success(res.data.message)
                 setLoading(false)
             }

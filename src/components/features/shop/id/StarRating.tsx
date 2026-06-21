@@ -23,8 +23,8 @@ const StarRating = ({ productId }: { productId: string }) => {
         }
         async function profile() {
             try {
-                const { data } = await axios.get(`${DOMAIN}/api/users/profile/${Number(userPayload?.id)}`)
-                const userProductReview = data.reviews.findLast((review: review) => review.productId === Number(productId));
+                const { data } = await axios.get(`${DOMAIN}/api/users/profile/${userPayload?.id}`)
+                const userProductReview = data.reviews.findLast((review: review) => review.productId === productId);
 
                 if (userProductReview) {
                     setHasRated(true);
