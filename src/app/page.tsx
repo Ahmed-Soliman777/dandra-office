@@ -12,7 +12,7 @@ export default async function Home() {
           <div className="mb-12 flex flex-col items-start">
             <h3 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">تصفح التصنيفات</h3>
             <p className="text-slate-600 dark:text-slate-400 text-lg">اكتشف أفضل المنتجات في كل فئة</p>
-            <div className="h-1.5 w-24 bg-gradient-to-r from-green-600 to-green-400 rounded-full mt-4"></div>
+            <div className="h-1.5 w-24 bg-linear-to-r from-green-600 to-green-400 rounded-full mt-4"></div>
           </div>
           <CategoryCards />
         </div>
@@ -22,7 +22,7 @@ export default async function Home() {
           <div className="mb-12 flex flex-col items-start">
             <h3 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">أحدث المنتجات</h3>
             <p className="text-slate-600 dark:text-slate-400 text-lg">تسوق من تشكيلتنا الحصرية المختارة بعناية</p>
-            <div className="h-1.5 w-24 bg-gradient-to-r from-green-600 to-green-400 rounded-full mt-4"></div>
+            <div className="h-1.5 w-24 bg-linear-to-r from-green-600 to-green-400 rounded-full mt-4"></div>
           </div>
           <ProductCard  />
         </div>
