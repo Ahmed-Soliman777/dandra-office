@@ -79,7 +79,7 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                         <User2Icon size={20} className="w-5 h-5" />
                     </span>
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         id="username"
                         name="username"
                         placeholder="your_username"
@@ -104,7 +104,7 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                         <Mail size={20} className="w-5 h-5" />
                     </span>
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         id="email"
                         name="email"
                         placeholder="you@example.com"
@@ -128,7 +128,7 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                     
                     {/* Password Input */}
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         name='password'
                         id="password"
                         placeholder="••••••••"
@@ -166,7 +166,7 @@ const RegisterForm = ({ usernameLabel, emailLabel, passwordLabel, confirmPasswor
                     
                     {/* Confirm Password Input */}
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         id="confirm-password"
                         name="confirm-password"
                         placeholder="••••••••"

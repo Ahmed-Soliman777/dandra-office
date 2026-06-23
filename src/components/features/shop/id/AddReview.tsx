@@ -41,9 +41,9 @@ const AddReview = ({ productId }: { productId: string }) => {
         <div className="pt-8">
             <h4 className="font-bold text-lg mb-4">ضيف تجربتك</h4>
             <div
-                className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                className="bg-white dark:bg-slate-900 p-2 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
                 <textarea
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-green-500/20 focus:border-transparent mb-4 transition-all outline-none"
+                    className="w-full bg-slate-50 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-green-500/20 focus:border-transparent mb-4 transition-all outline-none"
                     placeholder="احكيلنا تجربتك مع دندرة أوفيس.."
                     rows={4}
                     value={comment}
@@ -52,7 +52,7 @@ const AddReview = ({ productId }: { productId: string }) => {
                 <div className="flex justify-end">
                     <button onClick={addComment}
                         disabled={loading === true ? true : comment.length === 0 ? true : false}
-                        className={`px-8 py-3 bg-green-600 font-bold rounded-2xl hover:bg-green-700 dark:hover:bg-green-500 transition-all duration-300 hover:scale-[1.02] border border-slate-200 dark:border-slate-700 ${loading ? 'text-gray-500' : 'text-white'}`}>{loading === true ? "تحميل..." : "شارك التجربة"}</button>
+                        className={`w-full lg:w-50 px-8 py-3 bg-green-600 font-bold rounded-2xl hover:bg-green-700 transition-all duration-300 hover:scale-[1.02] ${loading ? 'text-gray-500' : 'text-white'}`}>{loading === true ? "تحميل..." : "شارك التجربة"}</button>
                 </div>
             </div>
         </div>

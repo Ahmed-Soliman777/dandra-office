@@ -24,7 +24,9 @@ export default async function Home() {
             <p className="text-slate-600 dark:text-slate-400 text-lg">تسوق من تشكيلتنا الحصرية المختارة بعناية</p>
             <div className="h-1.5 w-24 bg-linear-to-r from-green-600 to-green-400 rounded-full mt-4"></div>
           </div>
-          <ProductCard  />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <ProductCard />
+          </div>
         </div>
       </div>
     </div>

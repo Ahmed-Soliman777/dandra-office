@@ -18,6 +18,8 @@ const FavoriteButton = ({ id }: { id: string }) => {
 
     const isFavorite = favorites.some(fav => fav.productId === id);
 
+    // const innerWidth = window.innerWidth
+
     useEffect(() => {
         if (token) {
             getFavorites();
@@ -55,19 +57,25 @@ const FavoriteButton = ({ id }: { id: string }) => {
             <button
                 onClick={toggleFavorite}
                 disabled={loading}
-                className="w-full py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all disabled:opacity-50"
+                className="p-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all disabled:opacity-50"
             >
                 {loading ? (
-                    <div className="w-6 h-6 border-2 border-slate-300 border-t-primary rounded-full animate-spin"></div>
+                    <div className="border-2 border-slate-300 border-t-primary rounded-full animate-spin"></div>
                 ) : (
-                    <div className="flex items-center gap-3 font-bold text-slate-700 dark:text-slate-200">
+                    <div className="flex items-center gap-3 font-bold">
                         <Heart
                             size={22}
                             className="transition-colors"
                             fill={isFavorite ? "#ef4444" : "none"}
                             stroke={isFavorite ? "#ef4444" : "currentColor"}
                         />
-                        {isFavorite ? "في المفضلة" : "إضافة للمفضلة"}
+                        {/* {
+                            innerWidth > 768
+                            &&
+                            (<>
+                                {isFavorite ? "في المفضلة" : "إضافة للمفضلة"}
+                            </>)
+                        } */}
                     </div>
                 )}
             </button>

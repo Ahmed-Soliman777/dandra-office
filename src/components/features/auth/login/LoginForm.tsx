@@ -14,6 +14,7 @@ export default function LoginForm({ emailLabel, passwordLabel, forgetPassword, s
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    
     const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -25,7 +26,12 @@ export default function LoginForm({ emailLabel, passwordLabel, forgetPassword, s
         try {
             setLoading(true)
             await axios.post(`${DOMAIN}/api/users/login`, { email, password })
-            router.replace("/")
+            const currentPath = window.location.pathname;
+            if (currentPath === "/dashboard/login") {
+                router.replace("/dashboard");
+            } else {
+                router.replace("/");
+            }
             setLoading(false)
             router.refresh()
         } catch (error) {
@@ -55,7 +61,7 @@ export default function LoginForm({ emailLabel, passwordLabel, forgetPassword, s
                         <Mail size={20} className="w-5 h-5" />
                     </span>
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         name='email'
                         id="email"
                         placeholder="you@example.com"
@@ -78,7 +84,7 @@ export default function LoginForm({ emailLabel, passwordLabel, forgetPassword, s
                 <div className="relative group">
                     {/* Password Input */}
                     <input
-                        className="block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                        className="focus:outline-none block w-full pl-11 sm:pl-12 pr-2 sm:pr-4 py-3 sm:py-3.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                         name='password'
                         id="password"
                         placeholder="••••••••"
