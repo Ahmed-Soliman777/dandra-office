@@ -107,7 +107,7 @@ export const addNewProduct = z.object({
     .number({ error: "الحقل مطلوب" })
     .min(0, { message: "أدخل رقم صحيح" })
     .int({ message: "أدخل رقم صحيح" }),
-  categoryId: z.number().int().positive({ message: "معرف الفئة غير صحيح" }),
+  categoryId: z.string({ message: "معرف الفئة غير صحيح" }),
   descriptionAr: z.string().optional(),
   descriptionEn: z.string().optional(),
   images: z.array(z.string()).optional(),
