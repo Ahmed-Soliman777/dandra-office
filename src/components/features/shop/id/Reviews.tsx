@@ -17,7 +17,7 @@ const Reviews = ({ id }: { id: string }) => {
                 return (
                     <div key={comment.id} className="flex justify-between">
                         <div className="space-y-2">
-                            <h4 className="font-bold text-slate-900 dark:text-slate-100">{comment?.user?.username}</h4>
+                            <h4 className="font-bold text-slate-900">{comment?.user?.username}</h4>
                             {userReview && userReview.reviewInNumbers > 0 && userReview.reviewInNumbers <= 5 && (
                                 <div className="flex items-center gap-1">
                                     {[1, 2, 3, 4, 5].map((star) => (
