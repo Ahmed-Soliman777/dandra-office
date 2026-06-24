@@ -32,7 +32,7 @@ const ProductCard = () => {
                 </div>
             )) :
                 products?.slice(0, 10).map((product: product) => (
-                    <div dir='rtl' key={product.id} className="">
+                    <div dir='rtl' key={product.id}>
                         <div className="relative">
                             <div className="absolute top-4 right-4 z-10">
                                 <ProductCardFavoriteBtn

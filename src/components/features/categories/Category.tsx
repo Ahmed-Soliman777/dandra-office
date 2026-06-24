@@ -1,5 +1,6 @@
 "use client"
-import ProductCard from "@/components/common/ProductCard"
+import ProductCardData from "@/components/common/ProductCardData"
+import ProductCardFavoriteBtn from "@/components/common/ProductCardFavoriteBtn"
 import { DOMAIN } from "@/utils/constants"
 import { product } from "@/utils/types"
 import axios from "axios"
@@ -12,7 +13,6 @@ const Category = ({ id }: { id: string }) => {
             try {
                 const response = await axios.get(`${DOMAIN}/api/categories/${id}`)
                 setProducts(response?.data?.products);
-
             } catch (error) {
                 toast.error("حدث خطأ، حاول مجدداً")
                 console.error(error)
@@ -21,11 +21,20 @@ const Category = ({ id }: { id: string }) => {
         getCategory()
     }, [id])
     return (
-        <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8" dir="rtl">
-            <div>
+        <main className={`px-4 lg:px-8 py-8 min-h-[calc(100vh-167px)]`} dir="rtl">
+            <div className="grid grid-cols-6 gap-5">
                 {products?.map((product: product) => {
                     return (
-                        <ProductCard key={product.id} />
+                        <div className="relative" key={product.id}>
+                            <div className="absolute top-4 right-4 z-10">
+                                <div className="absolute top-4 right-4 z-10">
+                                    <ProductCardFavoriteBtn
+                                        product={product}
+                                    />
+                                </div>
+                            </div>
+                            <ProductCardData product={product} />
+                        </div>
                     );
                 })}
             </div>

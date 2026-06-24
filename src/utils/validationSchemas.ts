@@ -182,7 +182,5 @@ export const updateComment = z.object({
 //validation schema for user favorites
 export const userFavorite = z.object({
   productId: z
-    .number({ error: "يجب إضافة منتج" })
-    .int({ error: "منتج غير متاح" })
-    .positive({ error: "منتج غير متاح" }),
+    .string({ error: "منتج غير متاح" }),
 });
