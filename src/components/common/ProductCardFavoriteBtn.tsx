@@ -13,7 +13,7 @@ const ProductCardFavoriteBtn = ({
     productLoading
 }: {
     product: product;
-    productLoading: boolean
+    productLoading?: boolean
 }) => {
 
     const [loading, setLoading] = useState(false)
