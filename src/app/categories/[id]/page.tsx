@@ -3,7 +3,7 @@ import Category from "@/components/features/categories/Category"
 const page = async (props: { params: { id: string } }) => {
     const { id } = await props.params
     return (
-        <div className="min-h-screen">
+        <div>
             <Category id={id} />
         </div>
     )
