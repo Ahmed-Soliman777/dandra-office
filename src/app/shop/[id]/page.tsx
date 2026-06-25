@@ -14,7 +14,7 @@ const page = async (props: { params: { id: string } }) => {
     const totalComments: number = data.comments.length || 0
 
     return (
-        <div className="bg-background-light text-slate-900 min-h-screen">
+        <div className="bg-background-light text-slate-900">
             <main className="max-w-7xl mx-auto px-6 py-8">
                 <div className="flex justify-between mb-6">
                     <FavoriteButton id={id} />

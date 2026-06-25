@@ -32,7 +32,7 @@ const UsersReviews = ({ reviews }: { reviews: review[] }) => {
                     ))}
                 </div>
                 
-                <div className="space-y-4 pt-6 border-t border-slate-50">
+                {/* <div className="space-y-4 pt-6 border-t border-slate-50">
                     {[
                         { star: "5", percent: `${(starCounts[4] / reviews.length * 100).toFixed(1) || 0}`, color: "bg-amber-400" },
                         { star: "4", percent: `${(starCounts[3] / reviews.length * 100).toFixed(1) || 0}`, color: "bg-amber-400" },
@@ -51,7 +51,7 @@ const UsersReviews = ({ reviews }: { reviews: review[] }) => {
                             <span className="w-8 text-right text-slate-400">{item.percent}%</span>
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
         </div>
     )
