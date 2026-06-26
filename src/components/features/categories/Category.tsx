@@ -22,7 +22,7 @@ const Category = ({ id }: { id: string }) => {
     }, [id])
     return (
         <main className={`px-4 lg:px-8 py-8 min-h-[calc(100vh-167px)]`} dir="rtl">
-            <div className="grid grid-cols-6 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-5">
                 {products?.map((product: product) => {
                     return (
                         <div className="relative" key={product.id}>
